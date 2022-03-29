@@ -2,9 +2,39 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import react from 'react';
 
+function AccountInfo():JSX.Element {
+  var accountInfoLogged = false;
+  if (!accountInfoLogged) { 
+    return(<>
+    <div>
+      <a>Entrar</a>
+      <a>Registrar-se</a>
+    </div>
+    </>)
+  } 
+  return <></>
+}
 const Home: NextPage = () => {
   return (
+    <div>
+      <Head>
+        <title>e-commerce</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <body>
+        <header>
+          <a id="logo-icon" href=""><Image  src="/logo.png" width="300" height="135"></Image></a>
+          <input type="text" placeholder="Pesquisa" id="search-input"></input>
+          <button id="search-btn">Pesquisar</button>
+          <AccountInfo/>
+        </header>
+        <h1>Hello world</h1>
+      </body>
+    </div>
+  )
+ /* return (
     <div className={styles.container}>
       <Head>
         <title>Create Next App</title>
@@ -64,7 +94,7 @@ const Home: NextPage = () => {
         </a>
       </footer>
     </div>
-  )
+  )*/
 }
 
 export default Home

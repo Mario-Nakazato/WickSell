@@ -14,3 +14,33 @@ a {
 * {
   box-sizing: border-box;
 }
+
+header {
+  display: flex;
+  background-color: darkgrey;
+  align-content: center;
+}
+
+#logo-icon {
+  padding-left: 2%;
+}
+
+#search-input {
+  display: block;
+  margin-left: 5%;
+  min-width: 25%;
+  align-self: center;
+  box-shadow: 1px 1px 4px 0 rgba(94, 94, 94, 0.91);
+
+}
+
+#search-btn {
+  display: block;
+  height: 45px;
+  margin-left: 20px;
+  align-self: center;
+  border-end-end-radius: 25%;
+  border-top-left-radius: 25%;
+  box-shadow: 2px 2px 8px 0 rgba(94, 94, 94, 0.91);
+
+}
