@@ -23,6 +23,25 @@ function AccountInfo(): JSX.Element {
     return <></>
   }
 }
+export function Header(): JSX.Element {
+  return (<>
+    <header>
+      <a id="logo-icon" href=""><Image src="/logo.png" width="300" height="135"></Image></a>
+      <input type="text" placeholder="Pesquisa" id="search-input"></input>
+      <button id="search-btn">Pesquisar</button>
+      <AccountInfo />
+    </header>
+  </>)
+}
+
+export function Footer(): JSX.Element {
+  return (<>
+    <footer>
+      <div>content</div>
+    </footer>
+  </>)
+}
+
 const Home: NextPage = () => {
   return (
     <div>
@@ -30,15 +49,9 @@ const Home: NextPage = () => {
         <title>SellWick E-Commerce</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <body>
-        <header>
-          <a id="logo-icon" href=""><Image src="/logo.png" width="300" height="135"></Image></a>
-          <input type="text" placeholder="Pesquisa" id="search-input"></input>
-          <button id="search-btn">Pesquisar</button>
-          <AccountInfo />
-        </header>
-        <h1>Hello world</h1>
-      </body>
+      <Header></Header>
+      <h1>Hello world</h1>
+      <Footer></Footer>
     </div>
   )
   /* return (

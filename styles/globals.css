@@ -1,9 +1,12 @@
+/*Reset do css*/
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  height: 100%;
+  min-height: 100%;
 }
 
 a {
@@ -21,6 +24,15 @@ header {
   align-content: center;
   align-items: center;
   max-height: 100px;
+}
+
+body{
+  background-color: white;
+}
+
+footer {
+  background-color: darkgrey;
+  height: 100px;
 }
 
 #logo-icon {
@@ -47,7 +59,7 @@ header {
 
 }
 
-#accountInfo{
+#accountInfo {
   margin-left: 5%;
   min-width: 25%;
   align-self: center;
@@ -55,23 +67,23 @@ header {
   display: flex;
 }
 
-#btn-separator{
-padding-left: 5%;
-padding-right: 5%;
+#btn-separator {
+  padding-left: 5%;
+  padding-right: 5%;
 
 }
 
-#login-btn{
+#login-btn {
   align-self: center;
   cursor: pointer;
 }
 
-#register-btn{
+#register-btn {
   align-self: center;
   cursor: pointer;
 }
 
-#account-btn{
+#account-btn {
   margin-left: 5%;
   margin-right: 5%;
   min-width: 50%;
@@ -79,6 +91,6 @@ padding-right: 5%;
   display: flex;
 }
 
-#profile-img{
+#profile-img {
   max-width: 50px;
 }
