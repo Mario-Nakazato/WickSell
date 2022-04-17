@@ -21,7 +21,7 @@ export default function Component() {
             Valor: R$ 0.00<br /><br />
             <a href="#"><code className={styles.code}>Adicionar item ao carrinho</code></a><br />
             <a href="#"><code className={styles.code}>Comprar</code></a><br />
-            <a href="/"><code className={styles.code}>Voltar</code></a>
+            <a href="./"><code className={styles.code}>Voltar</code></a>
           </p>
         </main>
         <footer className={styles.footer}>
@@ -77,12 +77,12 @@ export default function Component() {
           </h1>
           <p className={styles.description}>
             Valor: R$ 0.00<br /><br />
-            <a href="/"><code className={styles.code}>Entre com uma conta para comprar</code></a>
+            <a href="./"><code className={styles.code}>Entre com uma conta para comprar</code></a>
           </p>
         </main>
         <footer className={styles.footer}>
           <a
-            href="/"
+            href="./"
             target="_blank"
             rel="noopener noreferrer"
           >

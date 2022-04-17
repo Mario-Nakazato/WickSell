@@ -25,7 +25,7 @@ const Home: NextPage = () => {
           </header>
           <h1>Produtos perfil [Promoção, similares, novidades ...]</h1>
           <ul>
-            <li><a href='/auth'>Produto exemplo</a></li>
+            <li><a href='./auth'>Produto exemplo</a></li>
             <li>Produto 1</li>
             <li>Produto 2</li>
             <li>Produto 3</li>
@@ -68,7 +68,7 @@ const Home: NextPage = () => {
           </header>
           <h1>Produtos geral [Estrategias mais comprado, promoção ...]</h1>
           <ul>
-            <li><a href='/auth'>Produto exemplo</a></li>
+            <li><a href='./auth'>Produto exemplo</a></li>
             <li>Produto 1</li>
             <li>Produto 2</li>
             <li>Produto 3</li>
