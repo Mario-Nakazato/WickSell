@@ -7,18 +7,18 @@ const Nav: NextComponentType = () => {
         return (
             <div>
                 Conectado como {session?.user?.email} <br /><br />
-                <a href='#' onClick={() => signOut()}>Sair </a>|{" "}
-                <a href='#' onClick={() => signIn("auth0", null!, { prompt: "login" })}>Usar outra conta</a><br />
-                <a href='#'>Perfil</a><br />
+                <button onClick={() => signOut()}>Sair </button>|{" "}
+                <button onClick={() => signIn("auth0", null!, { prompt: "login" })}>Usar outra conta</button><br />
+                <button>Perfil</button><br />
             </div>
         )
     }
     return (
         <div>
             Não conectado <br /><br />
-            <a href='#' onClick={() => signIn("auth0")}>Entrar </a>|{" "}
-            <a href='#' onClick={() => signIn("auth0", null!, { prompt: "login" })}>Usar outra conta</a><br />
-            <a href='#'>Criar a sua conta</a><br />
+            <button onClick={() => signIn("auth0")}>Entrar </button>|{" "}
+            <button onClick={() => signIn("auth0", null!, { prompt: "login" })}>Usar outra conta</button><br />
+            <button>Criar a sua conta</button><br />
         </div>
     )
 }
