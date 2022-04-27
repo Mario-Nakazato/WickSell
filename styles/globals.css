@@ -20,13 +20,14 @@ a {
 
 header {
   display: flex;
+  flex-direction: column;
   background-color: darkgrey;
   align-content: center;
   align-items: center;
-  max-height: 100px;
+  max-height: 180px;
 }
 
-body{
+body {
   background-color: white;
 }
 
@@ -59,12 +60,37 @@ footer {
 
 }
 
+#upper-side-header {
+  display: flex;
+  min-width: 100%;
+  min-height: 120px;
+}
+
 #accountInfo {
   margin-left: 5%;
   min-width: 25%;
   align-self: center;
   align-items: center;
   display: flex;
+}
+
+#nav-bar{
+  display: flex;
+  min-width: 100%;
+
+}
+
+#nav-bar-tr{
+  display: flex;
+  justify-content: space-around;
+  min-width: 100%;
+  flex-direction: row;
+}
+
+#nav-bar-ul{
+  padding: 0;
+  text-align: center;
+  border: solid 1px #ccc;
 }
 
 #btn-separator {
