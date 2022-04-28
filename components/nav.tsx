@@ -5,21 +5,18 @@ const Nav: NextComponentType = () => {
     const { data: session } = useSession()
     if (session) {
         return (
-            <div>
-                Conectado como {session?.user?.email} <br /><br />
-                <button onClick={() => signOut()}>Sair </button>|{" "}
-                <button onClick={() => signIn("auth0", null!, { prompt: "login" })}>Usar outra conta</button><br />
-                <button>Perfil</button><br />
-            </div>
+            <>
+                Conectado como {session?.user?.email} <br />
+                <a onClick={() => signOut()}>Sair</a>
+            </>
         )
     }
     return (
-        <div>
-            Não conectado <br /><br />
-            <button onClick={() => signIn("auth0")}>Entrar </button>|{" "}
-            <button onClick={() => signIn("auth0", null!, { prompt: "login" })}>Usar outra conta</button><br />
-            <button>Criar a sua conta</button><br />
-        </div>
+        <>
+            Não conectado <br />
+            <a onClick={() => signIn("auth0", null!, { prompt: "login" })}>Entrar</a><br />
+            <a onClick={() => signIn("auth0")}>Entrar</a>
+        </>
     )
 }
 
