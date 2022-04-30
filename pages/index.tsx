@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
-import Nav from '../components/nav'
+import Entrar from '../components/entrar'
 import { useSession } from "next-auth/react"
 
 const Home: NextPage = () => {
@@ -21,7 +21,7 @@ const Home: NextPage = () => {
             <a id="logo-icon" href=""><Image src="/logo.png" width="300" height="135"></Image></a>
             <input type="text" placeholder="Pesquisa" id="search-input"></input>
             <button id="search-btn">Pesquisar</button>
-            <Nav />
+            <Entrar />
           </header>
           <h1>Produtos perfil [Promoção, similares, novidades ...]</h1>
           <ul>
@@ -46,7 +46,7 @@ const Home: NextPage = () => {
             <a id="logo-icon" href=""><Image src="/logo.png" width="300" height="135"></Image></a>
             <input type="text" placeholder="Pesquisa" id="search-input"></input>
             <button id="search-btn">Pesquisar</button>
-            <Nav />
+            <Entrar />
           </header>
           <h1>Carregando...</h1>
         </body>
@@ -64,7 +64,7 @@ const Home: NextPage = () => {
             <a id="logo-icon" href=""><Image src="/logo.png" width="300" height="135"></Image></a>
             <input type="text" placeholder="Pesquisa" id="search-input"></input>
             <button id="search-btn">Pesquisar</button>
-            <Nav />
+            <Entrar />
           </header>
           <h1>Produtos geral [Estrategias mais comprado, promoção ...]</h1>
           <ul>

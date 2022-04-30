@@ -1,10 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+
 import NextAuth from 'next-auth'
 import Auth0Provider from 'next-auth/providers/auth0'
+import perfil from "../../../utils/bdperfil"
 
-import conta from "../../../utils/bdconta"
-
-const ct = new conta(process.env.MONGODB_COLECAO_CONTAS!)
+const cperfil = new perfil(process.env.MONGODB_COLECAO_PERFILAUTH0!)
 
 export default (req: NextApiRequest, res: NextApiResponse) => NextAuth(req, res, {
     
@@ -21,11 +21,12 @@ export default (req: NextApiRequest, res: NextApiResponse) => NextAuth(req, res,
     callbacks: {
         async signIn({ user, account, profile, email, credentials }) {
             console.log("->[...nextauth].tsx callbacks signIn")
-            const usuario = await ct.findOneProfile(profile)
-            if (usuario) {
-                await ct.replaceOneProfile(profile)
+            const usuario = await cperfil.findOneProfile(profile)
+            user.email = profile.sub
+            if (profile.sub === usuario?.sub) {
+                await cperfil.replaceOneProfile(profile)
             } else {
-                await ct.insertOneProfile(profile)
+                await cperfil.insertOneProfile(profile)
             }
             if (!profile.email_verified) {
                 return false
