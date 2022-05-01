@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { getSession } from "next-auth/react"
-import perfil from "../../../utils/bdperfil"
+import perfil from "../../utils/bdperfil"
 
 export default async function apiPerfil(req: NextApiRequest, res: NextApiResponse) {
   const cperfil = new perfil(process.env.MONGODB_COLECAO_PERFILAUTH0!)
