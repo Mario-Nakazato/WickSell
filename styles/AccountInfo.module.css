@@ -1,0 +1,35 @@
+.AccountInfo {
+    margin-left: 5%;
+    min-width: 25%;
+    align-self: center;
+    align-items: center;
+    display: flex;
+}
+
+.SeparatorBar {
+    padding-left: 5%;
+    padding-right: 5%;
+
+}
+
+.LoginBtn {
+    align-self: center;
+    cursor: pointer;
+}
+
+.RegisterBtn {
+    align-self: center;
+    cursor: pointer;
+}
+
+.AccountBtn {
+    margin-left: 5%;
+    margin-right: 5%;
+    min-width: 50%;
+    align-self: center;
+    display: flex;
+}
+
+.ProfileImg {
+    max-width: 50px;
+}

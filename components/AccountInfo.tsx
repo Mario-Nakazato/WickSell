@@ -1,6 +1,6 @@
 import { NextComponentType } from "next";
 import { useSession, signIn, signOut } from "next-auth/react"
-
+import styles from "../styles/AccountInfo.module.css"
 const AccountInfo: NextComponentType | any = () => {
 
     const { data: session, status } = useSession()
@@ -10,17 +10,17 @@ const AccountInfo: NextComponentType | any = () => {
     if (status == "authenticated") {
         return (
             <>
-                <div id="accountInfo">
-                    <div id="account-btn">
-                        <a id="login-btn" onClick={() => signOut()}>Sair</a>
+                <div className={styles.AccountInfo}>
+                    <div className={styles.AccountBtn}>
+                        <a className={styles.LoginBtn} onClick={() => signOut()}>Sair</a>
 
-                        <div id="btn-separator" >|</div>
-                        <a id="register-btn">Perfil</a>
+                        <div className={styles.SeparatorBar} >|</div>
+                        <a className={styles.RegisterBtn}>Perfil</a>
 
                     </div>
 
                     <div>
-                        <img id="profile-img" alt="Profile" src={session?.user?.image!}></img>
+                        <img className={styles.ProfileImg} alt="Profile" src={session?.user?.image!}></img>
                     </div>
                     <div style={{ marginLeft: '2rem' }}>
 
@@ -32,14 +32,14 @@ const AccountInfo: NextComponentType | any = () => {
         )
     } else if (status == "unauthenticated") {
         return (
-            <div id="accountInfo">
-                <div id="account-btn">
-                    <a id="login-btn" onClick={() => signIn("auth0", null!, { prompt: "login" })}>Entrar</a>
-                    <div id="btn-separator" >|</div>
-                    <a id="register-btn" onClick={() => signIn("auth0")}>DEBUG Entrar</a>
+            <div className={styles.AccountInfo}>
+                <div className={styles.AccountBtn}>
+                    <a className={styles.LoginBtn} onClick={() => signIn("auth0", null!, { prompt: "login" })}>Entrar</a>
+                    <div className={styles.SeparatorBar} >|</div>
+                    <a className={styles.RegisterBtn} onClick={() => signIn("auth0")}>DEBUG Entrar</a>
                 </div>
                 <div>
-                    <img id="profile-img" src="/profile-placeholder.png"></img>
+                    <img className={styles.ProfileImg} src="/profile-placeholder.png"></img>
                 </div>
             </div>
         )

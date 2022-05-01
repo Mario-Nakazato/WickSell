@@ -7,7 +7,7 @@ export default function Header() {
                 <a id="logo-icon" href=""><Image src="/logo.png" width="300" height="135"></Image></a>
                 <input type="text" placeholder="Pesquisa" id="search-input"></input>
                 <button id="search-btn">Pesquisar</button>
-                <AccountInfo/>
+                <AccountInfo />
             </div>
             {/* <div id='nav-bar'>
                 <tr id='nav-bar-tr'>

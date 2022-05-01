@@ -7,7 +7,7 @@ import perfil from "../../../utils/bdperfil"
 const cperfil = new perfil(process.env.MONGODB_COLECAO_PERFILAUTH0!)
 
 export default (req: NextApiRequest, res: NextApiResponse) => NextAuth(req, res, {
-    
+
     providers: [
         Auth0Provider({
             clientId: process.env.AUTH0_CLIENT_ID!,
@@ -15,9 +15,9 @@ export default (req: NextApiRequest, res: NextApiResponse) => NextAuth(req, res,
             issuer: process.env.AUTH0_ISSUER
         })
     ],
-    
+
     secret: process.env.NEXTAUTH_SECRET,
-    
+
     callbacks: {
         async signIn({ user, account, profile, email, credentials }) {
             console.log("->[...nextauth].tsx callbacks signIn")
