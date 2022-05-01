@@ -10,9 +10,24 @@ const AccountInfo: NextComponentType | any = () => {
     if (status == "authenticated") {
         return (
             <>
-                Conectado como {session?.user?.email}<br />
-                <a onClick={() => signOut()}>Sair</a>
-                <a>Perfil</a>
+                <div id="accountInfo">
+                    <div id="account-btn">
+                        <a id="login-btn" onClick={() => signOut()}>Sair</a>
+
+                        <div id="btn-separator" >|</div>
+                        <a id="register-btn">Perfil</a>
+
+                    </div>
+
+                    <div>
+                        <img id="profile-img" alt="Profile" src={session?.user?.image!}></img>
+                    </div>
+                    <div style={{ marginLeft: '2rem' }}>
+
+                        Conectado como {session?.user?.email}<br />
+
+                    </div>
+                </div>
             </>
         )
     } else if (status == "unauthenticated") {
