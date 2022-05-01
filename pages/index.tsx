@@ -5,7 +5,9 @@ import DefaultHead from '../components/DefaultHead'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 
-const Home: NextPage = () => {
+const Home: NextPage = () => { 
+
+  
   const { data: session, status } = useSession()
   const { query } = useRouter()
   if (query.error == 'AccessDenied') {
