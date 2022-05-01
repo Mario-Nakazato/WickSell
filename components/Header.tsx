@@ -9,7 +9,7 @@ export default function Header() {
                 <button id="search-btn">Pesquisar</button>
                 <AccountInfo/>
             </div>
-            <div id='nav-bar'>
+            {/* <div id='nav-bar'>
                 <tr id='nav-bar-tr'>
                     <ul id='nav-bar-ul'>Item 1</ul>
                     <ul id='nav-bar-ul'>Item 2</ul>
@@ -17,7 +17,7 @@ export default function Header() {
                     <ul id='nav-bar-ul'>Item 4</ul>
                     <ul id='nav-bar-ul'>Item 5</ul>
                 </tr>
-            </div>
+            </div> */}
         </header>
     </>)
 

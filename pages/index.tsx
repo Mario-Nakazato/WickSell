@@ -11,7 +11,6 @@ const Home: NextPage = () => {
     return (
       <>
         <DefaultHead></DefaultHead>
-        <body>
           <Header></Header>
           <h1>Produtos perfil [Promoção, similares, novidades ...]</h1>
           <ul>
@@ -21,25 +20,21 @@ const Home: NextPage = () => {
             <li>Produto 3</li>
             <li>Produto 4</li>
           </ul>
-        </body>
       </>
     )
   } else if (status == "loading") {
     return (
       <>
         <DefaultHead></DefaultHead>
-        <body>
 
           <Header></Header>
           <h1>Carregando...</h1>
-        </body>
       </>
     )
   } else {
     return (
       <>
         <DefaultHead></DefaultHead>
-        <body>
           <Header></Header>
           <h1>Produtos geral [Estrategias mais comprado, promoção ...]</h1>
           <ul>
@@ -49,7 +44,6 @@ const Home: NextPage = () => {
             <li>Produto 3</li>
             <li>Produto 4</li>
           </ul>
-        </body>
       </>
     )
   }
