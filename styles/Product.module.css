@@ -1,0 +1,49 @@
+.ProductCase {
+    border: 1px solid grey;
+    width: 15rem;
+    height: 20.45rem;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.ProductCase:hover {
+    width: 15rem;
+    height: 20.45rem;
+    box-shadow: 0 4px 10px 1px rgba(140, 140, 140, 1);
+}
+
+.ProductImage {
+    width: 100%;
+    max-width: 14rem;
+    max-height: 25rem;
+}
+
+.ProductName {
+    font-size: 1rem;
+    line-height: 1.125rem;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+.ProductPromotion {
+    margin-top: 1rem;
+    padding-left: 3.35rem;
+    text-align: left;
+}
+
+.ProductPrice {
+    font-size: 1.5rem;
+    line-height: 2.125rem;
+    font-weight: 700;
+}
+
+.ProductBuyButton {
+    background-color: darkgrey;
+    font-size: 1rem;
+    line-height: 3rem;
+    font-weight: 700;
+    height: 3rem;
+    border-radius: 0px 0px 9px 9px;
+
+}
