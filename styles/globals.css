@@ -66,8 +66,6 @@ footer {
 	min-height: 120px;
 }
 
-
-
 #nav-bar {
 	display: flex;
 	min-width: 100%;
@@ -85,4 +83,5 @@ footer {
 	padding: 0;
 	text-align: center;
 	border: solid 1px #ccc;
+
 }
