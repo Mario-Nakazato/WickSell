@@ -13,10 +13,10 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 	console.log(req.body)
 	console.log("RAWHEADERS")
 	console.log(req.rawHeaders)
-	
+
 	const session = await getSession({ req })
-	
-	if (!session && req.rawHeaders[3] !== "insomnia/2022.3.0") {
+
+	if (!session && req.rawHeaders.filter((value) => { return value == "insomnia/2022.3.0" }) !== ["insomnia/2022.3.0"]) {
 		res.status(400).json(req.rawHeaders)
 		return
 	}
