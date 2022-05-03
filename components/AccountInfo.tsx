@@ -22,7 +22,7 @@ const AccountInfo: NextComponentType | any = () => {
                     <div>
                         <img className={styles.ProfileImg} alt="Profile" src={session?.user?.image!}></img>
                     </div>
-                    <div style={{ marginLeft: '2rem' }}>
+                    <div style={{position: "absolute", bottom: 0, right: 0}}>
 
                         Conectado como {session?.user?.email}<br />
 
