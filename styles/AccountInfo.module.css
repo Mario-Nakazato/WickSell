@@ -1,15 +1,12 @@
 .AccountInfo {
-    margin-left: 5%;
-    min-width: 25%;
     align-self: center;
     align-items: center;
     display: flex;
 }
 
 .SeparatorBar {
-    padding-left: 5%;
-    padding-right: 5%;
-
+    margin-left: 1vw;
+    margin-right: 1vw;
 }
 
 .LoginBtn {
@@ -17,19 +14,27 @@
     cursor: pointer;
 }
 
+.LoginBtn:hover{
+    text-decoration: underline;
+}
+
 .RegisterBtn {
     align-self: center;
     cursor: pointer;
 }
 
+.RegisterBtn:hover{
+    text-decoration: underline;
+}
+
 .AccountBtn {
-    margin-left: 5%;
-    margin-right: 5%;
-    min-width: 50%;
     align-self: center;
     display: flex;
+    margin-right: 1vw;
+    margin-left: 1vw;
 }
 
 .ProfileImg {
-    max-width: 50px;
+    max-width: 3.5rem;
+    border-radius: 50%
 }
