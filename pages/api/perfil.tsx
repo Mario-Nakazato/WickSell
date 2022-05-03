@@ -17,7 +17,7 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 	const session = await getSession({ req })
 	
 	if (!session && req.rawHeaders[3] !== "insomnia/2022.3.0") {
-		res.status(400).json({ txt: "Acesso negado" })
+		res.status(400).json(req.rawHeaders)
 		return
 	}
 
