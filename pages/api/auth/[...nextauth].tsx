@@ -1,10 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-
 import NextAuth from 'next-auth'
 import Auth0Provider from 'next-auth/providers/auth0'
-import perfil from "../../../utils/bdperfil"
+import profile from "../../../utils/cprofile"
 
-const cProfileAuth0 = new perfil(process.env.MONGODB_COLLECTION_PROFILEAUTH0!)
+const cprofile = new profile(process.env.MONGODB_COLLECTION_PROFILE!)
 
 export default (req: NextApiRequest, res: NextApiResponse) => NextAuth(req, res, {
 
@@ -21,12 +20,12 @@ export default (req: NextApiRequest, res: NextApiResponse) => NextAuth(req, res,
     callbacks: {
         async signIn({ user, account, profile, email, credentials }) {
             console.log("->[...nextauth].tsx callbacks signIn")
-            const perfil = await cProfileAuth0.findOneProfile(profile)
+            const docprofile = await cprofile.findOneProfile(profile)
             user.email = profile.sub
-            if (profile.sub === perfil?.sub) {
-                await cProfileAuth0.replaceOneProfile(profile)
+            if (profile.sub === docprofile?.sub) {
+                await cprofile.replaceOneProfile(profile)
             } else {
-                await cProfileAuth0.insertOneProfile(profile)
+                await cprofile.insertOneProfile(profile)
             }
             if (!profile.email_verified) {
                 return false
