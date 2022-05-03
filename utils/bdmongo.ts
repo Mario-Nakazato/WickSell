@@ -1,6 +1,5 @@
 import { MongoClient, ServerApiVersion, Db } from 'mongodb';
 
-//mudar para mais de um cliente?
 const client = new MongoClient(process.env.MONGODB_URL!, { serverApi: ServerApiVersion.v1 })
 
 function removeUndefined(obj: any = {}) {
