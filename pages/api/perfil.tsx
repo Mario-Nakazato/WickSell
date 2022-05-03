@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from "next-auth/react"
 import perfil from "../../utils/bdperfil"
 
-const cPerfil = new perfil(process.env.MONGODB_COLECAO_PERFIL!)
+const cPerfil = new perfil(process.env.MONGODB_COLLECTION_PERFIL!)
 //insomnia/2022.3.0
 export default async function apiPerfil(req: NextApiRequest, res: NextApiResponse) {
 

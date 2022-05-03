@@ -4,7 +4,7 @@ import NextAuth from 'next-auth'
 import Auth0Provider from 'next-auth/providers/auth0'
 import perfil from "../../../utils/bdperfil"
 
-const cProfileAuth0 = new perfil(process.env.MONGODB_COLECAO_PROFILEAUTH0!)
+const cProfileAuth0 = new perfil(process.env.MONGODB_COLLECTION_PROFILEAUTH0!)
 
 export default (req: NextApiRequest, res: NextApiResponse) => NextAuth(req, res, {
 
