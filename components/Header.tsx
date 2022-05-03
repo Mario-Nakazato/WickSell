@@ -1,23 +1,26 @@
 import AccountInfo from './AccountInfo'
 import Image from 'next/image'
+import styles from '../styles/Header.module.css'
 export default function Header() {
     return (<>
-        <header>
-            <div id='upper-side-header'>
-                <a id="logo-icon" href=""><Image src="/logo.png" width="300" height="135"></Image></a>
-                <input type="text" placeholder="Pesquisa" id="search-input"></input>
-                <button id="search-btn">Pesquisar</button>
+        <header className={styles.Header}>
+            <div className={styles.UpperSideHeader}>
+                <a className={styles.LogoA} href=""><img className={styles.LogoIcon} src="/logo.png" alt="Logo"></img></a>
+                <div className={styles.SearchContainer}>
+                    <input type="text" placeholder="Pesquisa" className={styles.SearchInput}></input>
+                    <button className={styles.SearchBtn}>Pesquisar</button>
+                </div>
                 <AccountInfo />
             </div>
-            {/* <div id='nav-bar'>
-                <tr id='nav-bar-tr'>
-                    <ul id='nav-bar-ul'>Item 1</ul>
-                    <ul id='nav-bar-ul'>Item 2</ul>
-                    <ul id='nav-bar-ul'>Item 3</ul>
-                    <ul id='nav-bar-ul'>Item 4</ul>
-                    <ul id='nav-bar-ul'>Item 5</ul>
-                </tr>
-            </div> */}
+            <div className={styles.NavBar}>
+                <div className={styles.NavBarTr}>
+                    <div className={styles.NavBarUl}>Item 1</div>
+                    <div className={styles.NavBarUl}>Item 2</div>
+                    <div className={styles.NavBarUl}>Item 3</div>
+                    <div className={styles.NavBarUl}>Item 4</div>
+                    <div className={styles.NavBarUl}>Item 5</div>
+                </div>
+            </div>
         </header>
     </>)
 
