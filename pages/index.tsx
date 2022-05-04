@@ -4,16 +4,12 @@ import { useRouter } from 'next/router'
 import DefaultHead from '../components/DefaultHead'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
+import EmailVerifyMessage from '../components/EmailVerifyMessage'
 
 const Home: NextPage = () => {
 	const { data: session, status } = useSession()
 	const { query } = useRouter()
-	if (query.error == 'AccessDenied') {
-		return <>
-			<Header />
-			<h1>Access Denied</h1>
-		</>
-	} else if (session && status == "authenticated") {
+	if (session && status == "authenticated") {
 		return (
 			<>
 				<DefaultHead></DefaultHead>
@@ -38,7 +34,10 @@ const Home: NextPage = () => {
 			</>
 		)
 	} else {
-		return (
+		const popup = (<>
+			<EmailVerifyMessage />
+		</>)
+		const response = (
 			<>
 				<DefaultHead></DefaultHead>
 				<Header></Header>
@@ -52,6 +51,14 @@ const Home: NextPage = () => {
 				</ul>
 			</>
 		)
+		if (query.error == 'AccessDenied') {
+			return (<>
+				{response}
+				{popup}
+			</>)
+		} else {
+			return response;
+		}
 	}
 }
 
