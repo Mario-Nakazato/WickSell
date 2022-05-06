@@ -36,7 +36,7 @@ const AccountInfo: NextComponentType | any = () => {
                 <div className={styles.AccountBtn}>
                     <a className={styles.LoginBtn} onClick={() => signIn("auth0", null!, { prompt: "login" })}>Entrar</a>
                     <div className={styles.SeparatorBar} >|</div>
-                    <a className={styles.RegisterBtn} onClick={() => signIn("auth0")}>DEBUG Entrar</a>
+                    <a className={styles.RegisterBtn} onClick={() => signIn("auth0")}>Entrar cache</a>
                 </div>
                 <div>
                     <img className={styles.ProfileImg} src="/profile-placeholder.png"></img>

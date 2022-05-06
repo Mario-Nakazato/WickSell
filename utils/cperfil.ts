@@ -1,27 +1,35 @@
 import Mongodb from "./bdmongo"
+import profile from "./cprofile"
 
 const bdwicksell = new Mongodb(process.env.MONGODB_DATABASE!)
+const cprofile = new profile(process.env.MONGODB_COLLECTION_PROFILE!)
 
 export default class perfil {
     private colecao: string
+    private email: string = ""
 
     constructor(colecao: string) {
         this.colecao = colecao
     }
 
+    async setEmail(sub: string) {
+        const docprofile = await cprofile.findOneProfile({ sub: sub })
+        return this.email = docprofile?.email
+    }
+
     async insertOnePerfil(perfil: {}) {
-        console.log("Inserir Perfil no mongodb")
         await bdwicksell.insertOne(this.colecao, perfil)
     }
 
-    async findOnePerfil(perfil: { email: any; }) {
-        console.log("Buscar Perfil no mongodb")
-        const email = perfil.email
-        return bdwicksell.findOne(this.colecao, { email: email })
+    async findOnePerfil() {
+        return await bdwicksell.findOne(this.colecao, { email: this.email })
     }
 
-    async replaceOnePerfil() {
-        console.log("Substituir Perfil no mongodb")
-        //await bdwicksell.replaceOne(this.colecao, { sub: sub, email: email }, profile)
+    async replaceOnePerfil(perfil: {}) {
+        await bdwicksell.replaceOne(this.colecao, { email: this.email }, perfil)
+    }
+
+    async deleteOnePerfil() {
+        await bdwicksell.deleteOne(this.colecao, { email: this.email })
     }
 }

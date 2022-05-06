@@ -6,57 +6,65 @@ const cperfil = new perfil(process.env.MONGODB_COLLECTION_PERFIL!)
 
 export default async function apiPerfil(req: NextApiRequest, res: NextApiResponse) {
 
-	console.log("API PERFIL")
-	console.log("QUERY")
-	console.log(req.query)
-	console.log("BODY")
-	console.log(req.body)
-	console.log("RAWHEADERS")
-	console.log(req.rawHeaders)
-
 	const session = await getSession({ req })
+	//const session = { user : { email: "google-oauth2|101710707565406232446" } }
 
 	if (!session && req.rawHeaders.filter((value) => { return value == "insomnia/2022.3.0" })[0] !== "insomnia/2022.3.0") {
-		res.status(400).json({ txt: "Acesso negado" })
+		res.status(400).json({ txt: "Acesso negado." })
 		return
 	}
 
-	if (req.method == "GET") {
+	const email = await cperfil.setEmail(session?.user?.email!)
+	
+	if (email == undefined) {
+		res.status(400).json({ txt: "Email não existe." })
+		return
+	}
+	
+	const docperfil = await cperfil.findOnePerfil()
 
-		if (req.query.email == undefined) {
-			res.status(400).json({ txt: "Perfil precisa de um email" })
-			return
-		}
-		const docperfil = await cperfil.findOnePerfil({ email: req.query.email })
+	if (req.method == "GET") {
+		
 		if (!docperfil) {
-			res.status(400).json({ txt: "Este perfil não existe" })
+			res.status(400).json({ txt: "Perfil não existe." })
 			return
 		}
 		res.status(200).json(docperfil)
 
 	} else if (req.method == "POST") {
 
-		if (req.body.email == undefined) {
-			res.status(400).json({ txt: "Perfil precisa de um email" })
+		if (docperfil) {
+			res.status(400).json({ txt: "Perfil já existe" })
 			return
 		}
-		const docperfil = await cperfil.findOnePerfil(req.body)
-		if (docperfil) {
-			res.status(400).json({ txt: "Este perfil já foi criado" })
+
+		if(req.body.email != email){
+			res.status(400).json({ txt: "Email da sessão não é igual ao body" })
 			return
 		}
 		await cperfil.insertOnePerfil(req.body)
-		res.status(200).json({ txt: "Perfil criado" })
+		res.status(200).json({ txt: "Perfil criado." })
 
 	} else if (req.method == "PUT") {
 
-		res.status(200).json({ txt: "Não implementado alteração generica" })
+		if (!docperfil) {
+			res.status(400).json({ txt: "Perfil não existe." })
+			return
+		}
+		await cperfil.replaceOnePerfil(req.body)
+		res.status(200).json({ txt: "Perfil substituido" })
+
 	} else if (req.method == "PATCH") {
 
 		res.status(200).json({ txt: "Não implementado alteração especifica" })
 	} else if (req.method == "DELETE") {
 
-		res.status(200).json({ txt: "Não implementado deletar perfil" })
+		if (!docperfil) {
+			res.status(400).json({ txt: "Perfil não existe." })
+			return
+		}
+		await cperfil.deleteOnePerfil()
+		res.status(200).json({ txt: "Perfil excluido." })
 
 	} else {
 		res.status(400).json({ txt: "Metodo invalido" })
