@@ -6,14 +6,14 @@ const cprofile = new profile(process.env.MONGODB_COLLECTION_PROFILE!)
 
 export default class perfil {
     private colecao: string
-    private email: string = ""
+    private email!: string
 
     constructor(colecao: string) {
         this.colecao = colecao
     }
 
     async setEmail(sub: string) {
-        const docprofile = await cprofile.findOneProfile({ sub: sub })
+        const docprofile = sub != undefined ? await cprofile.findOneProfile({ sub: sub }) : undefined
         return this.email = docprofile?.email
     }
 
@@ -23,6 +23,10 @@ export default class perfil {
 
     async findOnePerfil() {
         return await bdwicksell.findOne(this.colecao, { email: this.email })
+    }
+
+    async updateOnePerfil(perfil: {}) {
+        await bdwicksell.updateOne(this.colecao, { email: this.email }, { $set: perfil })
     }
 
     async replaceOnePerfil(perfil: {}) {

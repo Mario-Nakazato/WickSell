@@ -7,9 +7,8 @@ const cperfil = new perfil(process.env.MONGODB_COLLECTION_PERFIL!)
 export default async function apiPerfil(req: NextApiRequest, res: NextApiResponse) {
 
 	const session = await getSession({ req })
-	//const session = { user : { email: "google-oauth2|101710707565406232446" } }
 
-	if (!session && req.rawHeaders.filter((value) => { return value == "insomnia/2022.3.0" })[0] !== "insomnia/2022.3.0") {
+	if (!session) {//req.rawHeaders.filter((value) => { return value == "insomnia/2022.3.0" })[0] !== "insomnia/2022.3.0"
 		res.status(400).json({ txt: "Acesso negado." })
 		return
 	}
@@ -34,12 +33,11 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 	} else if (req.method == "POST") {
 
 		if (docperfil) {
-			res.status(400).json({ txt: "Perfil já existe" })
+			res.status(400).json({ txt: "Perfil já existe." })
 			return
 		}
-
 		if(req.body.email != email){
-			res.status(400).json({ txt: "Email da sessão não é igual ao body" })
+			res.status(400).json({ txt: "Email da sessão não é igual ao body." })
 			return
 		}
 		await cperfil.insertOnePerfil(req.body)
@@ -51,12 +49,26 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 			res.status(400).json({ txt: "Perfil não existe." })
 			return
 		}
+		if(req.body.email != email){
+			res.status(400).json({ txt: "Email da sessão não é igual ao body." })
+			return
+		}
 		await cperfil.replaceOnePerfil(req.body)
-		res.status(200).json({ txt: "Perfil substituido" })
+		res.status(200).json({ txt: "Perfil substituido." })
 
 	} else if (req.method == "PATCH") {
 
-		res.status(200).json({ txt: "Não implementado alteração especifica" })
+		if (!docperfil) {
+			res.status(400).json({ txt: "Perfil não existe." })
+			return
+		}
+		if(req.body.email != email){
+			res.status(400).json({ txt: "Email da sessão não é igual ao body." })
+			return
+		}
+		await cperfil.updateOnePerfil(req.body)
+		res.status(200).json({ txt: "Perfil atualizado." })
+
 	} else if (req.method == "DELETE") {
 
 		if (!docperfil) {
@@ -67,6 +79,6 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 		res.status(200).json({ txt: "Perfil excluido." })
 
 	} else {
-		res.status(400).json({ txt: "Metodo invalido" })
+		res.status(400).json({ txt: "Metodo invalido." })
 	}
 }
