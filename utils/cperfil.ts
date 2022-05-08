@@ -1,19 +1,19 @@
-import Mongodb from "./bdmongo"
-import profile from "./cprofile"
+import bdMongodb from "./bdmongo"
+import Auth from "./auth"
 
-const bdwicksell = new Mongodb(process.env.MONGODB_DATABASE!)
-const cprofile = new profile(process.env.MONGODB_COLLECTION_PROFILE!)
+const bdwicksell = new bdMongodb(process.env.MONGODB_DATABASE!)
+const auth = new Auth()
 
 export default class perfil {
     private colecao: string
-    private email!: string
+    private email: string | undefined
 
     constructor(colecao: string) {
         this.colecao = colecao
     }
 
     async setEmail(sub: string) {
-        const docprofile = sub != undefined ? await cprofile.findOneProfile({ sub: sub }) : undefined
+        const docprofile = await auth.setProfile(sub)
         return this.email = docprofile?.email
     }
 

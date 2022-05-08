@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getSession } from "next-auth/react"
-import perfil from "../../utils/cperfil"
+import { getSession } from 'next-auth/react'
+import Perfil from "../../utils/perfil"
 
-const cperfil = new perfil(process.env.MONGODB_COLLECTION_PERFIL!)
+const perfil = new Perfil()
 
 export default async function apiPerfil(req: NextApiRequest, res: NextApiResponse) {
 
@@ -13,69 +13,67 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 		return
 	}
 
-	const email = await cperfil.setEmail(session?.user?.email!)
-	
+	const { email, perfil: operfil } = await perfil.setPerfil(session?.user?.email!)
+
 	if (email == undefined) {
 		res.status(400).json({ txt: "Email não existe." })
 		return
 	}
-	
-	const docperfil = await cperfil.findOnePerfil()
 
 	if (req.method == "GET") {
-		
-		if (!docperfil) {
+
+		if (!operfil) {
 			res.status(400).json({ txt: "Perfil não existe." })
 			return
 		}
-		res.status(200).json(docperfil)
+		res.status(200).json(operfil)
 
 	} else if (req.method == "POST") {
 
-		if (docperfil) {
+		if (operfil) {
 			res.status(400).json({ txt: "Perfil já existe." })
 			return
 		}
-		if(req.body.email != email){
+		if (req.body.email != email) {
 			res.status(400).json({ txt: "Email da sessão não é igual ao body." })
 			return
 		}
-		await cperfil.insertOnePerfil(req.body)
+		await perfil.insertOnePerfil(req.body)
 		res.status(200).json({ txt: "Perfil criado." })
 
 	} else if (req.method == "PUT") {
 
-		if (!docperfil) {
+		if (!operfil) {
 			res.status(400).json({ txt: "Perfil não existe." })
 			return
 		}
-		if(req.body.email != email){
+		if (req.body.email != email) {
 			res.status(400).json({ txt: "Email da sessão não é igual ao body." })
 			return
 		}
-		await cperfil.replaceOnePerfil(req.body)
+		await perfil.replaceOnePerfil(req.body)
 		res.status(200).json({ txt: "Perfil substituido." })
 
 	} else if (req.method == "PATCH") {
 
-		if (!docperfil) {
+		if (!operfil) {
 			res.status(400).json({ txt: "Perfil não existe." })
 			return
 		}
-		if(req.body.email != email){
+		if (req.body.email != email) {
 			res.status(400).json({ txt: "Email da sessão não é igual ao body." })
 			return
 		}
-		await cperfil.updateOnePerfil(req.body)
+		await perfil.updateOnePerfil(req.body)
 		res.status(200).json({ txt: "Perfil atualizado." })
 
 	} else if (req.method == "DELETE") {
 
-		if (!docperfil) {
+		if (!operfil) {
 			res.status(400).json({ txt: "Perfil não existe." })
 			return
 		}
-		await cperfil.deleteOnePerfil()
+		await perfil.deleteOnePerfil()
 		res.status(200).json({ txt: "Perfil excluido." })
 
 	} else {
