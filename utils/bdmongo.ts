@@ -10,7 +10,7 @@ function removeUndefined(obj: any = {}) {
     }, {})
 }
 
-export default class mongodb {
+export default class bdMongo {
     private db: Db;
 
     constructor(db: string) {

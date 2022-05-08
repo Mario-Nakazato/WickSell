@@ -1,9 +1,9 @@
-import Mongodb from "./bdmongo"
-import { Profile } from "next-auth";
+import { Profile } from 'next-auth';
+import bdMongodb from "./bdmongo"
 
-const bdwicksell = new Mongodb(process.env.MONGODB_DATABASE!)
+const bdwicksell = new bdMongodb(process.env.MONGODB_DATABASE!)
 
-export default class profile {
+export default class cProfile {
     private colecao: string
 
     constructor(colecao: string) {
@@ -15,15 +15,13 @@ export default class profile {
     }
 
     async findOneProfile(profile: Profile & Record<string, unknown>) {
-        const email = profile.email
         const sub = profile.sub
-        return bdwicksell.findOne(this.colecao, { sub: sub, email: email })
+        return bdwicksell.findOne(this.colecao, { sub: sub })
     }
 
     async findAllProfile(profile: Profile & Record<string, unknown>) {
         const email = profile.email
-        const sub = profile.sub
-        return bdwicksell.findAll(this.colecao, { sub: sub, email: email })
+        return bdwicksell.findAll(this.colecao, { email: email })
     }
 
     async replaceOneProfile(profile: Profile & Record<string, unknown>) {
