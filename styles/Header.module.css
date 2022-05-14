@@ -11,14 +11,14 @@
 }
 
 .LogoA {
-	margin-left: -0.5vw;
 	align-self: center;
 }
 
 .LogoIcon {
 	display: block;
 	align-self: center;
-	height: 2.5vw;
+	height: 2vw;
+	width: 19vw;
 }
 
 .SearchContainer {
@@ -31,26 +31,31 @@
 	width: 30vw;
 	height: 2.5vw;
 	align-self: center;
-	margin-right: 0.5vw;
-	border-radius: 10px;
+	border-radius: 5px;
 	border-style: none;
-
+	font-size: 1.3vw;
 }
 
 .SearchBtn {
-	background-color: lightgray;
-	display: block;
-	width: 5vw;
+	background-color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 2.5vw;
 	height: 2.5vw;
 	align-self: center;
-	margin-left: 0.5vw;
 	border-radius: 10px;
 	border-style: none;
-
+	margin-left: -2.5vw;
 }
 
 .SearchBtn:hover {
 	background-color: rgb(199, 199, 199);
+}
+
+.SearchIcon {
+	max-width: 100%;
+	max-height: 100%;
 }
 
 .UpperSideHeader {
@@ -68,7 +73,9 @@
 .NavBar {
 	display: flex;
 	min-width: 100%;
-
+	padding-left: 11vw;
+	padding-right: 11vw;
+	background-color: rgb(153, 153, 153);
 }
 
 .NavBarTr {
@@ -95,3 +102,4 @@
 
 	background-color: rgb(128, 128, 128);
 }
+
