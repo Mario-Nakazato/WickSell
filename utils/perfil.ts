@@ -8,7 +8,7 @@ export default class Perfil {
     async setPerfil(sub: string) {
         const email = await cperfil.setEmail(sub)
         this.perfil = await cperfil.findOnePerfil()
-        return { email: email, perfil: this.perfil }
+        return { email: email, docperfil: this.perfil }
     }
 
     async insertOnePerfil(perfil: {}) {

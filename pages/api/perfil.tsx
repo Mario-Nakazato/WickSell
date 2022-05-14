@@ -13,7 +13,7 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 		return
 	}
 
-	const { email, perfil: operfil } = await perfil.setPerfil(session?.user?.email!)
+	const { email, docperfil } = await perfil.setPerfil(session?.user?.email!)
 
 	if (email == undefined) {
 		res.status(400).json({ txt: "Email não existe." })
@@ -22,15 +22,15 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 
 	if (req.method == "GET") {
 
-		if (!operfil) {
+		if (!docperfil) {
 			res.status(400).json({ txt: "Perfil não existe." })
 			return
 		}
-		res.status(200).json(operfil)
+		res.status(200).json(docperfil)
 
 	} else if (req.method == "POST") {
 
-		if (operfil) {
+		if (docperfil) {
 			res.status(400).json({ txt: "Perfil já existe." })
 			return
 		}
@@ -43,7 +43,7 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 
 	} else if (req.method == "PUT") {
 
-		if (!operfil) {
+		if (!docperfil) {
 			res.status(400).json({ txt: "Perfil não existe." })
 			return
 		}
@@ -56,7 +56,7 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 
 	} else if (req.method == "PATCH") {
 
-		if (!operfil) {
+		if (!docperfil) {
 			res.status(400).json({ txt: "Perfil não existe." })
 			return
 		}
@@ -69,7 +69,7 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 
 	} else if (req.method == "DELETE") {
 
-		if (!operfil) {
+		if (!docperfil) {
 			res.status(400).json({ txt: "Perfil não existe." })
 			return
 		}
