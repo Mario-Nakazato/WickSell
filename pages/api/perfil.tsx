@@ -23,7 +23,7 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 	if (req.method == "GET") {
 
 		if (!docperfil) {
-			res.status(400).json({ txt: "Perfil não existe." })
+			res.status(200).json({ email: email })
 			return
 		}
 		res.status(200).json(docperfil)
