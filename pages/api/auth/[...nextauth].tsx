@@ -18,10 +18,8 @@ export default (req: NextApiRequest, res: NextApiResponse) => NextAuth(req, res,
     secret: process.env.NEXTAUTH_SECRET,
 
     callbacks: {
-        async signIn({ user, account, profile, email, credentials }) {
-            console.log("->[...nextauth].tsx callbacks signIn")
-
-            user.email = profile.sub
+        async signIn({ user, account, profile, email, credentials }) {  
+            user.email = profile.sub // trocado para o sub<autenticador [google-oauth2, auth0]>
 
             await auth.signInProfile(profile)
 
@@ -31,15 +29,12 @@ export default (req: NextApiRequest, res: NextApiResponse) => NextAuth(req, res,
             return true
         },
         async redirect({ url, baseUrl }) {
-            console.log("->[...nextauth].tsx callbacks redirect")
             return baseUrl
         },
         async session({ session, user, token }) {
-            console.log("->[...nextauth].tsx callbacks session")
             return session
         },
         async jwt({ token, user, account, profile, isNewUser }) {
-            console.log("->[...nextauth].tsx callbacks jwt")
             return token
         }
     },

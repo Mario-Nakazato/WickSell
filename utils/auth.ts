@@ -1,22 +1,42 @@
 import { Profile } from 'next-auth';
-import cProfile from "./cprofile"
+import bdMongodb from "./bdmongo"
 
-const cprofile = new cProfile(process.env.MONGODB_COLLECTION_PROFILE!)
-
+const bdwicksell = new bdMongodb(process.env.MONGODB_DATABASE!)
+const colecao = process.env.MONGODB_COLLECTION_PROFILE!
 export default class Auth {
 
     private profile: (Profile & Record<string, unknown>) | null | undefined
 
     async signInProfile(profile: Profile & Record<string, unknown>) {
-        const docprofile = await cprofile.findOne(profile)
+        const docprofile = await this.findOne(profile)
         if (profile.sub === docprofile?.sub) {
-            await cprofile.replaceOne(profile)
+            await this.replaceOne(profile)
         } else {
-            await cprofile.insertOne(profile)
+            await this.insertOne(profile)
         }
     }
 
     async setProfile(sub: string) {
-        return this.profile = await cprofile.findOne({ sub: sub })
+        return this.profile = await this.findOne({ sub: sub })
+    }
+
+    async insertOne(profile: Profile & Record<string, unknown>) {
+        await bdwicksell.insertOne(colecao, profile)
+    }
+
+    async findOne(profile: Profile & Record<string, unknown>) {
+        const sub = profile.sub
+        return bdwicksell.findOne(colecao, { sub: sub })
+    }
+
+    async findAll(profile: Profile & Record<string, unknown>) {
+        const email = profile.email
+        return bdwicksell.findAll(colecao, { email: email })
+    }
+
+    async replaceOne(profile: Profile & Record<string, unknown>) {
+        const email = profile.email
+        const sub = profile.sub
+        await bdwicksell.replaceOne(colecao, { sub: sub, email: email }, profile)
     }
 }
