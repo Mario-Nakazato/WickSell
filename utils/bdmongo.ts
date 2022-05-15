@@ -17,10 +17,10 @@ export default class bdMongo {
         this.db = client.db(db)
     }
 
-    async insertOne(collection: string, array: {}) {
+    async insertOne(collection: string, obj: {}) {
         try {
             await client.connect()
-            const result = await this.db.collection(collection).insertOne(array);
+            const result = await this.db.collection(collection).insertOne(obj);
             return result;
         } finally {
             await client.close();
@@ -37,20 +37,20 @@ export default class bdMongo {
         }
     }
 
-    async findOne(collection: string, query = {}, options = {}) {
+    async findOne(collection: string, query = {}, projection = {}) {
         try {
             await client.connect()
-            const result = await this.db.collection(collection).findOne(removeUndefined(query), options);
+            const result = await this.db.collection(collection).findOne(removeUndefined(query), projection);
             return result
         } finally {
             await client.close();
         }
     }
 
-    async findAll(collection: string, query = {}, options = {}) {
+    async findAll(collection: string, query = {}, projection = {}) {
         try {
             await client.connect()
-            const result = await this.db.collection(collection).find(removeUndefined(query), options).toArray()
+            const result = await this.db.collection(collection).find(removeUndefined(query), projection).toArray()
             return result
         } finally {
             await client.close();
