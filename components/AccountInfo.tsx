@@ -1,11 +1,11 @@
 import { NextComponentType } from "next";
 import { useSession, signIn, signOut } from "next-auth/react"
+import Link from "next/link";
 import styles from "../styles/AccountInfo.module.css"
 const AccountInfo: NextComponentType | any = () => {
 
     const { data: session, status } = useSession()
 
-    if (status == "loading") return <>Loading...{session}</>;
 
     if (status == "authenticated") {
         return (
@@ -18,7 +18,7 @@ const AccountInfo: NextComponentType | any = () => {
                         <a className={styles.LoginBtn} onClick={() => signOut()}>Sair</a>
 
                         <div className={styles.SeparatorBar} >|</div>
-                        <a className={styles.RegisterBtn}>Perfil</a>
+                        <Link href='/perfil'><a className={styles.RegisterBtn}>Perfil</a></Link>
 
                     </div>
 
@@ -31,7 +31,7 @@ const AccountInfo: NextComponentType | any = () => {
                 </div>
             </>
         )
-    } else if (status == "unauthenticated") {
+    } else if (status == "unauthenticated" || "loading") {
         return (
             <div className={styles.AccountInfo}>
                 <div>
@@ -39,11 +39,10 @@ const AccountInfo: NextComponentType | any = () => {
                 </div>
                 <div className={styles.AccountBtn}>
                     <a className={styles.LoginBtn} onClick={() => signIn("auth0", null!, { prompt: "login" })}>Entrar</a>
-                    <div className={styles.SeparatorBar} >|</div>
-                    <a className={styles.RegisterBtn} onClick={() => signIn("auth0")}>Entrar cache</a>
+                    <img style={{ position: "absolute", top: 0, right: 0, maxWidth: 2 + 'vw' }} src="/mario.png" onClick={() => signIn("auth0")}></img>
                 </div>
 
-            </div>
+            </div >
         )
     }
 }
