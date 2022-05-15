@@ -5,7 +5,7 @@ export default function Header(props: any) {
         return (<>
             <header className={styles.Header}>
                 <div className={styles.UpperSideHeader}>
-                    <a className={styles.LogoA} href=""><img className={styles.LogoIcon} src="/logo.png" alt="Logo"></img></a>
+                    <a className={styles.LogoA} href="/"><img className={styles.LogoIcon} src="/logo.png" alt="Logo"></img></a>
                     <form action='/api/' className={styles.SearchContainer}>
                         <input type="text" placeholder="Pesquisa" className={styles.SearchInput}></input>
                         <button type='submit' className={styles.SearchBtn}><img className={styles.SearchIcon} src='/lupa-icon.svg' alt="Search Icon"></img></button>
