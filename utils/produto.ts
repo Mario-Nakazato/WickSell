@@ -18,10 +18,12 @@ export default class Produto {
             this._id = new ObjectId(_id)
         }
         if (name != undefined) {
-            this.name = { $regex: String(name), $options: 'i' }
+            this.name = String(name)
+            //this.name = { $regex: String(name), $options: 'imxs' }
         }
         if (description != undefined) {
-            this.description = { $regex: String(description), $options: 'i' }
+            this.description = String(description)
+            //this.description = { $regex: String(description), $options: 'imxs' }
         }
         if (price != undefined) {
             this.price = Number(price)
