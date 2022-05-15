@@ -14,11 +14,10 @@
 }
 
 .ProductImage {
-    width: 100%;
-    max-width: 10.5rem;
-    max-height: 10.5rem;
-    width: 10.5rem;
-    height: 10.5rem;
+    width: 10.25rem;
+    height: 10.25rem;
+    min-height: 10.25rem;
+    min-width: 10.25rem;
 }
 
 .ProductName {
@@ -26,15 +25,20 @@
     line-height: 1.125rem;
     font-weight: 600;
     margin-top: 1rem;
+    min-height: 1.2rem;
+    
 }
 
 .ProductPromotion {
     margin-top: 1rem;
     padding-left: 3.35rem;
     text-align: left;
+    min-height: 1.5rem;
+
 }
 
 .ProductPrice {
+    min-height: 2.125rem;
     font-size: 1.5rem;
     line-height: 2.125rem;
     font-weight: 700;
@@ -47,5 +51,4 @@
     font-weight: 700;
     height: 3rem;
     border-radius: 0px 0px 9px 9px;
-
 }
