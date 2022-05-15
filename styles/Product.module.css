@@ -5,7 +5,6 @@
     text-align: center;
     cursor: pointer;
     border-radius: 10px;
-    margin: 1vw;
 }
 
 .ProductCase:hover {
@@ -55,8 +54,9 @@
 }
 
 .ProductRollCase {
+    max-width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-evenly;
     margin-top: 2vw;
 }

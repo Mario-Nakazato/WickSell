@@ -19,7 +19,7 @@ const AccountInfo: NextComponentType | any = () => {
                         <div className={styles.SeparatorBar} >|</div>
                         <a className={styles.LoginBtn} onClick={() => signOut()}>Sair</a>
                     </div>
-                    <div style={{ position: "absolute", bottom: 0, right: 0 }}>
+                    <div style={{ position: "fixed", bottom: 0, right: 15+'px' }}>
 
                         Conectado como {session?.user?.email}<br />
 
