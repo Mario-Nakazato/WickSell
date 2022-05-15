@@ -5,10 +5,10 @@ export default function Header() {
         <header className={styles.Header}>
             <div className={styles.UpperSideHeader}>
                 <a className={styles.LogoA} href=""><img className={styles.LogoIcon} src="/logo.png" alt="Logo"></img></a>
-                <div className={styles.SearchContainer}>
+                <form action='/api/' className={styles.SearchContainer}>
                     <input type="text" placeholder="Pesquisa" className={styles.SearchInput}></input>
-                    <button className={styles.SearchBtn}>Pesquisar</button>
-                </div>
+                    <button type='submit' className={styles.SearchBtn}><img className={styles.SearchIcon} src='/lupa-icon.svg' alt="Search Icon"></img></button>
+                </form>
                 <AccountInfo />
             </div>
             <div className={styles.NavBar}>

@@ -2,6 +2,8 @@
     align-self: center;
     align-items: center;
     display: flex;
+    width: 19vw;
+    justify-content: flex-end;
 }
 
 .SeparatorBar {
@@ -35,6 +37,6 @@
 }
 
 .ProfileImg {
-    max-width: 3.5vw;
+    max-width: 3vw;
     border-radius: 50%
 }

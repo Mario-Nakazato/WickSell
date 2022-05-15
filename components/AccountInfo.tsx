@@ -11,6 +11,9 @@ const AccountInfo: NextComponentType | any = () => {
         return (
             <>
                 <div className={styles.AccountInfo}>
+                    <div>
+                        <img className={styles.ProfileImg} alt="Profile" src={session?.user?.image!}></img>
+                    </div>
                     <div className={styles.AccountBtn}>
                         <a className={styles.LoginBtn} onClick={() => signOut()}>Sair</a>
 
@@ -19,10 +22,8 @@ const AccountInfo: NextComponentType | any = () => {
 
                     </div>
 
-                    <div>
-                        <img className={styles.ProfileImg} alt="Profile" src={session?.user?.image!}></img>
-                    </div>
-                    <div style={{position: "absolute", bottom: 0, right: 0}}>
+
+                    <div style={{ position: "absolute", bottom: 0, right: 0 }}>
 
                         Conectado como {session?.user?.email}<br />
 
@@ -33,14 +34,15 @@ const AccountInfo: NextComponentType | any = () => {
     } else if (status == "unauthenticated") {
         return (
             <div className={styles.AccountInfo}>
+                <div>
+                    <img className={styles.ProfileImg} src="/profile-placeholder.png"></img>
+                </div>
                 <div className={styles.AccountBtn}>
                     <a className={styles.LoginBtn} onClick={() => signIn("auth0", null!, { prompt: "login" })}>Entrar</a>
                     <div className={styles.SeparatorBar} >|</div>
                     <a className={styles.RegisterBtn} onClick={() => signIn("auth0")}>Entrar cache</a>
                 </div>
-                <div>
-                    <img className={styles.ProfileImg} src="/profile-placeholder.png"></img>
-                </div>
+
             </div>
         )
     }
