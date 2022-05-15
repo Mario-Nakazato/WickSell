@@ -4,14 +4,14 @@ export default class Product {
     name: string;
     description: string;
     price: string;
-    promoImage: string;
+    image: string;
     promotion: string;
-    constructor(id: any = undefined, name: any = undefined, description: any = undefined, price: any = undefined, promotion: any = undefined,promoImage: any = undefined) {
+    constructor(id: any = undefined, name: any = undefined, description: any = undefined, price: any = undefined, promotion: any = undefined,image: any = undefined) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.promoImage = promoImage;
+        this.image = image;
         this.promotion = promotion;
     }
 }

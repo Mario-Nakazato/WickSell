@@ -16,7 +16,7 @@ export default function Header(props: any) {
                 </div>
                 <div className={styles.NavBar}>
                     <div className={styles.NavBarTr}>
-                        <div className={styles.NavBarUl}>Item 1</div>
+                        <Link href="/produto/"><a className={styles.NavBarUl}>/Produto</a></Link>
                         <div className={styles.NavBarUl}>Item 2</div>
                         <div className={styles.NavBarUl}>Item 3</div>
                         <div className={styles.NavBarUl}>Item 4</div>
