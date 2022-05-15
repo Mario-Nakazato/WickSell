@@ -16,7 +16,6 @@ const Home: NextPage = () => {
 	const [birthDate, setBirthDate] = useState("")
 	const [cpf, setCPF] = useState("")
 	const [phone, setPhone] = useState("")
-
 	if (data && !data.name && session && status == "authenticated") {
 		return (
 			<>
@@ -98,12 +97,21 @@ const Home: NextPage = () => {
 		if (data.birthDate != birthDate) setBirthDate(data.birthDate)
 		if (data.cpf != cpf) setCPF(data.cpf)
 		if (data.phone != phone) setPhone(data.phone)
+
 		return (
 			<>
 				<DefaultHead></DefaultHead>
 				<Header></Header>
 				<div className={style.Container}>
-					<form action='/api/perfil' method='patch' className={style.Form}>
+
+					<form onSubmit={async () => {
+						console.log('patch')
+						const response = await fetch('/api/perfil', {
+							method: 'PATCH',
+							headers: { 'Content-Type': 'application/json' },
+							body: JSON.stringify({ 'email': data.email, 'name': name, 'birthDate': birthDate, 'cpf': cpf, 'phone': phone })
+						})
+					}} className={style.Form}>
 						<br></br>
 						<div className={style.InputBox}>
 							<img className={style.ProfileImg} alt="Profile" src={session?.user?.image!}></img>

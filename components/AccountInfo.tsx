@@ -15,14 +15,10 @@ const AccountInfo: NextComponentType | any = () => {
                         <img className={styles.ProfileImg} alt="Profile" src={session?.user?.image!}></img>
                     </div>
                     <div className={styles.AccountBtn}>
-                        <a className={styles.LoginBtn} onClick={() => signOut()}>Sair</a>
-
+                        <Link href='/perfil'><a className={styles.RegisterBtn}>Perfil</a></Link>
                         <div className={styles.SeparatorBar} >|</div>
                         <Link href='/perfil'><a className={styles.RegisterBtn}>Perfil</a></Link>
-
                     </div>
-
-
                     <div style={{ position: "absolute", bottom: 0, right: 0 }}>
 
                         Conectado como {session?.user?.email}<br />
