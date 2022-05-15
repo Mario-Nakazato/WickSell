@@ -29,8 +29,8 @@ export default function ProductCase(props: any) {
         price = 'R$ ' + (props.price || '3999,99')
     }
     if (props.id) {
-        link = `/product/[id]`
-        linkAs = `/product/${props.id}`
+        link = `/produto/[id]`
+        linkAs = `/produto/${props.id}`
     }
 
     return (<>
