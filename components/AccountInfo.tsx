@@ -31,11 +31,10 @@ const AccountInfo: NextComponentType | any = () => {
         return (
             <div className={styles.AccountInfo}>
                 <div>
-                    <img className={styles.ProfileImg} src="/profile-placeholder.png"></img>
+                    <img className={styles.ProfileImg} src="/profile-placeholder.png" onClick={() => signIn("auth0")}></img>
                 </div>
                 <div className={styles.AccountBtn}>
                     <a className={styles.LoginBtn} onClick={() => signIn("auth0", null!, { prompt: "login" })}>Entrar</a>
-                    <img style={{ position: "absolute", top: 0, right: 0, maxWidth: 2 + 'vw' }} src="/mario.png" onClick={() => signIn("auth0")}></img>
                 </div>
 
             </div >
