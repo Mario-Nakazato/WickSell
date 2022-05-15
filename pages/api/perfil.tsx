@@ -13,12 +13,13 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 
 	const perfil = new Perfil()
 	const email = await perfil.setEmail(session?.user?.email!)
-	const docperfil = await perfil.findOne()
-
+	
 	if (email == undefined) {
 		res.status(400).json({ txt: "Email não existe." })
 		return
 	}
+	
+	const docperfil = await perfil.findOne()
 
 	if (req.method == "GET") {
 
@@ -53,7 +54,9 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 			res.status(400).json({ txt: "Email da sessão não é igual ao body." })
 			return
 		}
-		await perfil.replaceOne(req.body)
+		const { name, birthDate, cpf, phone } = req.body
+		perfil.set(name, birthDate, cpf, phone)
+		await perfil.replaceOne()
 		res.status(200).json({ txt: "Perfil substituido." })
 
 	} else if (req.method == "PATCH") {
@@ -66,7 +69,9 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 			res.status(400).json({ txt: "Email da sessão não é igual ao body." })
 			return
 		}
-		await perfil.updateOne(req.body)
+		const { name, birthDate, cpf, phone } = req.body
+		perfil.set(name, birthDate, cpf, phone)
+		await perfil.updateOne()
 		res.status(200).json({ txt: "Perfil atualizado." })
 
 	} else if (req.method == "DELETE") {
