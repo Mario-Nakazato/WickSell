@@ -1,11 +1,12 @@
 import AccountInfo from './AccountInfo'
 import styles from '../styles/Header.module.css'
+import Link from 'next/link'
 export default function Header(props: any) {
     if (props.type === 'Default' || props.type === undefined) {
         return (<>
             <header className={styles.Header}>
                 <div className={styles.UpperSideHeader}>
-                    <a className={styles.LogoA} href="/"><img className={styles.LogoIcon} src="/logo.png" alt="Logo"></img></a>
+                    <Link href="/"><a className={styles.LogoA} ><img className={styles.LogoIcon} src="/logo.png" alt="Logo"></img></a></Link>
                     <form action='/api/' className={styles.SearchContainer}>
                         <input type="text" placeholder="Pesquisa" className={styles.SearchInput}></input>
                         <button type='submit' className={styles.SearchBtn}><img className={styles.SearchIcon} src='/lupa-icon.svg' alt="Search Icon"></img></button>
