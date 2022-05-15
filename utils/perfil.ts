@@ -8,12 +8,12 @@ const auth = new Auth()
 export default class Perfil {
 
     private email!: string
-    name!: string
-    birthDate!: string
-    cpf!: string
-    phone!: string
-    carrinho: any[] = []
-    estoque: any[] = []
+    private name!: string
+    private birthDate!: string
+    private cpf!: string
+    private phone!: string
+    private carrinho: any[] = []
+    private estoque: any[] = []
 
     set(name: string, birthDate: string, cpf: string, phone: string) {
         this.name = name
