@@ -15,8 +15,10 @@
 
 .ProductImage {
     width: 100%;
-    max-width: 14rem;
-    max-height: 25rem;
+    max-width: 10.5rem;
+    max-height: 10.5rem;
+    width: 10.5rem;
+    height: 10.5rem;
 }
 
 .ProductName {

@@ -4,17 +4,22 @@ import Link from 'next/link'
 import Product from "../models/Product";
 import styles from '../styles/Product.module.css'
 
-const ProductCase: NextComponentType = (product: any) => {
-    product = new Product('1', 'Geladeira FrostFree', 'Ela gela, confia...', 'R$ 4.999,90', 'R$ 6.999,90', '/geladeira.jpg')
+type props = {
+    name: string
+    subreddit: string
+}
+
+export default function ProductCase(props: any) {
+    if (!props.name) props = new Product('1', 'Geladeira FrostFree', 'Ela gela, confia...', 'R$ 4.999,90', 'R$ 6.999,90', '/geladeira.jpg')
     return (<>
         <div className={styles.ProductCase}>
 
-            <Link href="/product/[id]" as={`/product/${product.id}`}>
+            <Link href="/product/[id]" as={`/product/${props.id}`}>
                 <a>
-                    <img className={styles.ProductImage} src={product.promoImage} alt={product.name}></img>
-                    <div className={styles.ProductName}>{product.name}</div>
-                    <div className={styles.ProductPromotion}>{product.promotion}</div>
-                    <div className={styles.ProductPrice}>{product.price}</div>
+                    <img className={styles.ProductImage} src={props.image} alt={props.name}></img>
+                    <div className={styles.ProductName}>{props.name}</div>
+                    <div className={styles.ProductPromotion}>{props.promotion}</div>
+                    <div className={styles.ProductPrice}>{props.price}</div>
                     <div className={styles.ProductBuyButton}>Comprar</div>
                 </a>
             </Link>
@@ -22,4 +27,3 @@ const ProductCase: NextComponentType = (product: any) => {
 
     </>)
 }
-export default ProductCase
