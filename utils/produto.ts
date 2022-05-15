@@ -5,23 +5,32 @@ const bdwicksell = new bdMongodb(process.env.MONGODB_DATABASE!)
 const colecao = process.env.MONGODB_COLLECTION_PRODUTO!
 
 export default class Produto {
-    
+
     private _id!: ObjectId
     private name!: string;
     private description!: string;
     private price!: number;
-    private promoImage!: string;
-    private promotion!: string;
+    private image!: string;
+    private promotion!: number;
 
-    set(_id: any, name: any, price: any) {
+    set(_id: any, name: any | null, description: any| null, price: any| null, image: any| null, promotion: any| null) {
         if (_id != undefined) {
             this._id = new ObjectId(_id)
         }
         if (name != undefined) {
             this.name = name
         }
+        if (description != undefined) {
+            this.description = description
+        }
         if (price != undefined) {
             this.price = Number(price)
+        }
+        if (image != undefined) {
+            this.image = image
+        }
+        if (promotion != undefined) {
+            this.promotion = promotion
         }
     }
 
@@ -37,12 +46,12 @@ export default class Produto {
         return await bdwicksell.findAll(colecao, this)
     }
 
-    async updateOne(produto: Produto) {
-        //await bdwicksell.updateOne(colecao, { email: this.email }, { $set: produto })
+    async updateOne() {
+        await bdwicksell.updateOne(colecao, { _id: this._id }, { $set: this })
     }
 
-    async replaceOne(produto: Produto) {
-        //await bdwicksell.replaceOne(colecao, { email: this.email }, produto)
+    async replaceOne() {
+        await bdwicksell.replaceOne(colecao, { _id: this._id }, this)
     }
 
     async deleteOne() {
