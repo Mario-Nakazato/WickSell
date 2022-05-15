@@ -16,7 +16,6 @@ const Home: NextPage = () => {
 	const [birthDate, setBirthDate] = useState("")
 	const [cpf, setCPF] = useState("")
 	const [phone, setPhone] = useState("")
-	console.log(data)
 	if (data && !data.name && session && status == "authenticated") {
 		return (
 			<>
@@ -104,6 +103,7 @@ const Home: NextPage = () => {
 				<DefaultHead></DefaultHead>
 				<Header></Header>
 				<div className={style.Container}>
+
 					<form onSubmit={async () => {
 						console.log('patch')
 						const response = await fetch('/api/perfil', {

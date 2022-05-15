@@ -1,6 +1,7 @@
 import AccountInfo from './AccountInfo'
 import styles from '../styles/Header.module.css'
 import Link from 'next/link'
+
 export default function Header(props: any) {
     if (props.type === 'Default' || props.type === undefined) {
         return (<>
