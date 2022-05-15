@@ -12,22 +12,23 @@ export default class Perfil {
     birthDate!: string
     cpf!: string
     phone!: string
-    carrinho!: any[]
-    estoque!: any[]
+    carrinho: any[] = []
+    estoque: any[] = []
+
+    set(name: string, birthDate: string, cpf: string, phone: string) {
+        this.name = name
+        this.birthDate = birthDate
+        this.cpf = cpf
+        this.phone = phone
+    }
 
     async setEmail(sub: string) {
         const docprofile = await auth.setProfile(sub)
         return this.email = docprofile?.email
     }
 
-    async setPerfil(sub: string) {
-        const email = await this.setEmail(sub)
-        const docperfil = await this.findOne()
-        return { email: email, docperfil: docperfil }
-    }
-
-    async insertOne(perfil: Perfil) {
-        await bdwicksell.insertOne(colecao, perfil)
+    async insertOne() {
+        await bdwicksell.insertOne(colecao, this)
     }
 
     async findOne() {

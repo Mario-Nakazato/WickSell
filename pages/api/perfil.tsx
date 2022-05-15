@@ -2,8 +2,6 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/react'
 import Perfil from "../../utils/perfil"
 
-const perfil = new Perfil()
-
 export default async function apiPerfil(req: NextApiRequest, res: NextApiResponse) {
 
 	const session = await getSession({ req })
@@ -12,8 +10,10 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 		res.status(400).json({ txt: "Acesso negado." })
 		return
 	}
-	
-	const { email, docperfil } = await perfil.setPerfil(session?.user?.email!)
+
+	const perfil = new Perfil()
+	const email = await perfil.setEmail(session?.user?.email!)
+	const docperfil = await perfil.findOne()
 
 	if (email == undefined) {
 		res.status(400).json({ txt: "Email não existe." })
@@ -38,8 +38,10 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 			res.status(400).json({ txt: "Email da sessão não é igual ao body." })
 			return
 		}
-		await perfil.insertOne(req.body)
-		res.status(200).json({ txt: "Perfil criado." })
+		const { name, birthDate, cpf, phone } = req.body
+		perfil.set(name, birthDate, cpf, phone)
+		await perfil.insertOne()
+		res.status(200).json({ txt: "Perfil criado.", perfil })
 
 	} else if (req.method == "PUT") {
 
