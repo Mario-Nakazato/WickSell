@@ -21,7 +21,7 @@ const AccountInfo: NextComponentType | any = () => {
                     </div>
                     <div style={{ position: "fixed", bottom: 0, right: 15+'px' }}>
 
-                        Conectado como {session?.user?.email}<br />
+                        Conectado como {session?.user?.email}
 
                     </div>
                 </div>
