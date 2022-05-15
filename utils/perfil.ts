@@ -15,11 +15,11 @@ export default class Perfil {
     private carrinho: any[] = []
     private estoque: any[] = []
 
-    set(name: string, birthDate: string, cpf: string, phone: string) {
-        this.name = name
-        this.birthDate = birthDate
-        this.cpf = cpf
-        this.phone = phone
+    set(name: any, birthDate: any, cpf: any, phone: any) {
+        this.name = String(name)
+        this.birthDate = String(birthDate)
+        this.cpf = String(cpf)
+        this.phone = String(phone)
     }
 
     async setEmail(sub: string) {
@@ -35,12 +35,12 @@ export default class Perfil {
         return await bdwicksell.findOne(colecao, { email: this.email })
     }
 
-    async updateOne(perfil: Perfil) {
-        await bdwicksell.updateOne(colecao, { email: this.email }, { $set: perfil })
+    async updateOne() {
+        await bdwicksell.updateOne(colecao, { email: this.email }, { $set: this })
     }
 
-    async replaceOne(perfil: Perfil) {
-        await bdwicksell.replaceOne(colecao, { email: this.email }, perfil)
+    async replaceOne() {
+        await bdwicksell.replaceOne(colecao, { email: this.email }, this)
     }
 
     async deleteOne() {

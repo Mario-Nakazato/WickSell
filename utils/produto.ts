@@ -13,24 +13,24 @@ export default class Produto {
     private image!: string;
     private promotion!: number;
 
-    set(_id: any, name: any | null, description: any| null, price: any| null, image: any| null, promotion: any| null) {
+    set(_id: any, name: any, description: any, price: any, image: any, promotion: any) {
         if (_id != undefined) {
             this._id = new ObjectId(_id)
         }
         if (name != undefined) {
-            this.name = name
+            this.name = String(name)
         }
         if (description != undefined) {
-            this.description = description
+            this.description = String(description)
         }
         if (price != undefined) {
             this.price = Number(price)
         }
         if (image != undefined) {
-            this.image = image
+            this.image = String(image)
         }
         if (promotion != undefined) {
-            this.promotion = promotion
+            this.promotion = Number(promotion)
         }
     }
 

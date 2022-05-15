@@ -4,7 +4,7 @@ import Produto from "../../utils/produto"
 export default async function apiProduto(req: NextApiRequest, res: NextApiResponse) {
 
     const produto = new Produto()
-
+    
     if (req.method == "GET") {
 
         const { _id, name, description, price, promotion } = req.query
@@ -31,11 +31,11 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
 
     } else if (req.method == "PUT") {
 
-        if (!req.body._id) {
+        const { _id, name, description, price, image, promotion } = req.body
+        if (!_id) {
             res.status(400).json({ txt: "_id não encontrado no body." })
             return
         }
-        const { _id, name, description, price, image, promotion } = req.body
         produto.set(_id, null, null, null, null, null)
         const docproduto = await produto.findOne()
         if (!docproduto) {
@@ -48,11 +48,11 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
 
     } else if (req.method == "PATCH") {
 
-        if (!req.body._id) {
+        const { _id, name, description, price, image, promotion } = req.body
+        if (!_id) {
             res.status(400).json({ txt: "_id não encontrado no body." })
             return
         }
-        const { _id, name, description, price, image, promotion } = req.body
         produto.set(_id, null, null, null, null, null)
         const docproduto = await produto.findOne()
         if (!docproduto) {
@@ -64,13 +64,14 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
         res.status(200).json({ txt: "Produto atualizado." })
 
     } else if (req.method == "DELETE") {
-
-        if (!req.query._id) {
+        
+        const { _id } = req.query
+        if (!_id) {
             res.status(400).json({ txt: "_id não existe." })
             return
         }
         try {
-            produto.set(req.query._id, null, null, null, null, null)
+            produto.set(_id, null, null, null, null, null)
         } catch (e) {
             res.status(400).json({ txt: "_id invalido." })
             return
