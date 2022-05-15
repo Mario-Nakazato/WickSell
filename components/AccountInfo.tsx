@@ -17,7 +17,7 @@ const AccountInfo: NextComponentType | any = () => {
                     <div className={styles.AccountBtn}>
                         <Link href='/perfil'><a className={styles.RegisterBtn}>Perfil</a></Link>
                         <div className={styles.SeparatorBar} >|</div>
-                        <Link href='/perfil'><a className={styles.RegisterBtn}>Perfil</a></Link>
+                        <a className={styles.LoginBtn} onClick={() => signOut()}>Sair</a>
                     </div>
                     <div style={{ position: "absolute", bottom: 0, right: 0 }}>
 
