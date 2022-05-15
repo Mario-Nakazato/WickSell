@@ -1,55 +1,54 @@
 .ProductCase {
     border: 1px solid grey;
-    width: 15rem;
-    height: 20.45rem;
+    width: 15vw;
+    height: 20.45vw;
     text-align: center;
     cursor: pointer;
     border-radius: 10px;
 }
 
 .ProductCase:hover {
-    width: 15rem;
-    height: 20.45rem;
+
     box-shadow: 0 4px 10px 1px rgba(140, 140, 140, 1);
 }
 
 .ProductImage {
-    width: 10.3rem;
-    height: 10.3rem;
-    min-height: 10.25rem;
-    min-width: 10.25rem;
+    width: 10.25vw;
+    height: 10.25vw;
+    min-height: 10.25vw;
+    min-width: 10.25vw;
 }
 
 .ProductName {
-    font-size: 1rem;
-    line-height: 1.125rem;
+    font-size: 1vw;
+    line-height: 1.125vw;
     font-weight: 600;
-    margin-top: 1rem;
-    min-height: 1.2rem;
+    margin-top: 1vw;
+    min-height: 1.2vw;
 
 }
 
 .ProductPromotion {
-    margin-top: 1rem;
-    padding-left: 3.35rem;
+    margin-top: 1vw;
+    padding-left: 3.35vw;
     text-align: left;
-    min-height: 1.5rem;
+    min-height: 1.5vw;
 
 }
 
 .ProductPrice {
-    min-height: 2.125rem;
-    font-size: 1.5rem;
-    line-height: 2.125rem;
+    min-height: 2.125vw;
+    font-size: 1.5vw;
+    line-height: 2.125vw;
     font-weight: 700;
 }
 
 .ProductBuyButton {
     background-color: darkgrey;
-    font-size: 1rem;
-    line-height: 3rem;
+    font-size: 1vw;
+    line-height: 3vw;
     font-weight: 700;
-    height: 3rem;
+    height: 3vw;
     border-radius: 0px 0px 9px 9px;
 }
 
@@ -57,6 +56,6 @@
     max-width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-around;
     margin-top: 2vw;
 }

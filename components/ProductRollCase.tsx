@@ -10,7 +10,7 @@ type props = {
 export default function ProductRollCase(props: any) {
     var cases: JSX.Element[] = []
     for (let index = 0; index < props.amount; index++) {
-        cases.push(<ProductCase></ProductCase >)
+        cases.push(<ProductCase props></ProductCase >)
     }
     return (<>
         <div className={styles.ProductRollCase}>
