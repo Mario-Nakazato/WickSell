@@ -12,7 +12,7 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 		res.status(400).json({ txt: "Acesso negado." })
 		return
 	}
-
+	
 	const { email, docperfil } = await perfil.setPerfil(session?.user?.email!)
 
 	if (email == undefined) {
@@ -38,7 +38,7 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 			res.status(400).json({ txt: "Email da sessão não é igual ao body." })
 			return
 		}
-		await perfil.insertOnePerfil(req.body)
+		await perfil.insertOne(req.body)
 		res.status(200).json({ txt: "Perfil criado." })
 
 	} else if (req.method == "PUT") {
@@ -51,7 +51,7 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 			res.status(400).json({ txt: "Email da sessão não é igual ao body." })
 			return
 		}
-		await perfil.replaceOnePerfil(req.body)
+		await perfil.replaceOne(req.body)
 		res.status(200).json({ txt: "Perfil substituido." })
 
 	} else if (req.method == "PATCH") {
@@ -64,7 +64,7 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 			res.status(400).json({ txt: "Email da sessão não é igual ao body." })
 			return
 		}
-		await perfil.updateOnePerfil(req.body)
+		await perfil.updateOne(req.body)
 		res.status(200).json({ txt: "Perfil atualizado." })
 
 	} else if (req.method == "DELETE") {
@@ -73,7 +73,7 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 			res.status(400).json({ txt: "Perfil não existe." })
 			return
 		}
-		await perfil.deleteOnePerfil()
+		await perfil.deleteOne()
 		res.status(200).json({ txt: "Perfil excluido." })
 
 	} else {

@@ -10,21 +10,21 @@ export default class cProfile {
         this.colecao = colecao
     }
 
-    async insertOneProfile(profile: Profile & Record<string, unknown>) {
+    async insertOne(profile: Profile & Record<string, unknown>) {
         await bdwicksell.insertOne(this.colecao, profile)
     }
 
-    async findOneProfile(profile: Profile & Record<string, unknown>) {
+    async findOne(profile: Profile & Record<string, unknown>) {
         const sub = profile.sub
         return bdwicksell.findOne(this.colecao, { sub: sub })
     }
 
-    async findAllProfile(profile: Profile & Record<string, unknown>) {
+    async findAll(profile: Profile & Record<string, unknown>) {
         const email = profile.email
         return bdwicksell.findAll(this.colecao, { email: email })
     }
 
-    async replaceOneProfile(profile: Profile & Record<string, unknown>) {
+    async replaceOne(profile: Profile & Record<string, unknown>) {
         const email = profile.email
         const sub = profile.sub
         await bdwicksell.replaceOne(this.colecao, { sub: sub, email: email }, profile)

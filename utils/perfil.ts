@@ -1,33 +1,48 @@
-import cPerfil from "./cperfil"
+import bdMongodb from "./bdmongo"
+import Auth from "./auth"
 
-const cperfil = new cPerfil(process.env.MONGODB_COLLECTION_PERFIL!)
+const bdwicksell = new bdMongodb(process.env.MONGODB_DATABASE!)
+const colecao = process.env.MONGODB_COLLECTION_PERFIL!
+const auth = new Auth()
 
 export default class Perfil {
-    private perfil: any
+
+    private email!: string
+    name!: string
+    birthDate!: string
+    cpf!: string
+    phone!: string
+    carrinho!: any[]
+    estoque!: any[]
+
+    async setEmail(sub: string) {
+        const docprofile = await auth.setProfile(sub)
+        return this.email = docprofile?.email
+    }
 
     async setPerfil(sub: string) {
-        const email = await cperfil.setEmail(sub)
-        this.perfil = await cperfil.findOnePerfil()
-        return { email: email, docperfil: this.perfil }
+        const email = await this.setEmail(sub)
+        const docperfil = await this.findOne()
+        return { email: email, docperfil: docperfil }
     }
 
-    async insertOnePerfil(perfil: {}) {
-        await cperfil.insertOnePerfil(perfil)
-        this.perfil = perfil
+    async insertOne(perfil: Perfil) {
+        await bdwicksell.insertOne(colecao, perfil)
     }
 
-    async updateOnePerfil(perfil: {}) {
-        await cperfil.updateOnePerfil(perfil)
-        this.perfil = perfil
+    async findOne() {
+        return await bdwicksell.findOne(colecao, { email: this.email })
     }
 
-    async replaceOnePerfil(perfil: {}) {
-        await cperfil.replaceOnePerfil(perfil)
-        this.perfil = perfil
+    async updateOne(perfil: Perfil) {
+        await bdwicksell.updateOne(colecao, { email: this.email }, { $set: perfil })
     }
 
-    async deleteOnePerfil() {
-        await cperfil.deleteOnePerfil()
-        this.perfil = undefined
+    async replaceOne(perfil: Perfil) {
+        await bdwicksell.replaceOne(colecao, { email: this.email }, perfil)
+    }
+
+    async deleteOne() {
+        await bdwicksell.deleteOne(colecao, { email: this.email })
     }
 }
