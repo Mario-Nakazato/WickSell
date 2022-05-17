@@ -7,8 +7,8 @@ const colecao = process.env.MONGODB_COLLECTION_PRODUTO!
 export default class Produto {
 
     private _id!: ObjectId
-    private name!: string;
-    private description!: string;
+    private name!: string | {};
+    private description!: string | {};
     private price!: number;
     private image!: string;
     private promotion!: number;
@@ -19,9 +19,11 @@ export default class Produto {
         }
         if (name != undefined) {
             this.name = String(name)
+            //this.name = { $regex: String(name), $options: 'imxs' }
         }
         if (description != undefined) {
             this.description = String(description)
+            //this.description = { $regex: String(description), $options: 'imxs' }
         }
         if (price != undefined) {
             this.price = Number(price)
@@ -32,6 +34,7 @@ export default class Produto {
         if (promotion != undefined) {
             this.promotion = Number(promotion)
         }
+        console.log(this)
     }
 
     async insertOne() {

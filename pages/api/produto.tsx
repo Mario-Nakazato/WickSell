@@ -8,6 +8,7 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
     if (req.method == "GET") {
 
         const { _id, name, description, price, promotion } = req.query
+        console.log(req.query)
         try {
             produto.set(_id, name, description, price, null, promotion)
         } catch (e) {
