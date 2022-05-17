@@ -31,7 +31,14 @@ export default function Create() {
             <Header />
             <div className={styles.Container}>
                 <div style={{ textAlign: 'center' }}>
-                    <form action='/api/produto' method='post' className={styles.Form}>
+                    <form action="api/image/upload" method="POST" encType="multipart/form-data" >
+                        <div >
+                            <input type="file" name="file" multiple id="input-files" />
+
+                        </div>
+                        <button type="submit" >Submit</button>
+                    </form>
+                    <form className={styles.Form}>
                         <div className={styles.InputBox}>
                             <label>Nome do Produto</label>
                             <input type="text" name='name' placeholder={"Nome do Produto"} className={styles.Input} value={name} onChange={e => setName(e.target.value)} required></input>
@@ -52,20 +59,45 @@ export default function Create() {
                             <label>Imagem do Produto</label>
                             <input type="file" name='image' accept='image/*' className={styles.InputImage} value={imageInput} onChange={e => {
                                 setImageInput(e.target.value)
-                                let formData = new FormData();
                                 if (e.target.files) {
-                                    formData.append('image', e.target.files[0]);
-                                    fetch('api/image', { method: 'post', body: formData })
-                                        .then(res => res.json())
-                                        .then(res => {
-                                            setImage('uploads/' + res.content.filename)
-                                            console.log(image)
-                                            console.log(res.content.filename)
-                                        })
+                                    setImage(URL.createObjectURL(e.target.files[0]));
                                 }
+                                /* let formData = new FormData();
+                                 if (e.target.files) {
+                                     formData.append('image', e.target.files[0]);
+                                     fetch('api/image', { method: 'post', body: formData })
+                                         .then(res => res.json())
+                                         .then(res => {
+                                             setImage('uploads/' + res.content.filename)
+                                             console.log(image)
+                                             console.log(res.content.filename)
+                                         })
+                                 }*/
                             }} required></input>
                         </div>
-                        <button type="submit" className={styles.SubmitButton}>Salvar</button>
+                        <button type='button' onClick={async () => {
+                            try {
+                                var data = {
+                                    name, description, price, promotion, imageInput
+                                }
+                                var formData = new FormData()
+                                formData.append('json', JSON.stringify(data));
+                                fetch('api/image', {
+                                    method: "POST",
+                                    body: JSON.stringify(data),
+                                    headers: {
+                                        "Content-Type": `text/plain`,
+                                    }
+                                }).then(res => res.json())
+                                    .then(res => {
+
+                                        console.log(res)
+
+                                    }).catch(error => { console.log(error) });
+                            } catch (err) {
+                                console.log(err);
+                            }
+                        }} className={styles.SubmitButton}>Salvar</button>
                     </form>
                     <br></br>
                 </div>

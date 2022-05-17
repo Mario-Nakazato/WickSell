@@ -2,7 +2,7 @@ import { NextComponentType } from "next";
 import { useSession, signIn, signOut } from "next-auth/react"
 import Link from "next/link";
 import styles from "../styles/AccountInfo.module.css"
-const AccountInfo: NextComponentType | any = () => {
+const AccountInfo: NextComponentType = () => {
 
     const { data: session, status } = useSession()
 
@@ -19,7 +19,7 @@ const AccountInfo: NextComponentType | any = () => {
                         <div className={styles.SeparatorBar} >|</div>
                         <a className={styles.LoginBtn} onClick={() => signOut()}>Sair</a>
                     </div>
-                    <div style={{ position: "fixed", bottom: 0, right: 15+'px' }}>
+                    <div style={{ position: "fixed", bottom: 0, right: 15 + 'px' }}>
 
                         Conectado como {session?.user?.email}
 
@@ -39,6 +39,6 @@ const AccountInfo: NextComponentType | any = () => {
 
             </div >
         )
-    }
+    } else { return (<></>) }
 }
 export default AccountInfo
