@@ -1,26 +1,25 @@
 import util from "util";
 import multer from "multer";
 import { GridFsStorage } from "multer-gridfs-storage";
-const dbConfig = {
-    url: "mongodb+srv://MdbAdmin:rootroot@rq.dd17a.mongodb.net/",
-    database: "images",
-    imgBucket: "photos",
-}
+const url = process.env.MONGODB_URL!
+const database = process.env.MONGODB_DATABASE!
+const imgBucket = process.env.MONGODB_IMG_BUCKET!
 
 var storage = new GridFsStorage({
-    url: dbConfig.url + dbConfig.database,
+    url: url + '/' + database,
     options: { useNewUrlParser: true, useUnifiedTopology: true },
     file: (req: any, file: any) => {
         const match = ["image/png", "image/jpeg"];
-        console.log('--> Middleware')
+        const currentName = file.originalname.split(' ').join('_')
+        console.log(currentName)
         if (match.indexOf(file.mimetype) === -1) {
-            const filename = `${Date.now()}-${file.originalname}`;
+            const filename = `${Date.now()}-${currentName}`;
             return filename;
         }
 
         return {
-            bucketName: dbConfig.imgBucket,
-            filename: `${Date.now()}-${file.originalname}`
+            bucketName: imgBucket,
+            filename: `${Date.now()}-${currentName}`
         };
     }
 });

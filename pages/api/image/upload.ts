@@ -3,7 +3,6 @@ import upload from "../middleware/upload";
 const uploadFiles = async (req: any, res: any) => {
     try {
         await upload(req, res);
-        console.log(req.files.length);
         if (req.files.length <= 0) {
             return res
                 .status(400)

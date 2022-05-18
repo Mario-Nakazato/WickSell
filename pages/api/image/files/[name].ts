@@ -1,17 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
-
-const dbConfig = {
-    url: "mongodb+srv://MdbAdmin:rootroot@rq.dd17a.mongodb.net/",
-    database: "images",
-    imgBucket: "photos",
-}
-
 const MongoClient = require("mongodb").MongoClient;
 const GridFSBucket = require("mongodb").GridFSBucket;
 
-const url = dbConfig.url;
+const url = process.env.MONGODB_URL!
+const database = process.env.MONGODB_DATABASE!
+const imgBucket = process.env.MONGODB_IMG_BUCKET!
 
-const baseUrl = "http://localhost:3000/api/image/files/";
+
 
 const mongoClient = new MongoClient(url);
 
@@ -23,9 +18,9 @@ export default async function download(request: NextApiRequest, response: NextAp
     try {
         await mongoClient.connect();
 
-        const database = mongoClient.db(dbConfig.database);
-        const bucket = new GridFSBucket(database, {
-            bucketName: dbConfig.imgBucket,
+        const databaseClient = mongoClient.db(database);
+        const bucket = new GridFSBucket(databaseClient, {
+            bucketName: imgBucket,
         });
 
         let downloadStream = bucket.openDownloadStreamByName(name);

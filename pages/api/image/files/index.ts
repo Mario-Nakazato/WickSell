@@ -1,24 +1,24 @@
-const dbConfig = {
-    url: "mongodb+srv://MdbAdmin:rootroot@rq.dd17a.mongodb.net/",
-    database: "images",
-    imgBucket: "photos",
-}
-
 const MongoClient = require("mongodb").MongoClient;
 const GridFSBucket = require("mongodb").GridFSBucket;
 
-const url = dbConfig.url;
-
-const baseUrl = "http://localhost:3000/api/image/files/";
+const url = process.env.MONGODB_URL!
+const database = process.env.MONGODB_DATABASE!
+const imgBucket = process.env.MONGODB_IMG_BUCKET!
 
 const mongoClient = new MongoClient(url);
 
 const getListFiles = async (req: any, res: any) => {
+    var baseUrl = req.headers.host + '/api/image/files/'
+    if (req.headers.host.toString().includes('localhost')) {
+        baseUrl = 'http://' + baseUrl
+    } else {
+        baseUrl = 'https://' + baseUrl
+    }
     try {
         await mongoClient.connect();
 
-        const database = mongoClient.db(dbConfig.database);
-        const images = database.collection(dbConfig.imgBucket + ".files");
+        const databaseClient = mongoClient.db(database);
+        const images = databaseClient.collection(imgBucket + ".files");
 
         const cursor = images.find({});
 
