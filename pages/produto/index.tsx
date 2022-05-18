@@ -24,6 +24,7 @@ export default function Create() {
     const [price, setPrice] = useState("")
     const [promotion, setPromotion] = useState("")
     const [imageInput, setImageInput] = useState("")
+    const [imageFiles, setImageFiles] = useState<FileList>()
     const [image, setImage] = useState("")
     return (
         <>
@@ -31,13 +32,6 @@ export default function Create() {
             <Header />
             <div className={styles.Container}>
                 <div style={{ textAlign: 'center' }}>
-                    <form action="api/image/upload" method="POST" encType="multipart/form-data" >
-                        <div >
-                            <input type="file" name="file" multiple id="input-files" />
-
-                        </div>
-                        <button type="submit" >Submit</button>
-                    </form>
                     <form className={styles.Form}>
                         <div className={styles.InputBox}>
                             <label>Nome do Produto</label>
@@ -57,22 +51,12 @@ export default function Create() {
                         </div>
                         <div className={styles.InputBox}>
                             <label>Imagem do Produto</label>
-                            <input type="file" name='image' accept='image/*' className={styles.InputImage} value={imageInput} onChange={e => {
+                            <input type="file" name='image' accept='image/*' className={styles.InputImage} multiple value={imageInput} onChange={e => {
                                 setImageInput(e.target.value)
                                 if (e.target.files) {
+                                    setImageFiles(e.target.files)
                                     setImage(URL.createObjectURL(e.target.files[0]));
                                 }
-                                /* let formData = new FormData();
-                                 if (e.target.files) {
-                                     formData.append('image', e.target.files[0]);
-                                     fetch('api/image', { method: 'post', body: formData })
-                                         .then(res => res.json())
-                                         .then(res => {
-                                             setImage('uploads/' + res.content.filename)
-                                             console.log(image)
-                                             console.log(res.content.filename)
-                                         })
-                                 }*/
                             }} required></input>
                         </div>
                         <button type='button' onClick={async () => {
@@ -81,13 +65,13 @@ export default function Create() {
                                     name, description, price, promotion, imageInput
                                 }
                                 var formData = new FormData()
-                                formData.append('json', JSON.stringify(data));
-                                fetch('api/image', {
+                                for (let i = 0; imageFiles && i < imageFiles.length; i++) {
+                                    console.log(imageFiles[i])
+                                    formData.append('file', imageFiles[i])
+                                }
+                                fetch('api/image/upload', {
                                     method: "POST",
-                                    body: JSON.stringify(data),
-                                    headers: {
-                                        "Content-Type": `text/plain`,
-                                    }
+                                    body: formData,
                                 }).then(res => res.json())
                                     .then(res => {
 

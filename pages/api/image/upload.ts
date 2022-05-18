@@ -8,9 +8,9 @@ const uploadFiles = async (req: any, res: any) => {
                 .status(400)
                 .send({ message: "You must select at least 1 file." });
         }
-
+        console.log(req.files)
         return res.status(200).send({
-            message: "Files have been uploaded.",
+            message: "Files have been uploaded.", files: req.files
         });
     } catch (error: any) {
         console.log(error);

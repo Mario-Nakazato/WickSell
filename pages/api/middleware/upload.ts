@@ -11,7 +11,6 @@ var storage = new GridFsStorage({
     file: (req: any, file: any) => {
         const match = ["image/png", "image/jpeg"];
         const currentName = file.originalname.split(' ').join('_')
-        console.log(currentName)
         if (match.indexOf(file.mimetype) === -1) {
             const filename = `${Date.now()}-${currentName}`;
             return filename;
