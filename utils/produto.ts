@@ -48,6 +48,7 @@ export default class Produto {
         this.name == undefined ? this.name = '' : this.name
         this.description == undefined ? this.description = '' : this.description
         var buscar = {
+            _id: this._id,
             name: { $regex: this.name, $options: 'i' },
             description: { $regex: this.description, $options: 'i' }
         }

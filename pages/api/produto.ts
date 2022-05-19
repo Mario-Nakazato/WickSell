@@ -18,7 +18,7 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
         res.status(200).json(docproduto)
 
     } else if (req.method == "POST") {
-        
+
         var baseUrl = req.headers.host + '/produto/'
         if (req.headers.host && req.headers.host.toString().includes('localhost')) {
             baseUrl = 'http://' + baseUrl
@@ -26,7 +26,8 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
             baseUrl = 'https://' + baseUrl
         }
         console.log('baseUrl: ' + baseUrl)
-        const parseBody = JSON.parse(req.body)
+        console.log(req.body)
+        const parseBody = req.body
         const { name, description, price, promotion } = parseBody
         const image = parseBody.imageFilesName
         try {
