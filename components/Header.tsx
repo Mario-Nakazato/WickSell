@@ -8,8 +8,8 @@ export default function Header(props: any) {
             <header className={styles.Header}>
                 <div className={styles.UpperSideHeader}>
                     <Link href="/"><a className={styles.LogoA} ><img className={styles.LogoIcon} src="/logo.png" alt="Logo"></img></a></Link>
-                    <form action='/api/' className={styles.SearchContainer}>
-                        <input type="text" placeholder="Pesquisa" className={styles.SearchInput}></input>
+                    <form action='/api/produto' method='get' className={styles.SearchContainer}>
+                        <input type="text" name='name' placeholder="Pesquisa" className={styles.SearchInput}></input>
                         <button type='submit' className={styles.SearchBtn}><img className={styles.SearchIcon} src='/lupa-icon.svg' alt="Search Icon"></img></button>
                     </form>
                     <AccountInfo />

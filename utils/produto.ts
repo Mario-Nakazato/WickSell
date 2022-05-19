@@ -38,7 +38,7 @@ export default class Produto {
     }
 
     async insertOne() {
-        await bdwicksell.insertOne(colecao, this)
+        return await bdwicksell.insertOne(colecao, this)
     }
 
     async findOne() {

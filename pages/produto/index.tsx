@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import DefaultHead from '../../components/DefaultHead'
 import Header from '../../components/Header'
+import InfinityLoading from '../../components/InfinityLoading'
 import ProductCase from '../../components/ProductCase'
 import styles from '../../styles/Produto.module.css'
 
@@ -18,6 +19,7 @@ const fetcher = async (url: string) => {
 }
 
 export default function Create() {
+    const [status, setStatus] = useState(false)
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
     const [price, setPrice] = useState("")
@@ -25,11 +27,11 @@ export default function Create() {
     const [imageInput, setImageInput] = useState("")
     const [imageFiles, setImageFiles] = useState<FileList>()
     const [image, setImage] = useState("")
-    // TODO image has to be converted to [] instead single string value, then adapt it to contain req.files
     return (
         <>
             <DefaultHead />
             <Header />
+            <InfinityLoading active={status} />
             <div className={styles.Container}>
                 <div style={{ textAlign: 'center' }}>
                     <form className={styles.Form}>
@@ -55,9 +57,7 @@ export default function Create() {
                                 setImageInput(e.target.value)
                                 if (e.target.files) {
                                     setImageFiles(e.target.files)
-                                    //console.log('log -> '+URL.createObjectURL(e.target.files[0]))
                                     setImage(URL.createObjectURL(e.target.files[0]));
-                                    //console.log(image)
                                 }
                             }} required></input>
                         </div>
@@ -67,6 +67,7 @@ export default function Create() {
                                 for (let i = 0; imageFiles && i < imageFiles.length; i++) {
                                     formData.append('file', imageFiles[i])
                                 }
+                                setStatus(true)
                                 fetch('api/image/upload', {
                                     method: "POST",
                                     body: formData,
@@ -74,21 +75,30 @@ export default function Create() {
                                     .then(res => {
                                         setImage(res.files[0].host + res.files[0].filename)
                                         var data: any = { name, description, price, promotion }
-                                        data.imageFilesName={}
+                                        data.imageFilesName = {}
                                         for (let i = 0; res.files && i < res.files.length; i++) {
                                             data.imageFilesName[i] = res.files[i].filename
                                         }
                                         console.log(data)
+                                        //ativar trava visual
                                         fetch('api/produto/', {
                                             method: "POST",
+                                            redirect: 'follow',
                                             body: JSON.stringify(data),
-                                        }).then(res => res.json())
-                                            .then(res => {
-
-                                            }).catch(error => { console.log(error) });
-                                    }).catch(error => { console.log(error) });
+                                        }).then(res => {
+                                            if (res.url) window.location.href = res.url
+                                        }).catch(error => {
+                                            console.log(error)
+                                            setStatus(false)
+                                        });
+                                    }).catch(error => {
+                                        console.log(error)
+                                        setStatus(false)
+                                    });
                             } catch (err) {
                                 console.log(err);
+                                setStatus(false)
+
                             }
                         }} className={styles.SubmitButton}>Salvar</button>
                     </form>

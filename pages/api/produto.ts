@@ -15,11 +15,16 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
             return
         }
         const docproduto = await produto.findAll()
-        // console.log(docproduto.name)
-       // var result: any = { docproduto._id, docproduto.name, docproduto.description, docproduto.price }
         res.status(200).json(docproduto)
 
     } else if (req.method == "POST") {
+        var baseUrl = req.headers.host + '/produto/'
+        if (req.headers.host && req.headers.host.toString().includes('localhost')) {
+            baseUrl = 'http://' + baseUrl
+        } else {
+            baseUrl = 'https://' + baseUrl
+        }
+        console.log('baseUrl: ' + baseUrl)
         const parseBody = JSON.parse(req.body)
         const { name, description, price, promotion } = parseBody
         const image = parseBody.imageFilesName
@@ -29,8 +34,9 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
             res.status(400).json({ txt: "_id invalido." })
             return
         }
-        await produto.insertOne()
-        res.status(200).json({ txt: "Produto criado." })
+        const insertedProduto = await produto.insertOne()
+        const redirectUrl = '/produto/' + insertedProduto.insertedId
+        res.redirect(308, redirectUrl)
 
     } else if (req.method == "PUT") {
 
