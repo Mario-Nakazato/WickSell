@@ -37,13 +37,13 @@ export default function ProductCase(props: any) {
         <div className={styles.ProductCase}>
 
             <Link href={link} as={linkAs}>
-                <a>
+                <div>
                     <img className={styles.ProductImage} src={props.image || '/product-placeholder.png'} alt={props.name}></img>
                     <div className={styles.ProductName}>{props.name || 'Nome do Produto'}</div>
                     <div className={styles.ProductPromotion} >{promotion}</div>
                     <div className={styles.ProductPrice}>{price}</div>
                     <div className={styles.ProductBuyButton}>Comprar</div>
-                </a>
+                </div>
             </Link>
         </div>
 

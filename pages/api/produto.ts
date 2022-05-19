@@ -4,11 +4,10 @@ import Produto from "../../utils/produto"
 export default async function apiProduto(req: NextApiRequest, res: NextApiResponse) {
 
     const produto = new Produto()
-    
+
     if (req.method == "GET") {
 
         const { _id, name, description, price, promotion } = req.query
-        console.log(req.query)
         try {
             produto.set(_id, name, description, price, null, promotion)
         } catch (e) {
@@ -16,11 +15,14 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
             return
         }
         const docproduto = await produto.findAll()
+        // console.log(docproduto.name)
+       // var result: any = { docproduto._id, docproduto.name, docproduto.description, docproduto.price }
         res.status(200).json(docproduto)
 
     } else if (req.method == "POST") {
-
-        const { name, description, price, image, promotion } = req.body
+        const parseBody = JSON.parse(req.body)
+        const { name, description, price, promotion } = parseBody
+        const image = parseBody.imageFilesName
         try {
             produto.set(null, name, description, price, image, promotion)
         } catch (e) {
@@ -65,7 +67,7 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
         res.status(200).json({ txt: "Produto atualizado." })
 
     } else if (req.method == "DELETE") {
-        
+
         const { _id } = req.query
         if (!_id) {
             res.status(400).json({ txt: "_id não existe." })

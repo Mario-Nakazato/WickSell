@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import useSWR from 'swr'
 import DefaultHead from '../../components/DefaultHead'
 import Header from '../../components/Header'
 import ProductCase from '../../components/ProductCase'
@@ -26,6 +25,7 @@ export default function Create() {
     const [imageInput, setImageInput] = useState("")
     const [imageFiles, setImageFiles] = useState<FileList>()
     const [image, setImage] = useState("")
+    // TODO image has to be converted to [] instead single string value, then adapt it to contain req.files
     return (
         <>
             <DefaultHead />
@@ -55,18 +55,16 @@ export default function Create() {
                                 setImageInput(e.target.value)
                                 if (e.target.files) {
                                     setImageFiles(e.target.files)
+                                    //console.log('log -> '+URL.createObjectURL(e.target.files[0]))
                                     setImage(URL.createObjectURL(e.target.files[0]));
+                                    //console.log(image)
                                 }
                             }} required></input>
                         </div>
                         <button type='button' onClick={async () => {
                             try {
-                                var data = {
-                                    name, description, price, promotion, imageInput
-                                }
                                 var formData = new FormData()
                                 for (let i = 0; imageFiles && i < imageFiles.length; i++) {
-                                    console.log(imageFiles[i])
                                     formData.append('file', imageFiles[i])
                                 }
                                 fetch('api/image/upload', {
@@ -74,9 +72,20 @@ export default function Create() {
                                     body: formData,
                                 }).then(res => res.json())
                                     .then(res => {
+                                        setImage(res.files[0].host + res.files[0].filename)
+                                        var data: any = { name, description, price, promotion }
+                                        data.imageFilesName={}
+                                        for (let i = 0; res.files && i < res.files.length; i++) {
+                                            data.imageFilesName[i] = res.files[i].filename
+                                        }
+                                        console.log(data)
+                                        fetch('api/produto/', {
+                                            method: "POST",
+                                            body: JSON.stringify(data),
+                                        }).then(res => res.json())
+                                            .then(res => {
 
-                                        console.log(res)
-
+                                            }).catch(error => { console.log(error) });
                                     }).catch(error => { console.log(error) });
                             } catch (err) {
                                 console.log(err);

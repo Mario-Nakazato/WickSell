@@ -8,13 +8,19 @@ const uploadFiles = async (req: any, res: any) => {
                 .status(400)
                 .send({ message: "You must select at least 1 file." });
         }
-        console.log(req.files)
+        var baseUrl = req.headers.host + '/api/image/files/'
+        if (req.headers.host.toString().includes('localhost')) {
+            baseUrl = 'http://' + baseUrl
+        } else {
+            baseUrl = 'https://' + baseUrl
+        }
+        for (let i = 0; i < req.files.length; i++) {
+            req.files[i].host = baseUrl
+        }
         return res.status(200).send({
             message: "Files have been uploaded.", files: req.files
         });
     } catch (error: any) {
-        console.log(error);
-
         if (error.code === "LIMIT_UNEXPECTED_FILE") {
             return res.status(400).send({
                 message: "Too many files to upload.",

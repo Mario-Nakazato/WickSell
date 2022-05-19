@@ -10,7 +10,7 @@ export default class Produto {
     private name!: string | {};
     private description!: string | {};
     private price!: number;
-    private image!: string;
+    private image!: string[];
     private promotion!: number;
 
     set(_id: any, name: any, description: any, price: any, image: any, promotion: any) {
@@ -29,7 +29,7 @@ export default class Produto {
             this.price = Number(price)
         }
         if (image != undefined) {
-            this.image = String(image)
+            this.image = image
         }
         if (promotion != undefined) {
             this.promotion = Number(promotion)

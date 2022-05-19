@@ -1,0 +1,54 @@
+.Section {
+    background-color: rgb(221, 221, 221);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+.Container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    margin-top: 4vw;
+}
+
+.ImageContainer {
+    width: 100%;
+    text-align: center;
+}
+
+.Image {
+    width: 30vw;
+    height: 30vw;
+    margin-left: 10vw;
+}
+
+.InfoContainer {
+    width: 100%;
+    margin-left: 15vw;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.Name {
+    font-size: 2vw;
+}
+
+.Promotion {
+    margin: 0px;
+}
+
+.Price {
+    margin: 0px;
+}
+
+.Description {
+    width: 100%;
+}
+
+.Buy {
+    background-color: bisque;
+}
