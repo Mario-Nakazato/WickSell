@@ -34,7 +34,6 @@ export default function Produto() {
     </>)
   }
   else if (data) {
-    console.log(data)
 
     return (
       <>
@@ -43,7 +42,7 @@ export default function Produto() {
         <section className={styles.Section}>
           <div className={styles.Container}>
             <div className={styles.ImageContainer}>
-              <img className={styles.Image} src={'http://localhost:3000/api/image/files/' + data.image[0]}  ></img>
+              <img className={styles.Image} src={window.location.origin + '/api/image/files/' + data.image[0]}  ></img>
             </div>
             <div className={styles.InfoContainer}>
               <h1 className={styles.Name}>{data.name}</h1>
