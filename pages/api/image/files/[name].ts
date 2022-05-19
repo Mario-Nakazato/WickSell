@@ -6,11 +6,7 @@ const url = process.env.MONGODB_URL!
 const database = process.env.MONGODB_DATABASE!
 const imgBucket = process.env.MONGODB_IMG_BUCKET!
 
-
-
 const mongoClient = new MongoClient(url);
-
-
 
 export default async function download(request: NextApiRequest, response: NextApiResponse) {
     const name = request.query.name.toString()
