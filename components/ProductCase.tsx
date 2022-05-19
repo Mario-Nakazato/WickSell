@@ -10,9 +10,15 @@ type props = {
 }
 
 export default function ProductCase(props: any) {
+    if (props.props) {
+        props = props.props
+    }
+    // console.log(props.props)
+    // props = props.props
     //if (!props.name) props = new Product('1', 'Geladeira FrostFree', 'Ela gela, confia...', '4.999,90', '6.999,90', '/geladeira.jpg')
     var promotion = ''
     var price = ''
+    var image
     var link = ``
     var linkAs = ``
     if (props.promotion && props.promotion > 0) {
@@ -28,17 +34,21 @@ export default function ProductCase(props: any) {
     } else {
         price = 'R$ ' + (props.price || '3999,99')
     }
-    if (props.id) {
+    if (props._id) {
         link = `/produto/[id]`
-        linkAs = `/produto/${props.id}`
+        linkAs = `/produto/${props._id}`
     }
+    if (props.image) {
+        image = window.location.origin + '/api/image/files/' + props.image[0]
+    }
+
 
     return (<>
         <div className={styles.ProductCase}>
 
             <Link href={link} as={linkAs}>
                 <div>
-                    <img className={styles.ProductImage} src={props.image || '/product-placeholder.png'} alt={props.name}></img>
+                    <img className={styles.ProductImage} src={image || '/product-placeholder.png'} alt={props.name}></img>
                     <div className={styles.ProductName}>{props.name || 'Nome do Produto'}</div>
                     <div className={styles.ProductPromotion} >{promotion}</div>
                     <div className={styles.ProductPrice}>{price}</div>

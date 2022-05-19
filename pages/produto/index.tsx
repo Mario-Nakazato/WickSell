@@ -7,16 +7,17 @@ import InfinityLoading from '../../components/InfinityLoading'
 import ProductCase from '../../components/ProductCase'
 import styles from '../../styles/Produto.module.css'
 
-
-const fetcher = async (url: string) => {
-    const res = await fetch(url)
-    const data = await res.json()
-
-    if (res.status !== 200) {
-        throw new Error(data.message)
+var produtos: JSX.Element[] = []
+fetch('api/produto/', {
+    method: "GET",
+}).then(res => res.json()).then(res => {
+    for (let i = 0; i < res.length; i++) {
+        
+        produtos.push(<ProductCase key={i} props={res[i]}></ProductCase >)
     }
-    return data
-}
+}).catch(error => {
+    console.log(error)
+});
 
 export default function Create() {
     const [status, setStatus] = useState(false)
@@ -27,6 +28,7 @@ export default function Create() {
     const [imageInput, setImageInput] = useState("")
     const [imageFiles, setImageFiles] = useState<FileList>()
     const [image, setImage] = useState("")
+
     return (
         <>
             <DefaultHead />
@@ -106,6 +108,7 @@ export default function Create() {
                 </div>
                 <ProductCase name={name} description={description} price={price} promotion={promotion} image={image} />
             </div >
+            {produtos}
         </>
     )
 }
