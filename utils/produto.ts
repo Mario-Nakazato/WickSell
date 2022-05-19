@@ -19,11 +19,9 @@ export default class Produto {
         }
         if (name != undefined) {
             this.name = String(name)
-            //this.name = { $regex: String(name), $options: 'imxs' }
         }
         if (description != undefined) {
             this.description = String(description)
-            //this.description = { $regex: String(description), $options: 'imxs' }
         }
         if (price != undefined) {
             this.price = Number(price)
@@ -46,7 +44,15 @@ export default class Produto {
     }
 
     async findAll() {
-        return await bdwicksell.findAll(colecao, this)
+
+        this.name == undefined ? this.name = '' : this.name
+        this.description == undefined ? this.description = '' : this.description
+        var buscar = {
+            name: { $regex: this.name, $options: 'i' },
+            description: { $regex: this.description, $options: 'i' }
+        }
+        console.log(buscar)
+        return await bdwicksell.findAll(colecao, buscar)
     }
 
     async updateOne() {

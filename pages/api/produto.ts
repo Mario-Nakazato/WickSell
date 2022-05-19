@@ -18,6 +18,7 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
         res.status(200).json(docproduto)
 
     } else if (req.method == "POST") {
+        
         var baseUrl = req.headers.host + '/produto/'
         if (req.headers.host && req.headers.host.toString().includes('localhost')) {
             baseUrl = 'http://' + baseUrl
