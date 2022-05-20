@@ -1,7 +1,6 @@
 import { NextComponentType } from "next";
 import Image from "next/image";
 import Link from 'next/link'
-import Product from "../models/Product";
 import styles from '../styles/Product.module.css'
 
 type props = {
@@ -35,8 +34,10 @@ export default function ProductCase(props: any) {
         link = `/produto/[id]`
         linkAs = `/produto/${props._id}`
     }
-    if (props.image) {
+    if (props.image && !props.isPreviw) {
         image = window.location.origin + '/api/image/files/' + props.image[0]
+    }else{
+        image = props.image
     }
 
 
