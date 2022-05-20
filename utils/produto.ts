@@ -32,7 +32,6 @@ export default class Produto {
         if (promotion != undefined) {
             this.promotion = Number(promotion)
         }
-        console.log(this)
     }
 
     async insertOne() {
@@ -52,7 +51,6 @@ export default class Produto {
             name: { $regex: this.name, $options: 'i' },
             description: { $regex: this.description, $options: 'i' }
         }
-        console.log(buscar)
         return await bdwicksell.findAll(colecao, buscar)
     }
 

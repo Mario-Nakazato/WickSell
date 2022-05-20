@@ -12,7 +12,6 @@ export default function ProductCase(props: any) {
     if (props.props) {
         props = props.props
     }
-    console.log(props)
     var promotion = ''
     var price = ''
     var image
