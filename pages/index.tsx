@@ -15,7 +15,7 @@ fetch('api/produto/', {
 	method: "GET",
 }).then(res => res.json()).then(res => {
 	//console.log(res[i])
-	produtos.push(<ProductRollCase key={1} props={res} amount={2}></ProductRollCase >)
+	produtos.push(<ProductRollCase key={1} props={res} amount={res.length}></ProductRollCase >)
 }).catch(error => {
 	console.log(error)
 });
