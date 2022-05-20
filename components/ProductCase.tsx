@@ -1,7 +1,6 @@
 import { NextComponentType } from "next";
 import Image from "next/image";
 import Link from 'next/link'
-import Product from "../models/Product";
 import styles from '../styles/Product.module.css'
 
 type props = {

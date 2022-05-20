@@ -7,18 +7,6 @@ import InfinityLoading from '../../components/InfinityLoading'
 import ProductCase from '../../components/ProductCase'
 import styles from '../../styles/Produto.module.css'
 
-var produtos: JSX.Element[] = []
-fetch('api/produto/', {
-    method: "GET",
-}).then(res => res.json()).then(res => {
-    for (let i = 0; i < res.length; i++) {
-        
-        produtos.push(<ProductCase key={i} props={res[i]}></ProductCase >)
-    }
-}).catch(error => {
-    console.log(error)
-});
-
 export default function Create() {
     const [status, setStatus] = useState(false)
     const [name, setName] = useState("")
