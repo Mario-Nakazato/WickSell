@@ -105,7 +105,6 @@ const Home: NextPage = () => {
 				<div className={styles.Container}>
 
 					<form onSubmit={async () => {
-						console.log('patch')
 						const response = await fetch('/api/perfil', {
 							method: 'PATCH',
 							headers: { 'Content-Type': 'application/json' },

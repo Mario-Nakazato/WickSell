@@ -13,9 +13,6 @@ export default function ProductCase(props: any) {
     if (props.props) {
         props = props.props
     }
-    // console.log(props.props)
-    // props = props.props
-    //if (!props.name) props = new Product('1', 'Geladeira FrostFree', 'Ela gela, confia...', '4.999,90', '6.999,90', '/geladeira.jpg')
     var promotion = ''
     var price = ''
     var image
