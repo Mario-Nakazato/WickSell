@@ -25,7 +25,7 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
         } else {
             baseUrl = 'https://' + baseUrl
         }
-        const parseBody = JSON.parse(req.body)
+        const parseBody = JSON.parse(req.body)//
         const { name, description, price, promotion } = parseBody
         const image = parseBody.imageFilesName
         try {
