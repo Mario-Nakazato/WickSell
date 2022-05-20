@@ -57,7 +57,7 @@ export default function Create() {
                                 for (let i = 0; imageFiles && i < imageFiles.length; i++) {
                                     formData.append('file', imageFiles[i])
                                 }
-                                setStatus(true)
+                                //setStatus(true)
                                 fetch('api/image/upload', {
                                     method: "POST",
                                     body: formData,
@@ -76,7 +76,7 @@ export default function Create() {
                                             redirect: 'follow',
                                             body: JSON.stringify(data),
                                         }).then(res => {
-                                            if (res.url) window.location.href = res.url
+                                            //if (res.url) window.location.href = res.url
                                         }).catch(error => {
                                             console.log(error)
                                             setStatus(false)

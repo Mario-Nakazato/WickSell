@@ -15,8 +15,18 @@ fetch('api/produto/', {
 	method: "GET",
 }).then(res => res.json()).then(res => {
 	//console.log(res[i])
-	produtos.push(<ProductRollCase key={1} props={res} amount={res.length}></ProductRollCase >)
-}).catch(error => {
+	var amount = 4;
+	for (let i = 0; i < res.length; i++) {
+		if (i % 4 == 0 || i == 0) {
+			if (res.length - i < 4 && amount == 4) {
+				amount = res.length - i
+			}
+			produtos.push(<ProductRollCase key={i} props={res} init={i} amount={amount}></ProductRollCase >)
+		}
+
+	}
+}
+).catch(error => {
 	console.log(error)
 });
 

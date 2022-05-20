@@ -11,7 +11,7 @@ export default function ProductRollCase(props: any) {
     if (props.props) {
         console.log(props)
         console.log(props.props)
-        for (let index = 0; index < props.amount; index++) {
+        for (let index = props.init; index < (props.init + props.amount); index++) {
             cases.push(<ProductCase key={index} props={props.props[index]}></ProductCase >)
         }
         return (<>
