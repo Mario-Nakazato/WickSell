@@ -49,7 +49,7 @@ export default function ProductCase(props: any) {
                 <div className={styles.ProductName}>{props.name || 'Nome do Produto'}</div>
                 <div className={styles.ProductPromotion} >{promotion}</div>
                 <div className={styles.ProductPrice}>{price}</div>
-                <Link href={link} as={linkAs}>
+                <Link href={link} as={linkAs} passHref>
                     <div className={styles.ProductBuyButton}>Comprar</div>
                 </Link>
 

@@ -31,7 +31,7 @@ const AccountInfo: NextComponentType = () => {
         return (
             <div className={styles.AccountInfo}>
                 <div>
-                    <img className={styles.ProfileImg} src="/profile-placeholder.png" onClick={() => signIn("auth0")}></img>
+                    <img className={styles.ProfileImg} alt="Profile" src="/profile-placeholder.png" onClick={() => signIn("auth0")}></img>
                 </div>
                 <div className={styles.AccountBtn}>
                     <a className={styles.LoginBtn} onClick={() => signIn("auth0", null!, { prompt: "login" })}>Entrar</a>
