@@ -36,7 +36,7 @@ export default function ProductCase(props: any) {
     }
     if (props.image && !props.isPreviw) {
         image = window.location.origin + '/api/image/files/' + props.image[0]
-    }else{
+    } else {
         image = props.image
     }
 
@@ -44,15 +44,16 @@ export default function ProductCase(props: any) {
     return (<>
         <div className={styles.ProductCase}>
 
-            <Link href={link} as={linkAs}>
-                <div>
-                    <img className={styles.ProductImage} src={image || '/product-placeholder.png'} alt={props.name}></img>
-                    <div className={styles.ProductName}>{props.name || 'Nome do Produto'}</div>
-                    <div className={styles.ProductPromotion} >{promotion}</div>
-                    <div className={styles.ProductPrice}>{price}</div>
+            <div>
+                <img className={styles.ProductImage} src={image || '/product-placeholder.png'} alt={props.name}></img>
+                <div className={styles.ProductName}>{props.name || 'Nome do Produto'}</div>
+                <div className={styles.ProductPromotion} >{promotion}</div>
+                <div className={styles.ProductPrice}>{price}</div>
+                <Link href={link} as={linkAs}>
                     <div className={styles.ProductBuyButton}>Comprar</div>
-                </div>
-            </Link>
+                </Link>
+
+            </div>
         </div>
 
     </>)

@@ -9,6 +9,8 @@ import ProductRollCase from '../components/ProductRollCase'
 import ProductCase from '../components/ProductCase'
 import InfinityLoading from '../components/InfinityLoading'
 import useSWR from 'swr'
+import styles from '../styles/Home.module.css'
+
 
 const fetcher = async (url: string) => {
 	const res = await fetch(url)
@@ -45,7 +47,9 @@ const Home: NextPage = () => {
 			<>
 				<DefaultHead></DefaultHead>
 				<Header></Header>
-				{produtos}
+				<div className={styles.Body}>
+					{produtos}
+				</div>
 			</>
 		)
 	} else if (!produtos || status == "loading") {
@@ -64,7 +68,9 @@ const Home: NextPage = () => {
 			<>
 				<DefaultHead></DefaultHead>
 				<Header></Header>
-				{produtos}
+				<div className={styles.Body}>
+					{produtos}
+				</div>
 			</>
 		)
 		if (query.error == 'AccessDenied') {
