@@ -8,32 +8,37 @@ import EmailVerifyMessage from '../components/EmailVerifyMessage'
 import ProductRollCase from '../components/ProductRollCase'
 import ProductCase from '../components/ProductCase'
 import InfinityLoading from '../components/InfinityLoading'
+import useSWR from 'swr'
 
-var produtos: JSX.Element[] = []
-
-fetch('api/produto/', {
-	method: "GET",
-}).then(res => res.json()).then(res => {
-	//console.log(res[i])
-	var amount = 4;
-	for (let i = 0; i < res.length; i++) {
-		if (i % 4 == 0 || i == 0) {
-			if (res.length - i < 4 && amount == 4) {
-				amount = res.length - i
-			}
-			produtos.push(<ProductRollCase key={i} props={res} init={i} amount={amount}></ProductRollCase >)
-		}
-
+const fetcher = async (url: string) => {
+	const res = await fetch(url)
+	const data = await res.json()
+	if (res.status !== 200) {
+		throw new Error(data.message)
 	}
+	return data
 }
-).catch(error => {
-	console.log(error)
-});
 
 const Home: NextPage = () => {
 	const { data: session, status } = useSession()
 	const { query } = useRouter()
+	var produtos: JSX.Element[] = []
+	const { data, error } = useSWR(
+		() => `/api/produto/`,
+		fetcher
+	)
+	var amount = 4;
+	if (data) {
+		for (let i = 0; i < data.length; i++) {
+			if (i % 4 == 0 || i == 0) {
+				if (data.length - i < 4 && amount == 4) {
+					amount = data.length - i
+				}
+				produtos.push(<ProductRollCase key={i} props={data} init={i} amount={amount}></ProductRollCase >)
+			}
 
+		}
+	}
 
 	if (session && status == "authenticated") {
 		return (
@@ -48,7 +53,6 @@ const Home: NextPage = () => {
 			<>
 				<DefaultHead />
 				<Header />
-				{produtos}
 				<InfinityLoading active={true} />
 			</>
 		)
