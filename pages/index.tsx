@@ -38,11 +38,18 @@ const Home: NextPage = () => {
 				}
 				produtos.push(<ProductRollCase key={i} props={data} init={i} amount={amount}></ProductRollCase >)
 			}
-
 		}
 	}
-
-	if (session && status == "authenticated") {
+	if (status == "loading") {
+		return (
+			<>
+				<DefaultHead />
+				<Header />
+				<InfinityLoading active={true} />
+			</>
+		)
+	}
+	else if (session && status == "authenticated") {
 		return (
 			<>
 				<DefaultHead></DefaultHead>
@@ -50,14 +57,6 @@ const Home: NextPage = () => {
 				<div className={styles.Body}>
 					{produtos}
 				</div>
-			</>
-		)
-	} else if (!produtos || status == "loading") {
-		return (
-			<>
-				<DefaultHead />
-				<Header />
-				<InfinityLoading active={true} />
 			</>
 		)
 	} else {
