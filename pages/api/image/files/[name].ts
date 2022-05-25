@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { send } from "process";
 const MongoClient = require("mongodb").MongoClient;
 const GridFSBucket = require("mongodb").GridFSBucket;
 
@@ -18,20 +19,21 @@ export default async function download(request: NextApiRequest, response: NextAp
         const bucket = new GridFSBucket(databaseClient, {
             bucketName: imgBucket,
         });
+        return new Promise(() => {
+            let downloadStream = bucket.openDownloadStreamByName(name);
 
-        let downloadStream = bucket.openDownloadStreamByName(name);
+            downloadStream.on("data", function (data: any) {
+                return response.status(200).write(data);
+            });
 
-        downloadStream.on("data", function (data: any) {
-            return response.status(200).write(data);
-        });
+            downloadStream.on("error", function (err: any) {
+                return response.status(404).send({ message: "Cannot download the Image!" });
+            });
 
-        downloadStream.on("error", function (err: any) {
-            return response.status(404).send({ message: "Cannot download the Image!" });
-        });
-
-        downloadStream.on("end", () => {
-            return response.end();
-        });
+            downloadStream.on("end", () => {
+                return response.end();
+            });
+        })
     } catch (error: any) {
         return response.status(500).send({
             message: error.message,

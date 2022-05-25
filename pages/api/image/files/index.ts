@@ -22,7 +22,7 @@ const getListFiles = async (req: any, res: any) => {
 
         const cursor = images.find({});
 
-        if ((await cursor.count()) === 0) {
+        if ((await images.countDocuments()) === 0) {
             return res.status(500).send({
                 message: "No files found!",
             });
