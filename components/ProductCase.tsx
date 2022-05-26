@@ -34,7 +34,7 @@ export default function ProductCase(props: any) {
         link = `/produto/[id]`
         linkAs = `/produto/${props._id}`
     }
-    if (props.image && !props.isPreviw) {
+    if (props.image && !props.isPreview) {
         image = window.location.origin + '/api/image/files/' + props.image[0]
     } else {
         image = props.image

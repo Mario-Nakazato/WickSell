@@ -51,7 +51,7 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
         }
         produto.set(_id, name, description, price, image, promotion)
         await produto.replaceOne()
-        res.status(200).json({ txt: "Produto substituido." })
+        res.status(200).json({ txt: "Produto substituído." })
 
     } else if (req.method == "PATCH") {
 
@@ -89,9 +89,9 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
             return
         }
         await produto.deleteOne()
-        res.status(200).json({ txt: "Produto excluido." })
+        res.status(200).json({ txt: "Produto excluído." })
 
     } else {
-        res.status(400).json({ txt: "Metodo invalido." })
+        res.status(400).json({ txt: "Método invalido." })
     }
 }

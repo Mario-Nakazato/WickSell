@@ -100,7 +100,7 @@ export default function Create() {
                     </form>
                     <br></br>
                 </div>
-                <ProductCase name={name} description={description} price={price} promotion={promotion} image={image} isPreviw={true} />
+                <ProductCase name={name} description={description} price={price} promotion={promotion} image={image} isPreview={true} />
             </div >
         </>
     )
