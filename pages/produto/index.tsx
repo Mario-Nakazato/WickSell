@@ -64,31 +64,37 @@ export default function Create() {
                                 }).then(res => res.json())
                                     .then(res => {
                                         setImage(res.files[0].host + res.files[0].filename)
-                                        var data: any = { name, description, price, promotion }
-                                        data.imageFilesName = {}
-                                        for (let i = 0; res.files && i < res.files.length; i++) {
-                                            data.imageFilesName[i] = res.files[i].filename
+                                        const data: any = { name, description, price, promotion }
+                                        const formBody = [];
+                                        for (var property in data) {
+                                            var encodedKey = encodeURIComponent(property);
+                                            var encodedValue = encodeURIComponent(data[property]);
+                                            formBody.push(encodedKey + "=" + encodedValue);
                                         }
+                                        for (let i = 0; res.files && i < res.files.length; i++) {
+                                            var encodedKey = encodeURIComponent('imageFilesName');
+                                            var encodedValue = encodeURIComponent(res.files[i].filename);
+                                            formBody.push(encodedKey + "=" + encodedValue);
+                                        }
+                                        const encodedBody = formBody.join("&");
                                         console.log(data)
-                                        //ativar trava visual
                                         fetch('api/produto/', {
                                             method: "POST",
                                             redirect: 'follow',
-                                            body: JSON.stringify(data),
+                                            headers: {
+                                                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                                            },
+                                            body: encodedBody,
                                         }).then(res => {
                                             if (res.url) window.location.href = res.url
                                         }).catch(error => {
                                             console.log(error)
-                                            setStatus(false)
                                         });
                                     }).catch(error => {
                                         console.log(error)
-                                        setStatus(false)
-                                    });
+                                    }).finally(() => setStatus(false));
                             } catch (err) {
                                 console.log(err);
-                                setStatus(false)
-
                             }
                         }} className={styles.SubmitButton}>Salvar</button>
                     </form>

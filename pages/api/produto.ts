@@ -25,11 +25,9 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
         } else {
             baseUrl = 'https://' + baseUrl
         }
-        const parseBody = JSON.parse(req.body)//
-        const { name, description, price, promotion } = parseBody
-        const image = parseBody.imageFilesName
+        const { name, description, price, promotion, imageFilesName } = req.body
         try {
-            produto.set(null, name, description, price, image, promotion)
+            produto.set(null, name, description, price, imageFilesName, promotion)
         } catch (e) {
             res.status(400).json({ txt: "_id invalido." })
             return
