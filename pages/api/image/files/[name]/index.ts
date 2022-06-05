@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { send } from "process";
 const MongoClient = require("mongodb").MongoClient;
 const GridFSBucket = require("mongodb").GridFSBucket;
 

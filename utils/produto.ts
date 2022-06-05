@@ -27,7 +27,7 @@ export default class Produto {
             this.price = Number(price)
         }
         if (image != undefined) {
-            this.image = image
+            this.image = new Array(image)
         }
         if (promotion != undefined) {
             this.promotion = Number(promotion)

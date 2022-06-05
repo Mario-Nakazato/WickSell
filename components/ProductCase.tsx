@@ -3,11 +3,6 @@ import Image from "next/image";
 import Link from 'next/link'
 import styles from '../styles/Product.module.css'
 
-type props = {
-    name: string
-    subreddit: string
-}
-
 export default function ProductCase(props: any) {
     if (props.props) {
         props = props.props
@@ -35,7 +30,11 @@ export default function ProductCase(props: any) {
         linkAs = `/produto/${props._id}`
     }
     if (props.image && !props.isPreview) {
+        console.log(props.image)
+        console.log(image)
         image = window.location.origin + '/api/image/files/' + props.image[0]
+        console.log(image)
+
     } else {
         image = props.image
     }

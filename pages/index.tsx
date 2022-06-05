@@ -15,6 +15,7 @@ import styles from '../styles/Home.module.css'
 const fetcher = async (url: string) => {
 	const res = await fetch(url)
 	const data = await res.json()
+	console.log(data)
 	if (res.status !== 200) {
 		throw new Error(data.message)
 	}
