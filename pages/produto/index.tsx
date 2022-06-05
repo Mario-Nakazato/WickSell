@@ -6,6 +6,8 @@ import Header from '../../components/Header'
 import InfinityLoading from '../../components/InfinityLoading'
 import ProductCase from '../../components/ProductCase'
 import styles from '../../styles/Produto.module.css'
+import { currency, percentage } from '../../utils/InputMask'
+
 
 export default function Create() {
     const [status, setStatus] = useState(false)
@@ -26,23 +28,37 @@ export default function Create() {
                 <div style={{ textAlign: 'center' }}>
                     <form className={styles.Form}>
                         <div className={styles.InputBox}>
-                            <label>Nome do Produto</label>
+                            <label className={styles.Label}>Nome do Produto</label>
                             <input type="text" name='name' placeholder={"Nome do Produto"} className={styles.Input} value={name} onChange={e => setName(e.target.value)} required></input>
                         </div>
                         <div className={styles.InputBox}>
-                            <label>Descrição</label>
-                            <input type="text" name='description' placeholder={"Descrição"} className={styles.Input} value={description} onChange={e => setDescription(e.target.value)} required></input>
+                            <label className={styles.Label}>Descrição</label>
+                            <textarea name='description' placeholder={"Descrição"} rows={5} className={styles.InputDescription} value={description} onChange={e => setDescription(e.target.value)} required></textarea>
                         </div>
                         <div className={styles.InputBox}>
-                            <label>Preço</label>
-                            <input type="number" min='0' step='0.01' name='price' placeholder={"Preço"} className={styles.Input} value={price} onChange={e => setPrice(e.target.value)} required></input>
+                            <label className={styles.Label}>Preço</label>
+                            <div className={styles.InputMonetary}>
+                                <label className={styles.LabelCifra}>R$</label>
+                                <input type="text" min='0' step='0.01' name='price' placeholder={"0,00"} className={styles.Input} value={price} onChange={e => setPrice(currency(e))} required></input>
+                            </div>
                         </div>
                         <div className={styles.InputBox}>
-                            <label>Promoção</label>
-                            <input type="number" min='0' step='0.01' name='promotion' placeholder={"Promoção"} className={styles.Input} value={promotion} onChange={e => setPromotion(e.target.value)} required></input>
+                            <label className={styles.Label}>Promoção</label>
+                            <input type="text" min='0' max='100' step='0.01' name='promotion' placeholder={"0,00%"} className={styles.Input} value={promotion} onChange={e => {
+                                if (e.target.value.length < promotion.length && e.target.value[e.target.value.length - 1] !== '%') {
+                                    if (e.target.value.length === 0) {
+                                        setPromotion(percentage(e))
+                                    } else {
+                                        const value = e.target.value.substring(0, e.target.value.length - 1)
+                                        setPromotion(percentage(value) + '%')
+                                    }
+                                } else {
+                                    setPromotion(percentage(e) + '%')
+                                }
+                            }} required></input>
                         </div>
                         <div className={styles.InputBox}>
-                            <label>Imagem do Produto</label>
+                            <label className={styles.Label}>Imagem do Produto</label>
                             <input type="file" name='image' accept='image/*' className={styles.InputImage} multiple value={imageInput} onChange={e => {
                                 setImageInput(e.target.value)
                                 if (e.target.files) {
