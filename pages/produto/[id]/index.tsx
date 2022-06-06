@@ -82,7 +82,7 @@ export default function Produto() {
                             <img src='/gear.png' alt='Opções'></img>
                         </button>
                         <div className={styles.DropdownContent}>
-                            <a onClick={() => router.push(router.asPath + '/editar')}>Editar</a>
+                            <a onClick={() => router.push(router.asPath + '/edit')}>Editar</a>
                             <a onClick={() => {
                                 const modal = document.getElementById('DeleteModal')
                                 modal!.style.display = "block"
