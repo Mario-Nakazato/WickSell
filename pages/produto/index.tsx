@@ -58,8 +58,8 @@ export default function Create() {
                             }} required></input>
                         </div>
                         <div className={styles.InputBox}>
-                            <label className={styles.Label}>Imagem do Produto</label>
-                            <input type="file" name='image' accept='image/*' className={styles.InputImage} multiple value={imageInput} onChange={e => {
+                            <label className={styles.Label}>Imagens do Produto</label>
+                            <input type="file" name='image' accept='image/png' className={styles.InputImage} multiple value={imageInput} onChange={e => {
                                 setImageInput(e.target.value)
                                 if (e.target.files) {
                                     setImageFiles(e.target.files)
