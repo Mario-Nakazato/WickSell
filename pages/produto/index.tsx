@@ -93,7 +93,6 @@ export default function Create() {
                                             formBody.push(encodedKey + "=" + encodedValue);
                                         }
                                         const encodedBody = formBody.join("&");
-                                        console.log(data)
                                         fetch('api/produto/', {
                                             method: "POST",
                                             redirect: 'follow',

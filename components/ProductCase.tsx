@@ -1,6 +1,7 @@
 import { NextComponentType } from "next";
 import Image from "next/image";
 import Link from 'next/link'
+import { server } from "../config";
 import styles from '../styles/Product.module.css'
 
 export default function ProductCase(props: any) {
@@ -30,10 +31,7 @@ export default function ProductCase(props: any) {
         linkAs = `/produto/${props._id}`
     }
     if (props.image && !props.isPreview) {
-        console.log(props.image)
-        console.log(image)
-        image = window.location.origin + '/api/image/files/' + props.image[0]
-        console.log(image)
+        image = server + '/api/image/files/' + props.image[0]
 
     } else {
         image = props.image

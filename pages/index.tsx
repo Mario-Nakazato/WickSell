@@ -1,33 +1,20 @@
-import type { NextPage } from 'next'
-import { useSession } from 'next-auth/react'
+import type { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
 import DefaultHead from '../components/DefaultHead'
 import Header from '../components/Header'
 import EmailVerifyMessage from '../components/EmailVerifyMessage'
 import ProductRollCase from '../components/ProductRollCase'
 import InfinityLoading from '../components/InfinityLoading'
-import useSWR from 'swr'
 import styles from '../styles/Home.module.css'
+import { server } from '../config'
+import { useSession } from 'next-auth/react'
 
 
-const fetcher = async (url: string) => {
-	const res = await fetch(url)
-	const data = await res.json()
-	console.log(data)
-	if (res.status !== 200) {
-		throw new Error(data.message)
-	}
-	return data
-}
-
-const Home: NextPage = () => {
+export default function Home({ data }: { data: any }) {
 	const { data: session, status } = useSession()
 	const { query } = useRouter()
 	var produtos: JSX.Element[] = []
-	const { data, error } = useSWR(
-		() => `/api/produto/`,
-		fetcher
-	)
+	
 	var amount = 4;
 	if (data) {
 		for (let i = 0; i < data.length; i++) {
@@ -82,4 +69,11 @@ const Home: NextPage = () => {
 	}
 }
 
-export default Home
+export const getStaticProps: GetStaticProps = async () => {
+	const produtos = await fetch(`${server}/api/produto/`).then((res) => res.json())
+	return {
+		props: {
+			data: produtos,
+		}
+	}
+}

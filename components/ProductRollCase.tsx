@@ -9,8 +9,6 @@ type props = {
 export default function ProductRollCase(props: any) {
     var cases: JSX.Element[] = []
     if (props.props) {
-        console.log(props)
-        console.log(props.props)
         for (let index = props.init; index < (props.init + props.amount); index++) {
             cases.push(<ProductCase key={index} props={props.props[index]}></ProductCase >)
         }
