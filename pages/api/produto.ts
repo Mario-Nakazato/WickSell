@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { getSession } from 'next-auth/react'
 import Produto from "../../utils/produto"
 
 export default async function apiProduto(req: NextApiRequest, res: NextApiResponse) {
@@ -17,7 +18,16 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
         const docproduto = await produto.findAll()
         res.status(200).json(docproduto)
 
-    } else if (req.method == "POST") {
+    }
+
+    const session = await getSession({ req })
+
+	if (!session) {//req.rawHeaders.filter((value) => { return value == "insomnia/2022.3.0" })[0] !== "insomnia/2022.3.0"
+		res.status(400).json({ txt: "Acesso negado." })
+		return
+	}
+
+    if (req.method == "POST") {
 
         var baseUrl = req.headers.host + '/produto/'
         if (req.headers.host && req.headers.host.toString().includes('localhost')) {
