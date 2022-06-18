@@ -1,4 +1,4 @@
-import { Profile } from 'next-auth';
+import { Profile } from 'next-auth'
 import bdMongodb from "./bdmongo"
 
 const bdwicksell = new bdMongodb(process.env.MONGODB_DATABASE!)
