@@ -14,7 +14,7 @@ export default function Create() {
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
     const [price, setPrice] = useState("")
-    const [promotion, setPromotion] = useState("")
+    const [discount, setDiscount] = useState("")
     const [imageInput, setImageInput] = useState("")
     const [imageFiles, setImageFiles] = useState<FileList>()
     const [image, setImage] = useState("")
@@ -44,16 +44,16 @@ export default function Create() {
                         </div>
                         <div className={styles.InputBox}>
                             <label className={styles.Label}>Promoção</label>
-                            <input type="text" min='0' max='100' step='0.01' name='promotion' placeholder={"0,00%"} className={styles.Input} value={promotion} onChange={e => {
-                                if (e.target.value.length < promotion.length && e.target.value[e.target.value.length - 1] !== '%') {
+                            <input type="text" min='0' max='100' step='0.01' name='promotion' placeholder={"0,00%"} className={styles.Input} value={discount} onChange={e => {
+                                if (e.target.value.length < discount.length && e.target.value[e.target.value.length - 1] !== '%') {
                                     if (e.target.value.length === 0) {
-                                        setPromotion(percentage(e))
+                                        setDiscount(percentage(e))
                                     } else {
                                         const value = e.target.value.substring(0, e.target.value.length - 1)
-                                        setPromotion(percentage(value) + '%')
+                                        setDiscount(percentage(value) + '%')
                                     }
                                 } else {
-                                    setPromotion(percentage(e) + '%')
+                                    setDiscount(percentage(e) + '%')
                                 }
                             }} required></input>
                         </div>
@@ -80,7 +80,7 @@ export default function Create() {
                                 }).then(res => res.json())
                                     .then(res => {
                                         setImage(res.files[0].host + res.files[0].filename)
-                                        const data: any = { name, description, price, promotion }
+                                        const data: any = { name, description, price, discount }
                                         const formBody = [];
                                         for (var property in data) {
                                             var encodedKey = encodeURIComponent(property);
@@ -107,7 +107,7 @@ export default function Create() {
                                         });
                                     }).catch(error => {
                                         console.log(error)
-                                    }).finally(() => setStatus(false));
+                                    })
                             } catch (err) {
                                 console.log(err);
                             }
@@ -115,7 +115,7 @@ export default function Create() {
                     </form>
                     <br></br>
                 </div>
-                <ProductCase name={name} description={description} price={price} promotion={promotion} image={image} isPreview={true} />
+                <ProductCase name={name} description={description} price={price} discount={discount} image={image} isPreview={true} />
             </div >
         </>
     )
