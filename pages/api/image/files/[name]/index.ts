@@ -1,4 +1,5 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { GetServerSideProps, NextApiRequest, NextApiResponse } from "next";
+import { server } from "../../../../../config";
 const MongoClient = require("mongodb").MongoClient;
 const GridFSBucket = require("mongodb").GridFSBucket;
 
@@ -10,7 +11,7 @@ const mongoClient = new MongoClient(url);
 
 export default async function download(request: NextApiRequest, response: NextApiResponse) {
     const name = request.query.name.toString()
-
+response.setHeader("Cache-Control", "max-age=60, stale-while-revalidate");
     try {
         await mongoClient.connect();
 
