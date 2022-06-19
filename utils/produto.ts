@@ -44,14 +44,35 @@ export default class Produto {
 
     async findAll() {
 
-        this.name == undefined ? this.name = '' : this.name
-        this.description == undefined ? this.description = '' : this.description
-        var buscar = {
-            _id: this._id,
-            name: { $regex: this.name, $options: 'i' },
-            description: { $regex: this.description, $options: 'i' }
+        var buscar, buscarName: any[] = [], buscarDescription: any[] = [], pesquisa
+
+        if (this.name == undefined && this.description == undefined) {
+            this.name = ''
+            buscar = {
+                _id: this._id,
+                name: { $regex: this.name, $options: 'i' }
+            }
+            return pesquisa = await bdwicksell.findAll(colecao, buscar)
         }
-        return await bdwicksell.findAll(colecao, buscar)
+
+        if (this.name) {
+            buscar = {
+                _id: this._id,
+                name: { $regex: this.name, $options: 'i' }
+            }
+            buscarName = await bdwicksell.findAll(colecao, buscar)
+        }
+
+        if (this.description) {
+            buscar = {
+                _id: this._id,
+                description: { $regex: this.description, $options: 'i' }
+            }
+            buscarDescription = await bdwicksell.findAll(colecao, buscar)
+        }
+        pesquisa = buscarName.concat(buscarDescription)
+
+        return pesquisa
     }
 
     async updateOne() {
