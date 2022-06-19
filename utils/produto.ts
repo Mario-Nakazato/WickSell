@@ -46,19 +46,15 @@ export default class Produto {
 
         var buscar, pesquisa: any[] = [], procura: any[] = []
 
-        if (this.name == undefined && this.description == undefined
-            && this.price == undefined && this.discount == undefined) {
-            this.name = ''
+        if (this._id) {
             buscar = {
-                _id: this._id,
-                name: { $regex: this.name, $options: 'i' }
+                _id: this._id
             }
-            return pesquisa = await bdwicksell.findAll(colecao, buscar)
+            pesquisa = await bdwicksell.findAll(colecao, buscar)
         }
 
         if (this.name) {
             buscar = {
-                _id: this._id,
                 name: { $regex: this.name, $options: 'i' }
             }
             pesquisa = await bdwicksell.findAll(colecao, buscar)
@@ -66,7 +62,6 @@ export default class Produto {
 
         if (this.description) {
             buscar = {
-                _id: this._id,
                 description: { $regex: this.description, $options: 'i' }
             }
             procura = await bdwicksell.findAll(colecao, buscar)
@@ -75,7 +70,6 @@ export default class Produto {
 
         if (this.price) {
             buscar = {
-                _id: this._id,
                 price: { $lte: this.price }
             }
             procura = await bdwicksell.findAll(colecao, buscar)
@@ -84,11 +78,19 @@ export default class Produto {
 
         if (this.discount) {
             buscar = {
-                _id: this._id,
                 discount: { $lte: this.discount }
             }
             procura = await bdwicksell.findAll(colecao, buscar)
             pesquisa = pesquisa.concat(procura)
+        }
+
+        if (pesquisa.length == 0) {
+            this.name = ''
+            buscar = {
+                _id: this._id,
+                name: { $regex: this.name, $options: 'i' }
+            }
+            return pesquisa = await bdwicksell.findAll(colecao, buscar)
         }
 
         pesquisa = pesquisa.filter(
