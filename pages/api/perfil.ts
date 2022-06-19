@@ -13,12 +13,12 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 
 	const perfil = new Perfil()
 	const email = await perfil.setEmail(session?.user?.email!)
-	
+
 	if (email == undefined) {
 		res.status(400).json({ txt: "Email não existe." })
 		return
 	}
-	
+
 	const docperfil = await perfil.findOne()
 
 	if (req.method == "GET") {
