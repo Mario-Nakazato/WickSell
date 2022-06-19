@@ -43,7 +43,7 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
             return
         }
         const insertedProduto = await produto.insertOne()
-        console.log(insertedProduto)
+        
         const redirectUrl = '/produto/' + insertedProduto.insertedId
         res.redirect(308, redirectUrl)
 
