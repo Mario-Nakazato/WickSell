@@ -17,7 +17,7 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
         }
         const docproduto = await produto.findAll()
         res.status(200).json(docproduto)
-
+        return
     }
 
     // const session = await getSession({ req })
