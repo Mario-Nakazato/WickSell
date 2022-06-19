@@ -91,6 +91,18 @@ export default class Produto {
             pesquisa = pesquisa.concat(procura)
         }
 
+        pesquisa = pesquisa.filter(
+            function (e, i) {
+                var j
+                for (j = 0; j < pesquisa.length; j++) {
+                    if (pesquisa[j]._id.toString() == e._id.toString()) {
+                        break
+                    }
+                }
+                return j === i
+            }
+        )
+
         return pesquisa
     }
 
