@@ -47,7 +47,7 @@ export default class Produto {
         var buscar, pesquisa: any[] = [], procura: any[] = []
 
         if (this.name == undefined && this.description == undefined
-            && this.price == undefined) {
+            && this.price == undefined && this.discount == undefined) {
             this.name = ''
             buscar = {
                 _id: this._id,
@@ -77,6 +77,15 @@ export default class Produto {
             buscar = {
                 _id: this._id,
                 price: { $lte: this.price }
+            }
+            procura = await bdwicksell.findAll(colecao, buscar)
+            pesquisa = pesquisa.concat(procura)
+        }
+
+        if (this.discount) {
+            buscar = {
+                _id: this._id,
+                discount: { $lte: this.discount }
             }
             procura = await bdwicksell.findAll(colecao, buscar)
             pesquisa = pesquisa.concat(procura)
