@@ -44,7 +44,7 @@ export default class Produto {
 
     async findAll() {
 
-        var buscar, buscarName: any[] = [], buscarDescription: any[] = [], pesquisa
+        var buscar, pesquisa: any[] = [], procura: any[] = []
 
         if (this.name == undefined && this.description == undefined) {
             this.name = ''
@@ -60,7 +60,7 @@ export default class Produto {
                 _id: this._id,
                 name: { $regex: this.name, $options: 'i' }
             }
-            buscarName = await bdwicksell.findAll(colecao, buscar)
+            pesquisa = await bdwicksell.findAll(colecao, buscar)
         }
 
         if (this.description) {
@@ -68,9 +68,9 @@ export default class Produto {
                 _id: this._id,
                 description: { $regex: this.description, $options: 'i' }
             }
-            buscarDescription = await bdwicksell.findAll(colecao, buscar)
+            procura = await bdwicksell.findAll(colecao, buscar)
+            pesquisa = pesquisa.concat(procura)
         }
-        pesquisa = buscarName.concat(buscarDescription)
 
         return pesquisa
     }
