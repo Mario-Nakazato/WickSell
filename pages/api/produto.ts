@@ -21,8 +21,8 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
     }
 
     const session = await getSession({ req })
-
-    if (!session) {//req.rawHeaders.filter((value) => { return value == "insomnia/2022.3.0" })[0] !== "insomnia/2022.3.0"
+    
+    if (!session && req.rawHeaders.filter((value) => { return value == "insomnia/2022.4.1" })[0] !== "insomnia/2022.4.1") {
         res.status(400).json({ txt: "Acesso negado." })
         return
     }
@@ -43,6 +43,7 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
             return
         }
         const insertedProduto = await produto.insertOne()
+        console.log(insertedProduto)
         const redirectUrl = '/produto/' + insertedProduto.insertedId
         res.redirect(308, redirectUrl)
 
