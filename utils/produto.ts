@@ -44,9 +44,10 @@ export default class Produto {
 
     async findAll() {
 
-        var buscar, buscarName: any[] = [], buscarDescription: any[] = [], pesquisa
+        var buscar, pesquisa: any[] = [], procura: any[] = []
 
-        if (this.name == undefined && this.description == undefined) {
+        if (this.name == undefined && this.description == undefined
+            && this.price == undefined && this.discount == undefined) {
             this.name = ''
             buscar = {
                 _id: this._id,
@@ -60,7 +61,7 @@ export default class Produto {
                 _id: this._id,
                 name: { $regex: this.name, $options: 'i' }
             }
-            buscarName = await bdwicksell.findAll(colecao, buscar)
+            pesquisa = await bdwicksell.findAll(colecao, buscar)
         }
 
         if (this.description) {
@@ -68,9 +69,39 @@ export default class Produto {
                 _id: this._id,
                 description: { $regex: this.description, $options: 'i' }
             }
-            buscarDescription = await bdwicksell.findAll(colecao, buscar)
+            procura = await bdwicksell.findAll(colecao, buscar)
+            pesquisa = pesquisa.concat(procura)
         }
-        pesquisa = buscarName.concat(buscarDescription)
+
+        if (this.price) {
+            buscar = {
+                _id: this._id,
+                price: { $lte: this.price }
+            }
+            procura = await bdwicksell.findAll(colecao, buscar)
+            pesquisa = pesquisa.concat(procura)
+        }
+
+        if (this.discount) {
+            buscar = {
+                _id: this._id,
+                discount: { $lte: this.discount }
+            }
+            procura = await bdwicksell.findAll(colecao, buscar)
+            pesquisa = pesquisa.concat(procura)
+        }
+
+        pesquisa = pesquisa.filter(
+            function (e, i) {
+                var j
+                for (j = 0; j < pesquisa.length; j++) {
+                    if (pesquisa[j]._id.toString() == e._id.toString()) {
+                        break
+                    }
+                }
+                return j === i
+            }
+        )
 
         return pesquisa
     }
