@@ -14,7 +14,7 @@ export default function Home({ data }: { data: any }) {
 	const { data: session, status } = useSession()
 	const { query } = useRouter()
 	var produtos: JSX.Element[] = []
-	
+
 	var amount = 4;
 	if (data) {
 		for (let i = 0; i < data.length; i++) {

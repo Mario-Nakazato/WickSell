@@ -80,7 +80,9 @@ export default function Create() {
                                 }).then(res => res.json())
                                     .then(res => {
                                         setImage(res.files[0].host + res.files[0].filename)
-                                        const data: any = { name, description, price, discount }
+                                        var numberPrice = price.replace(',', '.').replace('.', '').replace('R$ ', '')
+                                        var numberDiscount = discount.replace(',', '.').replace('%', '')
+                                        const data: any = { name, description, price: numberPrice, discount: numberDiscount }
                                         const formBody = [];
                                         for (var property in data) {
                                             var encodedKey = encodeURIComponent(property);

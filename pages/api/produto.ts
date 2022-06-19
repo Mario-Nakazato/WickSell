@@ -8,9 +8,9 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
 
     if (req.method == "GET") {
 
-        const { _id, name, description, price, promotion } = req.query
+        const { _id, name, description, price, discount } = req.query
         try {
-            produto.set(_id, name, description, price, null, promotion)
+            produto.set(_id, name, description, price, null, discount)
         } catch (e) {
             res.status(400).json({ txt: "_id invalido." })
             return
@@ -35,9 +35,9 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
         } else {
             baseUrl = 'https://' + baseUrl
         }
-        const { name, description, price, promotion, imageFilesName } = req.body
+        const { name, description, price, discount, imageFilesName } = req.body
         try {
-            produto.set(null, name, description, price, imageFilesName, promotion)
+            produto.set(null, name, description, price, imageFilesName, discount)
         } catch (e) {
             res.status(400).json({ txt: "_id invalido." })
             return
@@ -48,7 +48,7 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
 
     } else if (req.method == "PUT") {
 
-        const { _id, name, description, price, image, promotion } = req.body
+        const { _id, name, description, price, image, discount } = req.body
         if (!_id) {
             res.status(400).json({ txt: "_id não encontrado no body." })
             return
@@ -59,13 +59,13 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
             res.status(400).json({ txt: "Produto não existe." })
             return
         }
-        produto.set(_id, name, description, price, image, promotion)
+        produto.set(_id, name, description, price, image, discount)
         await produto.replaceOne()
         res.status(200).json({ txt: "Produto substituído." })
 
     } else if (req.method == "PATCH") {
 
-        const { _id, name, description, price, image, promotion } = req.body
+        const { _id, name, description, price, image, discount } = req.body
         if (!_id) {
             res.status(400).json({ txt: "_id não encontrado no body." })
             return
@@ -76,7 +76,7 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
             res.status(400).json({ txt: "Produto não existe." })
             return
         }
-        produto.set(_id, name, description, price, image, promotion)
+        produto.set(_id, name, description, price, image, discount)
         await produto.updateOne()
         res.status(200).json({ txt: "Produto atualizado." })
 

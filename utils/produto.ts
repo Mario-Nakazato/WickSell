@@ -11,9 +11,9 @@ export default class Produto {
     private description!: string | {};
     private price!: number;
     private image!: string[];
-    private promotion!: number;
+    private discount!: number;
 
-    set(_id: any, name: any, description: any, price: any, image: any, promotion: any) {
+    set(_id: any, name: any, description: any, price: any, image: any, discount: any) {
         if (_id != undefined) {
             this._id = new ObjectId(_id)
         }
@@ -29,8 +29,8 @@ export default class Produto {
         if (image != undefined) {
             this.image = new Array(image)
         }
-        if (promotion != undefined) {
-            this.promotion = Number(promotion)
+        if (discount != undefined) {
+            this.discount = Number(discount)
         }
     }
 
