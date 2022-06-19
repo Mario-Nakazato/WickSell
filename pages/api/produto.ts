@@ -20,12 +20,12 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
 
     }
 
-    const session = await getSession({ req })
+    // const session = await getSession({ req })
 
-	if (!session) {//req.rawHeaders.filter((value) => { return value == "insomnia/2022.3.0" })[0] !== "insomnia/2022.3.0"
-		res.status(400).json({ txt: "Acesso negado." })
-		return
-	}
+	// if (!session) {//req.rawHeaders.filter((value) => { return value == "insomnia/2022.3.0" })[0] !== "insomnia/2022.3.0"
+	// 	res.status(400).json({ txt: "Acesso negado." })
+	// 	return
+	// }
 
     if (req.method == "POST") {
 
