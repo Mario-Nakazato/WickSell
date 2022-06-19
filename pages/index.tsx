@@ -71,10 +71,10 @@ export default function Home({ data }: { data: any }) {
 
 export const getStaticProps: GetStaticProps = async () => {
 	const produtos = await fetch(`${server}/api/produto/`).then((res) => res.json())
-	
 	return {
 		props: {
 			data: produtos,
-		}
+		},
+		revalidate: 8
 	}
 }
