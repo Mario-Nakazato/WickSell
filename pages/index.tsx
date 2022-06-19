@@ -70,8 +70,8 @@ export default function Home({ data }: { data: any }) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-	const produtos:any = []//await fetch(`${server}/api/produto/`).then((res) => res.json())
-
+	const produtos = await fetch(`${server}/api/produto/`).then((res) => res.json())
+	
 	return {
 		props: {
 			data: produtos,
