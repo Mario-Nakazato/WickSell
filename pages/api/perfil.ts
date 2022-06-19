@@ -57,7 +57,7 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 		const { name, birthDate, cpf, phone } = req.body
 		perfil.set(name, birthDate, cpf, phone)
 		await perfil.replaceOne()
-		res.status(200).json({ txt: "Perfil substituido." })
+		res.status(200).json({ txt: "Perfil substituído." })
 
 	} else if (req.method == "PATCH") {
 
@@ -81,9 +81,9 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 			return
 		}
 		await perfil.deleteOne()
-		res.status(200).json({ txt: "Perfil excluido." })
+		res.status(200).json({ txt: "Perfil excluído." })
 
 	} else {
-		res.status(400).json({ txt: "Metodo invalido." })
+		res.status(400).json({ txt: "Método invalido." })
 	}
 }
