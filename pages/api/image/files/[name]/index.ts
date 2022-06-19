@@ -11,7 +11,7 @@ const mongoClient = new MongoClient(url);
 
 export default async function download(request: NextApiRequest, response: NextApiResponse) {
     const name = request.query.name.toString()
-    
+
     try {
         await mongoClient.connect();
 
@@ -23,7 +23,7 @@ export default async function download(request: NextApiRequest, response: NextAp
             let downloadStream = bucket.openDownloadStreamByName(name);
 
             downloadStream.on("data", function (data: any) {
-                //response.setHeader("Cache-Control", "max-age=60, stale-while-revalidate");
+                response.setHeader("Cache-Control", "max-age=3600, stale-while-revalidate");
                 return response.status(200).write(data);
             });
 
