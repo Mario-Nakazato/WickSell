@@ -6,7 +6,7 @@ import Header from '../../components/Header'
 import InfinityLoading from '../../components/InfinityLoading'
 import ProductCase from '../../components/ProductCase'
 import styles from '../../styles/Produto.module.css'
-import { currency, percentage } from '../../utils/InputMask'
+import { currency, percentage } from '../../utils/valuesUtils'
 
 
 export default function Create() {
