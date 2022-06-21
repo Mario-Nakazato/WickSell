@@ -74,8 +74,9 @@
 }
 
 .DescriptionContainer {
-    margin-left: 15vw;
-    margin-right: 15vw;
+    width: 100%;
+    padding-left: 15vw;
+    padding-right: 15vw;
     margin-bottom: 10vw;
 }
 

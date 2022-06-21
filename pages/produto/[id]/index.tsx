@@ -18,9 +18,6 @@ export default function Produto({ data }: { data: any }) {
         var currentPrice = data.discount > 0 ? (data.price - (data.price * data.discount) / 100).toFixed(2) : data.price
         var oldPrice = data.discount > 0 ? data.price : undefined
 
-        if (!data.image) {
-            data.image = ['']
-        }
         const control = (
             <>
                 <div className={styles.Controls}>
@@ -66,7 +63,7 @@ export default function Produto({ data }: { data: any }) {
                 <InfinityLoading active={isLoading} />
                 <section className={styles.Section}>
                     <div className={styles.UpperContainer}>
-                        <h1 className={styles.Name}>{data.name}</h1>
+                        <h1 className={styles.Name}>{data.name || 'Nome do Produto'}</h1>
                         {control}
                     </div>
                     <div className={styles.Container}>
@@ -74,14 +71,14 @@ export default function Produto({ data }: { data: any }) {
 
                         <div className={styles.Product}>
                             <div className={styles.ImageContainer}>
-                                <img className={styles.Image} src={server + '/api/image/files/' + data.image[0]} alt="ProductCase" ></img>
+                                <img className={styles.Image} src={data.image ? server + '/api/image/files/' + data.image[0] : '/product-placeholder.png'} alt="ProductCase" ></img>
                             </div>
                         </div>
 
                         <div className={styles.InfoContainer}>
                             <div className={styles.CurrencyContainer} >
-                                <h3 className={styles.Promotion}>{brlMonetary(oldPrice)}</h3>
-                                <h4 className={styles.Price}>{brlMonetary(currentPrice)}</h4>
+                                <h3 className={styles.Promotion}>{brlMonetary(oldPrice || '0')}</h3>
+                                <h4 className={styles.Price}>{brlMonetary(currentPrice || '0')}</h4>
                             </div>
                             <button className={styles.Buy}>Adicionar ao Carrinho</button>
                         </div>
@@ -92,7 +89,7 @@ export default function Produto({ data }: { data: any }) {
                     <div className={styles.DescriptionContainer}>
                         <h1>Descrição</h1>
                         <hr></hr>
-                        <p className={styles.Description}>{data.description}</p>
+                        <p className={styles.Description}>{data.description || 'Detalhes sobre o produto'}</p>
                     </div>
                 </section>
             </>
@@ -104,22 +101,22 @@ export default function Produto({ data }: { data: any }) {
                 <section className={styles.Section}>
                     <div className={styles.Container}>
                         <div className={styles.Product}>
-                            <h1 className={styles.Name}>{data.name}</h1>
+                            <h1 className={styles.Name}>{data.name || 'Nome do Produto'}</h1>
                             <div className={styles.ImageContainer}>
-                                <img className={styles.Image} src={server + '/api/image/files/' + data.image[0]} alt="ProductCase" ></img>
+                                <img className={styles.Image} src={data.image ? server + '/api/image/files/' + data.image[0] : '/product-placeholder.png'} alt="ProductCase" ></img>
                             </div>
                         </div>
 
                         <div className={styles.InfoContainer}>
-                            <h3 className={styles.Promotion}>{brlMonetary(oldPrice)}</h3>
-                            <h4 className={styles.Price}>{brlMonetary(currentPrice)}</h4>
+                            <h3 className={styles.Promotion}>{brlMonetary(oldPrice || '0')}</h3>
+                            <h4 className={styles.Price}>{brlMonetary(currentPrice || '0')}</h4>
                             <button className={styles.Buy}>Adicionar ao Carrinho</button>
                         </div>
                     </div>
 
                     <div className={styles.DescriptionContainer}>
                         <h1>Descrição</h1>
-                        <p className={styles.Description}>{data.description}</p>
+                        <p className={styles.Description}>{data.description || 'Detalhes sobre o produto'}</p>
                     </div>
                 </section>
             </>

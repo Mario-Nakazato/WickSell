@@ -19,19 +19,19 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 		return
 	}
 
-	const docperfil = await perfil.findOne()
+	const documentoPerfil = await perfil.findOne()
 
 	if (req.method == "GET") {
 
-		if (!docperfil) {
+		if (!documentoPerfil) {
 			res.status(200).json({ email: email })
 			return
 		}
-		res.status(200).json(docperfil)
+		res.status(200).json(documentoPerfil)
 
 	} else if (req.method == "POST") {
 
-		if (docperfil) {
+		if (documentoPerfil) {
 			res.status(400).json({ txt: "Perfil já existe." })
 			return
 		}
@@ -46,7 +46,7 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 
 	} else if (req.method == "PUT") {
 
-		if (!docperfil) {
+		if (!documentoPerfil) {
 			res.status(400).json({ txt: "Perfil não existe." })
 			return
 		}
@@ -61,7 +61,7 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 
 	} else if (req.method == "PATCH") {
 
-		if (!docperfil) {
+		if (!documentoPerfil) {
 			res.status(400).json({ txt: "Perfil não existe." })
 			return
 		}
@@ -76,7 +76,7 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 
 	} else if (req.method == "DELETE") {
 
-		if (!docperfil) {
+		if (!documentoPerfil) {
 			res.status(400).json({ txt: "Perfil não existe." })
 			return
 		}

@@ -26,7 +26,7 @@ export default function ProductCase(props: any) {
         else discount = 0
     }
     var currentPrice: any = (discount > 0) ? parseFloat((price - price * discount / 100).toFixed(2)) : parseFloat(price)
-    currentPrice = brlMonetary(currentPrice)
+    currentPrice = brlMonetary(currentPrice || '0')
 
     var oldPrice = discount > 0 && price ? brlMonetary(price) : ''
 

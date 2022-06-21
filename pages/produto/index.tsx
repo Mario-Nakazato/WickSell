@@ -29,17 +29,22 @@ export default function Create() {
                     <form className={styles.Form}>
                         <div className={styles.InputBox}>
                             <label className={styles.Label}>Nome do Produto</label>
-                            <input type="text" name='name' placeholder={"Nome do Produto"} className={styles.Input} value={name} onChange={e => setName(e.target.value)} required></input>
+                            <input type="text" name='name' placeholder={"Nome do Produto"} className={styles.Input} value={name} onChange={e => setName(e.target.value)} ></input>
                         </div>
                         <div className={styles.InputBox}>
                             <label className={styles.Label}>Descrição</label>
-                            <textarea name='description' placeholder={"Descrição"} rows={5} className={styles.InputDescription} value={description} onChange={e => setDescription(e.target.value)} required></textarea>
+                            <textarea name='description' placeholder={"Descrição"} rows={5} className={styles.InputDescription} value={description} onChange={e => setDescription(e.target.value)} ></textarea>
                         </div>
                         <div className={styles.InputBox}>
                             <label className={styles.Label}>Preço</label>
                             <div className={styles.InputMonetary}>
                                 <label className={styles.LabelCifra}>R$</label>
-                                <input type="text" min='0' step='0.01' name='price' placeholder={"0,00"} className={styles.Input} value={price} onChange={e => setPrice(currency(e))} required></input>
+                                <input type="text" min='0' step='0.01' name='price' placeholder={"0,00"} className={styles.Input} value={price} onChange={e => {
+                                    const temp = e.target.value.replace(/\D/g, '')
+                                    console.log(temp)
+                                    if (temp.length <= 12)
+                                        setPrice(currency(e))
+                                }} ></input>
                             </div>
                         </div>
                         <div className={styles.InputBox}>
@@ -55,7 +60,7 @@ export default function Create() {
                                 } else {
                                     setDiscount(percentage(e) + '%')
                                 }
-                            }} required></input>
+                            }} ></input>
                         </div>
                         <div className={styles.InputBox}>
                             <label className={styles.Label}>Imagens do Produto</label>
@@ -65,7 +70,7 @@ export default function Create() {
                                     setImageFiles(e.target.files)
                                     setImage(URL.createObjectURL(e.target.files[0]));
                                 }
-                            }} required></input>
+                            }} ></input>
                         </div>
                         <button type='button' onClick={async () => {
                             try {
@@ -79,7 +84,7 @@ export default function Create() {
                                     body: formData,
                                 }).then(res => res.json())
                                     .then(res => {
-                                        setImage(res.files[0].host + res.files[0].filename)
+                                        if (res.files) setImage(res.files[0].host + res.files[0].filename)
                                         var numberPrice = price.replace(',', '.').replace('.', '').replace('R$ ', '')
                                         var numberDiscount = discount.replace(',', '.').replace('%', '')
                                         const data: any = { name, description, price: numberPrice, discount: numberDiscount }
@@ -109,6 +114,7 @@ export default function Create() {
                                         });
                                     }).catch(error => {
                                         console.log(error)
+                                        setStatus(false)
                                     })
                             } catch (err) {
                                 console.log(err);
@@ -117,7 +123,7 @@ export default function Create() {
                     </form>
                     <br></br>
                 </div>
-                <ProductCase name={name} description={description} price={price} discount={discount} image={image} isPreview={true} />
+                <ProductCase name={name} description={description} price={price.replaceAll('.', '').replace(',', '.')} discount={discount} image={image} isPreview={true} />
             </div >
         </>
     )

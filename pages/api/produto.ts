@@ -1,3 +1,4 @@
+import multer from 'multer'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/react'
 import Produto from "../../utils/produto"
@@ -15,13 +16,13 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
             res.status(400).json({ txt: "_id invalido." })
             return
         }
-        const docproduto = await produto.findAll()
-        res.status(200).json(docproduto)
+        const documentoProduto = await produto.findAll()
+        res.status(200).json(documentoProduto)
         return
     }
 
     const session = await getSession({ req })
-    
+
     if (!session && req.rawHeaders.filter((value) => { return value == "insomnia/2022.4.1" })[0] !== "insomnia/2022.4.1") {
         res.status(400).json({ txt: "Acesso negado." })
         return
@@ -29,12 +30,6 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
 
     if (req.method == "POST") {
 
-        var baseUrl = req.headers.host + '/produto/'
-        if (req.headers.host && req.headers.host.toString().includes('localhost')) {
-            baseUrl = 'http://' + baseUrl
-        } else {
-            baseUrl = 'https://' + baseUrl
-        }
         const { name, description, price, discount, imageFilesName } = req.body
         try {
             produto.set(null, name, description, price, imageFilesName, discount)
@@ -43,10 +38,10 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
             return
         }
         const insertedProduto = await produto.insertOne()
-        
+
         const redirectUrl = '/produto/' + insertedProduto.insertedId
         res.redirect(308, redirectUrl)
-
+        
     } else if (req.method == "PUT") {
 
         const { _id, name, description, price, image, discount } = req.body
@@ -55,8 +50,8 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
             return
         }
         produto.set(_id, null, null, null, null, null)
-        const docproduto = await produto.findOne()
-        if (!docproduto) {
+        const documentoProduto = await produto.findOne()
+        if (!documentoProduto) {
             res.status(400).json({ txt: "Produto não existe." })
             return
         }
@@ -72,8 +67,8 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
             return
         }
         produto.set(_id, null, null, null, null, null)
-        const docproduto = await produto.findOne()
-        if (!docproduto) {
+        const documentoProduto = await produto.findOne()
+        if (!documentoProduto) {
             res.status(400).json({ txt: "Produto não existe." })
             return
         }
@@ -94,8 +89,8 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
             res.status(400).json({ txt: "_id invalido." })
             return
         }
-        const docproduto = await produto.findOne()
-        if (!docproduto) {
+        const documentoProduto = await produto.findOne()
+        if (!documentoProduto) {
             res.status(400).json({ txt: "Produto não existe." })
             return
         }
