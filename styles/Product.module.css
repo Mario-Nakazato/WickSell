@@ -1,7 +1,5 @@
 .ProductCase {
-    /* border: 1px solid black; */
     width: 15vw;
-    height: 100%;
     text-align: center;
     cursor: pointer;
     border-radius: 5px;
@@ -10,7 +8,6 @@
 }
 
 .ProductCase:hover {
-
     transform: translateY(-3px);
     transition-duration: .5s;
 }
@@ -30,7 +27,7 @@
     margin-top: 0.5vw;
     padding-left: 0.5vw;
     padding-right: 0.5vw;
-    min-height: 2.4vw;
+    min-height: 2.6vw;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
