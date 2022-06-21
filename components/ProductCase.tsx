@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { server } from "../config";
 import styles from '../styles/Product.module.css'
-import { currency } from '../utils/InputMask';
+import { brlMonetary } from '../utils/valuesUtils';
 
 export default function ProductCase(props: any) {
     if (props.props) props = props.props
@@ -54,24 +54,4 @@ export default function ProductCase(props: any) {
             </div>
         </Link>
     </>)
-}
-// 1234.56
-function brlMonetary(e: any) {
-    e = e.toString()
-    if (e.includes('.')) {
-        e = e.replace('.', ',')
-        if (e.length < e.indexOf(',') + 3) {
-            for (let i = e.length - e.indexOf(',') - 1; i > 0; i--) {
-                e += '0'
-            }
-        }
-    } else {
-        if (e.length < 0) {
-            e = '0'
-        }
-        e += ',00'
-    }
-    e = currency(e)
-    e = 'R$ ' + e
-    return e
 }

@@ -1,76 +1,23 @@
+import { GetStaticPaths, GetStaticProps } from 'next'
 import { useSession } from 'next-auth/react'
-import { redirect } from 'next/dist/server/api-utils'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import useSWR from 'swr'
 import DefaultHead from '../../../components/DefaultHead'
 import Header from '../../../components/Header'
 import InfinityLoading from '../../../components/InfinityLoading'
+import { server } from '../../../config'
 import styles from '../../../styles/ProductPage.module.css'
+import { brlMonetary } from '../../../utils/valuesUtils'
 
-const deleteProduto = async (produto: any) => {
-    try {
-        produto.image.forEach(async (element: any) => {
-            try {
-                const res = await fetch(`/api/image/files/${element}/delete`)
-                const data = await res.json()
-                if (res.status !== 200) {
-                    console.log(data.message)
-                }
-                console.log(data)
-            } catch (err) {
-                console.log(err)
-            }
-        });
-    } catch (err) {
-        console.log(err)
-    }
-    try {
-        const res = await fetch(`/api/produto/?_id=${produto._id}`, {
-            method: 'DELETE',
-        })
-        const data = await res.json()
-        if (res.status !== 200) {
-            console.log(data.message)
-        }
-        return data
-    } catch (err) {
-        console.log(err)
-    }
-}
-const fetcher = async (url: string) => await fetch(url).then(async (res) => {
-    const dataTemp = await res.json()
-    const data = dataTemp[0]
-    if (res.status !== 200) {
-        console.log(data.message)
-    }
-    return data
-}).catch((err) => { console.log(err) })
-
-export default function Produto() {
+export default function Produto({ data }: { data: any }) {
     const { data: session, status } = useSession()
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
-    const { query } = router
-    const { data, error } = useSWR(
-        () => query.id && `/api/produto/?_id=${query.id}`,
-        fetcher
-    )
-    if (error) {
-        return (<>
-            <DefaultHead />
-            <Header />
-            {error.message}
-        </>)
-    }
-    else if (!data) {
-        return (<>
-            <DefaultHead />
-            <Header />
-            <InfinityLoading active={true} />
-        </>)
-    }
-    else if (data) {
+
+    if (data) {
+        var currentPrice = data.discount > 0 ? (data.price - (data.price * data.discount) / 100).toFixed(2) : data.price
+        var oldPrice = data.discount > 0 ? data.price : undefined
+
         if (!data.image) {
             data.image = ['']
         }
@@ -112,12 +59,6 @@ export default function Produto() {
                 </div>
             </>
         )
-        const page = (
-            <>
-
-            </>
-        )
-
         if (status === 'authenticated') {
             return <>
                 <DefaultHead />
@@ -133,14 +74,14 @@ export default function Produto() {
 
                         <div className={styles.Product}>
                             <div className={styles.ImageContainer}>
-                                <img className={styles.Image} src={window.location.origin + '/api/image/files/' + data.image[0]} alt="ProductCase" ></img>
+                                <img className={styles.Image} src={server + '/api/image/files/' + data.image[0]} alt="ProductCase" ></img>
                             </div>
                         </div>
 
                         <div className={styles.InfoContainer}>
                             <div className={styles.CurrencyContainer} >
-                                <h3 className={styles.Promotion}>R$ {data.promotion}</h3>
-                                <h4 className={styles.Price}>R$ {data.price}</h4>
+                                <h3 className={styles.Promotion}>{brlMonetary(oldPrice)}</h3>
+                                <h4 className={styles.Price}>{brlMonetary(currentPrice)}</h4>
                             </div>
                             <button className={styles.Buy}>Adicionar ao Carrinho</button>
                         </div>
@@ -165,13 +106,13 @@ export default function Produto() {
                         <div className={styles.Product}>
                             <h1 className={styles.Name}>{data.name}</h1>
                             <div className={styles.ImageContainer}>
-                                <img className={styles.Image} src={window.location.origin + '/api/image/files/' + data.image[0]} alt="ProductCase" ></img>
+                                <img className={styles.Image} src={server + '/api/image/files/' + data.image[0]} alt="ProductCase" ></img>
                             </div>
                         </div>
 
                         <div className={styles.InfoContainer}>
-                            <h3 className={styles.Promotion}>R$ {data.promotion}</h3>
-                            <h4 className={styles.Price}>R$ {data.price}</h4>
+                            <h3 className={styles.Promotion}>{brlMonetary(oldPrice)}</h3>
+                            <h4 className={styles.Price}>{brlMonetary(currentPrice)}</h4>
                             <button className={styles.Buy}>Adicionar ao Carrinho</button>
                         </div>
                     </div>
@@ -183,5 +124,54 @@ export default function Produto() {
                 </section>
             </>
         }
+    }
+}
+
+export const getStaticPaths: GetStaticPaths = () => {
+    return {
+        paths: [],
+        fallback: true
+    }
+}
+
+export const getStaticProps: GetStaticProps = async (context) => {
+    const { id } = context.params!
+    const data = await fetch(`${server}/api/produto/?_id=${id}`).then((res) => res.json())
+    return {
+        props: {
+            data: data[0],
+        },
+        revalidate: 8
+    }
+}
+
+const deleteProduto = async (produto: any) => {
+    try {
+        produto.image.forEach(async (element: any) => {
+            try {
+                const res = await fetch(`/api/image/files/${element}/delete`)
+                const data = await res.json()
+                if (res.status !== 200) {
+                    console.log(data.message)
+                }
+                console.log(data)
+            } catch (err) {
+                console.log(err)
+            }
+        });
+    } catch (err) {
+        console.log(err)
+    }
+    try {
+        const res = await fetch(`/api/produto/?_id=${produto._id}`, {
+            method: 'DELETE',
+        })
+        const data = await res.json()
+        if (res.status !== 200) {
+            console.log(data.message)
+        }
+        return data
+    } catch (err) {
+        console.log(err)
     }
 }

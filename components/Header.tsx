@@ -9,13 +9,13 @@ export default function Header() {
         <header className={styles.Header}>
             <div className={styles.UpperSideHeader}>
                 <Link href="/"><a className={styles.LogoA} ><img className={styles.LogoIcon} src="/logo.png" alt="Logo"></img></a></Link>
-                <form action='/api/produto' method='get' className={styles.SearchContainer}>
-                    <input type="text" name='name' placeholder="Pesquisa" value={searchText} onChange={e => {
+                <form action='/search' method='get' className={styles.SearchContainer}>
+                    <input type="text" name='name' placeholder="Buscar" value={searchText} onChange={e => {
                         setSearchText(e.target.value);
-                    }} className={styles.SearchInput}></input>
-                    {/* <input type="text" name='description' value={searchText} onChange={e => {
+                    }} className={styles.SearchInput} required></input>
+                    <input type="text" name='description' value={searchText} onChange={e => {
                         setSearchText(e.target.value);
-                    }} style={{ display: 'none' }}></input> */}
+                    }} style={{ display: 'none' }}></input>
                     <button type='submit' className={styles.SearchBtn}><img className={styles.SearchIcon} src='/lupa-icon.svg' alt="Search Icon"></img></button>
                 </form>
                 <AccountInfo />

@@ -6,7 +6,7 @@ import DefaultHead from '../../../components/DefaultHead'
 import Header from '../../../components/Header'
 import InfinityLoading from '../../../components/InfinityLoading'
 import styles from '../../../styles/Produto.module.css'
-import { percentage, currency } from '../../../utils/InputMask'
+import { percentage, currency } from '../../../utils/valuesUtils'
 
 const fetcher = async (url: string) => await fetch(url).then(async (res) => {
     const dataTemp = await res.json()

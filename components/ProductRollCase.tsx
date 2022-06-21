@@ -16,7 +16,6 @@ export default function ProductRollCase(props: any) {
             <div className={styles.ProductRollCase}>
                 {cases}
             </div>
-
         </>)
     } else {
         return (<></>)
