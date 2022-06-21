@@ -22,11 +22,11 @@ export default function Header() {
             </div>
             <div className={styles.NavBar}>
                 <div className={styles.NavBarTr}>
-                    <Link href="/produto/"><a className={styles.NavBarUl}>Produto</a></Link>
-                    <Link href="/api/image/files"><a className={styles.NavBarUl}>Files</a></Link>
-                    <div className={styles.NavBarUl}>Item 3</div>
-                    <div className={styles.NavBarUl}>Item 4</div>
-                    <div className={styles.NavBarUl}>Item 5</div>
+                    <Link href="/"><a className={styles.NavBarUl}>Meus Produtos</a></Link>
+                    <Link href="/mario.png/"><a className={styles.NavBarUl}>?</a></Link>
+                    <Link href="/produto/"><a className={styles.NavBarUl}>Cadastrar Produto</a></Link>
+                    <Link href="/api/image/files"><a className={styles.NavBarUl}>Imagens</a></Link>
+                    <div className={styles.NavBarUl}>Sobre</div>
                 </div>
             </div>
         </header>

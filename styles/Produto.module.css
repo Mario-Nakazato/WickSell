@@ -25,13 +25,16 @@
     font-size: 1.4vw;
 }
 
-.LabelCifra{
-    font-size: 1.2vw;
-    background-color: darkgray;
+.LabelCifra {
+    display: flex;
+    align-items: center;
+    font-size: 1.3vw;
+    background-color: black;
+    color: white;
     border-radius: 5px 0px 0px 5px;
-    height:2.5vw;
-    align-items: baseline;
-    padding:0.3vw;
+    height: 2.5vw;
+    padding-left: 0.5vw;
+    padding-right: 0.5vw;
 }
 
 .InputBox {
@@ -44,12 +47,16 @@
     padding-right: 1vw;
 }
 
-.InputMonetary{
+.InputMonetary {
     display: flex;
     flex-direction: row;
     align-items: center;
     max-width: 100%;
     max-height: 100%;
+}
+
+.InputMonetary input {
+    border-radius: 0px 5px 5px 0px;
 }
 
 .Input {
@@ -62,7 +69,8 @@
     max-width: 100%;
     max-height: 100%;
 }
-.InputDescription{
+
+.InputDescription {
     width: 40vw;
     max-width: 100%;
     border-radius: 5px;
@@ -70,6 +78,7 @@
     font-size: 1.3vw;
     resize: none;
 }
+
 .InputImage {
     width: 30vw;
     height: 2.5vw;

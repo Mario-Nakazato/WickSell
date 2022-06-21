@@ -1,9 +1,10 @@
 .Section {
-    background-color: rgb(221, 221, 221);
+    background-color: #858a95;
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 100%;
+    color:white;
 }
 
 .Product {
@@ -56,21 +57,29 @@
 .Name {
     font-size: 2vw;
     margin-bottom: 0;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+
 }
 
 .CurrencyContainer {
     width: 40vw;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+
 }
 
 .Promotion {
     font-size: 1.5vw;
     margin: 0px;
     text-decoration-line: line-through;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+
 }
 
 .Price {
     font-size: 3.5vw;
     margin: 0px;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+
 }
 
 .DescriptionContainer {
@@ -78,11 +87,14 @@
     padding-left: 15vw;
     padding-right: 15vw;
     margin-bottom: 10vw;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
 }
 
 .Description {
     width: 100%;
     max-width: 100%;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+
 }
 
 .Buy {
@@ -100,6 +112,8 @@
     margin-bottom: 1vw;
     margin-right: 10vw;
     font-weight: 600;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.1);
+
 }
 
 .Buy:hover {

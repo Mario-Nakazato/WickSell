@@ -4,6 +4,8 @@
     display: flex;
     width: 19vw;
     justify-content: flex-end;
+    color:white;
+    font-size: 1.4vw;
 }
 
 .SeparatorBar {
@@ -37,6 +39,6 @@
 }
 
 .ProfileImg {
-    max-width: 3vw;
+    max-width: 4vw;
     border-radius: 50%
 }
