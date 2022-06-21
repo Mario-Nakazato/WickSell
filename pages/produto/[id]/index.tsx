@@ -77,7 +77,7 @@ export default function Produto({ data }: { data: any }) {
 
                         <div className={styles.InfoContainer}>
                             <div className={styles.CurrencyContainer} >
-                                <h3 className={styles.Promotion}>{brlMonetary(oldPrice || '0')}</h3>
+                                <h3 className={styles.Promotion}>{brlMonetary(oldPrice)}</h3>
                                 <h4 className={styles.Price}>{brlMonetary(currentPrice || '0')}</h4>
                             </div>
                             <button className={styles.Buy}>Adicionar ao Carrinho</button>
@@ -108,7 +108,7 @@ export default function Produto({ data }: { data: any }) {
                         </div>
 
                         <div className={styles.InfoContainer}>
-                            <h3 className={styles.Promotion}>{brlMonetary(oldPrice || '0')}</h3>
+                            <h3 className={styles.Promotion}>{brlMonetary(oldPrice)}</h3>
                             <h4 className={styles.Price}>{brlMonetary(currentPrice || '0')}</h4>
                             <button className={styles.Buy}>Adicionar ao Carrinho</button>
                         </div>

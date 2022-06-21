@@ -1,6 +1,5 @@
 import type { NextPage } from 'next'
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/router'
 import DefaultHead from '../components/DefaultHead'
 import Header from '../components/Header'
 import styles from '../styles/Perfil.module.css'
