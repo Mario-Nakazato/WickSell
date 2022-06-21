@@ -85,7 +85,7 @@ export default function Create() {
                                 }).then(res => res.json())
                                     .then(res => {
                                         if (res.files) setImage(res.files[0].host + res.files[0].filename)
-                                        var numberPrice = price.replace(',', '.').replace('.', '').replace('R$ ', '')
+                                        var numberPrice = price.replaceAll('.', '').replace(',', '.').replace('R$ ', '')
                                         var numberDiscount = discount.replace(',', '.').replace('%', '')
                                         const data: any = { name, description, price: numberPrice, discount: numberDiscount }
                                         const formBody = [];
@@ -123,7 +123,7 @@ export default function Create() {
                     </form>
                     <br></br>
                 </div>
-                <ProductCase name={name} description={description} price={price.replaceAll('.', '').replace(',', '.')} discount={discount} image={image} isPreview={true} />
+                <ProductCase name={name} description={description} price={price.replaceAll('.', '').replace(',', '.').replace('R$ ', '')} discount={discount} image={image} isPreview={true} />
             </div >
         </>
     )
