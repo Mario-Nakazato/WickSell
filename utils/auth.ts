@@ -26,12 +26,12 @@ export default class Auth {
 
     async findOne(profile: Profile & Record<string, unknown>) {
         const sub = profile.sub
-        return bdwicksell.findOne(colecao, { sub: sub })
+        return await bdwicksell.findOne(colecao, { sub: sub })
     }
 
     async findAll(profile: Profile & Record<string, unknown>) {
         const email = profile.email
-        return bdwicksell.findAll(colecao, { email: email })
+        return await bdwicksell.findAll(colecao, { email: email })
     }
 
     async replaceOne(profile: Profile & Record<string, unknown>) {
