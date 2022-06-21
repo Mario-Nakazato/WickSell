@@ -22,10 +22,19 @@ export default function Produto({ data }: { data: any }) {
             <>
                 <div className={styles.Controls}>
                     <div className={styles.Dropdown}>
-                        <button className={styles.DropButton}>
+                        <button className={styles.DropButton} onClick={() => {
+                            const dropdown = document.getElementById('dropdown')
+                                dropdown!.addEventListener('focusout', (e) => {
+                                    console.log('out')
+                                    dropdown!.style.display = 'none';
+
+                                });
+                                dropdown!.style.display = 'block';
+                                dropdown!.focus()
+                        }}>
                             <img src='/gear.png' alt='Opções'></img>
                         </button>
-                        <div className={styles.DropdownContent}>
+                        <div tabIndex={0} id='dropdown' className={styles.DropdownContent}>
                             <a onClick={() => router.push(router.asPath + '/edit')}>Editar</a>
                             <a onClick={() => {
                                 const modal = document.getElementById('DeleteModal')

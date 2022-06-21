@@ -149,10 +149,13 @@
     background-color: #f1f1f1
 }
 
-.Dropdown:hover .DropdownContent {
+.Dropdown:focus .DropdownContent {
     display: block;
 }
 
+.DropdownVisible {
+    display: block !important;
+}
 
 .DeleteModal {
     display: none;
