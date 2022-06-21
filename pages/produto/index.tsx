@@ -123,7 +123,7 @@ export default function Create() {
                     </form>
                     <br></br>
                 </div>
-                <ProductCase name={name} description={description} price={price.replaceAll('.', '').replace(',', '.').replace('R$ ', '')} discount={discount} image={image} isPreview={true} />
+                <ProductCase name={name} description={description} price={price} discount={discount} image={image} isPreview={true} />
             </div >
         </>
     )

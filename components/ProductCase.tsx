@@ -14,6 +14,11 @@ export default function ProductCase(props: any) {
 
     if (props.price) {
         price = props.price.toString()
+        if (price.includes(',')) {
+            price = price.replaceAll('.', '')
+            price = price.replace(',', '.')
+            price = price.replace('R$ ', '')
+        }   
         if (parseFloat(price) !== NaN) price = parseFloat(price)
         else price = 0
     } else { price = 0 }
