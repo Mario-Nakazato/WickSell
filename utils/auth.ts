@@ -17,6 +17,7 @@ export default class Auth {
     }
 
     async setProfile(sub: string) {
+        sub == undefined ? sub = "" : sub
         return this.profile = await this.findOne({ sub: sub })
     }
 
