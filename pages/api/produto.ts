@@ -52,7 +52,7 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
 
         //Apenas para debugar insomnia
         if(req.rawHeaders.filter((value) => { return value == "insomnia/2022.4.2" })[0] === "insomnia/2022.4.2"){
-            res.status(200).json({ txt: "Produto criado." })
+            res.status(200).json({ txt: "Produto criado. Insomnia" })
             return
         }
 
@@ -66,6 +66,13 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
             res.status(400).json({ txt: "_id não encontrado no body." })
             return
         }
+
+        perfil.setEstoque(documentoPerfil?.estoque)
+        if(perfil.getProdutoEstoque(_id) == -1){
+            res.status(400).json({ txt: "Produto não pertence ao perfil." })
+            return
+        }
+
         produto.set(_id, null, null, null, null, null, null)
         const documentoProduto = await produto.findOne()
         if (!documentoProduto) {
@@ -83,6 +90,13 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
             res.status(400).json({ txt: "_id não encontrado no body." })
             return
         }
+
+        perfil.setEstoque(documentoPerfil?.estoque)
+        if(perfil.getProdutoEstoque(_id) == -1){
+            res.status(400).json({ txt: "Produto não pertence ao perfil." })
+            return
+        }
+
         produto.set(_id, null, null, null, null, null, null)
         const documentoProduto = await produto.findOne()
         if (!documentoProduto) {
