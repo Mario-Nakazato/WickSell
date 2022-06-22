@@ -51,7 +51,12 @@ export default class Perfil {
         this.estoque = estoque
     }
 
-    async inserirProdutoEstoque(_id: string) {
+    getProdutoEstoque(_id: string | string[]): number{
+        this.estoque == undefined ? this.estoque = [] : this.estoque
+        return this.estoque.indexOf(_id)
+    }
+
+    async inserirProdutoEstoque(_id: string | string[]) {
         this.estoque == undefined ? this.estoque = [] : this.estoque
         this.estoque.push(_id)
         await this.updateOne()
