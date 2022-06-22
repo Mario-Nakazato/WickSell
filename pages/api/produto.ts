@@ -33,6 +33,11 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
 
     if (req.method == "POST") {
 
+        if (!documentoPerfil) {
+			res.status(400).json({ txt: "Perfil não existe." })
+			return
+		}
+
         const { name, description, price, discount, imageFilesName, amount } = req.body
         try {
             produto.set(null, name, description, price, imageFilesName, discount, amount)
@@ -47,7 +52,8 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
 
         //Apenas para debugar insomnia
         if(req.rawHeaders.filter((value) => { return value == "insomnia/2022.4.2" })[0] === "insomnia/2022.4.2"){
-            return res.status(200).json({ txt: "Produto criado." })
+            res.status(200).json({ txt: "Produto criado." })
+            return
         }
 
         const redirectUrl = '/produto/' + insertedProduto.insertedId
@@ -105,6 +111,12 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
             res.status(400).json({ txt: "Produto não existe." })
             return
         }
+
+        if(perfil.getProdutoEstoque(_id) == -1){
+            res.status(400).json({ txt: "Produto não pertence ao perfil." })
+            return
+        }
+
         await produto.deleteOne()
 
         perfil.setEstoque(documentoPerfil?.estoque)
