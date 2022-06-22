@@ -32,6 +32,7 @@ export default class Perfil {
     }
 
     async findOne() {
+        this.email == undefined ? this.email = "" : this.email
         return await bdwicksell.findOne(colecao, { email: this.email })
     }
 
@@ -47,11 +48,11 @@ export default class Perfil {
         await bdwicksell.deleteOne(colecao, { email: this.email })
     }
 
-    setEstoque(estoque : any []){
+    setEstoque(estoque: any[]) {
         this.estoque = estoque
     }
 
-    getProdutoEstoque(_id: string | string[]): number{
+    getProdutoEstoque(_id: string | string[]): number {
         this.estoque == undefined ? this.estoque = [] : this.estoque
         return this.estoque.indexOf(_id)
     }

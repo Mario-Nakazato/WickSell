@@ -28,15 +28,15 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
     }
 
     const perfil = new Perfil()
-	const email = await perfil.setEmail(session?.user?.email!)
+    const email = await perfil.setEmail(session?.user?.email!)
     const documentoPerfil = await perfil.findOne()
 
     if (req.method == "POST") {
 
         if (!documentoPerfil) {
-			res.status(400).json({ txt: "Perfil não existe." })
-			return
-		}
+            res.status(400).json({ txt: "Perfil não existe." })
+            return
+        }
 
         const { name, description, price, discount, imageFilesName, amount } = req.body
         try {
@@ -46,19 +46,19 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
             return
         }
         const insertedProduto = await produto.insertOne()
-        
+
         perfil.setEstoque(documentoPerfil?.estoque)
         await perfil.inserirProdutoEstoque(insertedProduto.insertedId.toString())
 
         //Apenas para debugar insomnia
-        if(req.rawHeaders.filter((value) => { return value == "insomnia/2022.4.2" })[0] === "insomnia/2022.4.2"){
+        if (req.rawHeaders.filter((value) => { return value == "insomnia/2022.4.2" })[0] === "insomnia/2022.4.2") {
             res.status(200).json({ txt: "Produto criado. Insomnia" })
             return
         }
 
         const redirectUrl = '/produto/' + insertedProduto.insertedId
         res.redirect(308, redirectUrl)
-        
+
     } else if (req.method == "PUT") {
 
         const { _id, name, description, price, image, discount, amount } = req.body
@@ -68,7 +68,7 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
         }
 
         perfil.setEstoque(documentoPerfil?.estoque)
-        if(perfil.getProdutoEstoque(_id) == -1){
+        if (perfil.getProdutoEstoque(_id) == -1) {
             res.status(400).json({ txt: "Produto não pertence ao perfil." })
             return
         }
@@ -92,7 +92,7 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
         }
 
         perfil.setEstoque(documentoPerfil?.estoque)
-        if(perfil.getProdutoEstoque(_id) == -1){
+        if (perfil.getProdutoEstoque(_id) == -1) {
             res.status(400).json({ txt: "Produto não pertence ao perfil." })
             return
         }
@@ -127,7 +127,7 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
         }
 
         perfil.setEstoque(documentoPerfil?.estoque)
-        if(perfil.getProdutoEstoque(_id) == -1){
+        if (perfil.getProdutoEstoque(_id) == -1) {
             res.status(400).json({ txt: "Produto não pertence ao perfil." })
             return
         }
