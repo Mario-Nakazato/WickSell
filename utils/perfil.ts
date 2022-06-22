@@ -12,8 +12,8 @@ export default class Perfil {
     private birthDate!: string
     private cpf!: string
     private phone!: string
-    private carrinho: any[] = []
-    private estoque: any[] = []
+    private carrinho!: any[]
+    private estoque!: any[]
 
     set(name: any, birthDate: any, cpf: any, phone: any) {
         this.name = String(name)
