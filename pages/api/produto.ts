@@ -112,14 +112,13 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
             return
         }
 
+        perfil.setEstoque(documentoPerfil?.estoque)
         if(perfil.getProdutoEstoque(_id) == -1){
             res.status(400).json({ txt: "Produto não pertence ao perfil." })
             return
         }
 
         await produto.deleteOne()
-
-        perfil.setEstoque(documentoPerfil?.estoque)
         await perfil.excluirProdutoEstoque(_id)
 
         res.status(200).json({ txt: "Produto excluído." })
