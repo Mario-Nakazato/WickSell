@@ -13,8 +13,9 @@ export default class Produto {
     private image!: string[]
     private discount!: number
     private amount!: number
+    private _idPerfil!: string
 
-    set(_id: any, name: any, description: any, price: any, image: any, discount: any, amount: any) {
+    set(_id: any, name: any, description: any, price: any, image: any, discount: any, amount: any, _idPerfil: any) {
         if (_id != undefined) {
             this._id = new ObjectId(_id)
         }
@@ -35,6 +36,9 @@ export default class Produto {
         }
         if (amount != undefined) {
             this.amount = Number(amount)
+        }
+        if (_idPerfil != undefined) {
+            this._idPerfil = String(_idPerfil)
         }
     }
 
