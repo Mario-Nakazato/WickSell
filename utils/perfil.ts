@@ -46,4 +46,21 @@ export default class Perfil {
     async deleteOne() {
         await bdwicksell.deleteOne(colecao, { email: this.email })
     }
+
+    setEstoque(estoque : any []){
+        this.estoque = estoque
+    }
+
+    async inserirProdutoEstoque(_id: string) {
+        this.estoque == undefined ? this.estoque = [] : this.estoque
+        this.estoque.push(_id)
+        await this.updateOne()
+    }
+
+    async excluirProdutoEstoque(_id: string | string[]) {
+        this.estoque == undefined ? this.estoque = [] : this.estoque
+        //const busca = this.estoque.indexOf(_id)
+        this.estoque.splice(this.estoque.indexOf(_id), 1)
+        await this.updateOne()
+    }
 }
