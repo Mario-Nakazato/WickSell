@@ -52,21 +52,20 @@ export default class Perfil {
         this.estoque = estoque
     }
 
-    getProdutoEstoque(_id: string | string[]): number {
+    getProdutoEstoque(_idProduto: string | string[]): number {
         this.estoque == undefined ? this.estoque = [] : this.estoque
-        return this.estoque.indexOf(_id)
+        return this.estoque.indexOf(_idProduto)
     }
 
-    async inserirProdutoEstoque(_id: string | string[]) {
+    async inserirProdutoEstoque(_idProduto: string | string[]) {
         this.estoque == undefined ? this.estoque = [] : this.estoque
-        this.estoque.push(_id)
+        this.estoque.push(_idProduto)
         await this.updateOne()
     }
 
-    async excluirProdutoEstoque(_id: string | string[]) {
+    async excluirProdutoEstoque(_idProduto: string | string[]) {
         this.estoque == undefined ? this.estoque = [] : this.estoque
-        //const busca = this.estoque.indexOf(_id)
-        this.estoque.splice(this.estoque.indexOf(_id), 1)
+        this.estoque.splice(this.estoque.indexOf(_idProduto), 1)
         await this.updateOne()
     }
 }
