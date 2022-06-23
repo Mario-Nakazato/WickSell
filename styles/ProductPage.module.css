@@ -1,17 +1,21 @@
 .Section {
-    background-color: #858a95;
+    background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 100%;
-    color: white;
+    margin-top: 3rem;
+    margin-left: 10rem;
+    margin-right: 10rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 15px 0px black;
 }
 
 .Product {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
+    align-items: center;
+    width: 50%;
 }
 
 .Container {
@@ -19,8 +23,6 @@
     flex-direction: row;
     width: 100%;
     justify-content: space-between;
-    padding-left: 15rem;
-    padding-right: 15rem;
 }
 
 .UpperContainer {
@@ -44,12 +46,11 @@
 }
 
 .InfoContainer {
-    width: 100%;
+    width: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-left: 10rem;
     padding-bottom: 0;
     padding-top: 0;
 }
@@ -57,21 +58,22 @@
 .Name {
     font-size: 2rem;
     margin-bottom: 0;
-    text-shadow: .1rem .1rem rgba(0, 0, 0, 0.5);
+    text-shadow: .1rem .1rem rgba(0, 0, 0, 0.25);
 
 }
 
 .CurrencyContainer {
-    width: 40rem;
-    text-shadow: .1rem .1rem rgba(0, 0, 0, 0.5);
-
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .Promotion {
     font-size: 1.5rem;
     margin: 0px;
     text-decoration-line: line-through;
-    text-shadow: .1rem .1rem rgba(0, 0, 0, 0.5);
+    text-shadow: .1rem .1rem rgba(0, 0, 0, 0.15);
 
 }
 
@@ -84,21 +86,21 @@
 
 .DescriptionContainer {
     width: 100%;
-    padding-left: 15rem;
-    padding-right: 15rem;
-    margin-bottom: 10rem;
-    text-shadow: .1rem .1rem rgba(0, 0, 0, 0.5);
+    padding-left: 4rem;
+    padding-right: 4rem;
+    margin-bottom: 5rem;
+    text-shadow: .1rem .1rem rgba(0, 0, 0, 0.25);
 }
 
 .Description {
     width: 100%;
     max-width: 100%;
-    text-shadow: .1rem .1rem rgba(0, 0, 0, 0.5);
+    text-shadow: .1rem .1rem rgba(0, 0, 0, 0.2);
 
 }
 
 .Buy {
-    background-color: white;
+    background-color: #23486e;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -109,15 +111,14 @@
     border-radius: 0.25rem;
     border-style: none;
     margin-top: 5rem;
-    margin-bottom: 1rem;
-    margin-right: 10rem;
     font-weight: 600;
-    text-shadow: .1rem .1rem rgba(0, 0, 0, 0.1);
+    text-shadow: .1rem .1rem rgba(0, 0, 0, 1);
+    color: white;
 
 }
 
 .Buy:hover {
-    background-color: lightgray;
+    background-color: #1a3a5b;
 
 }
 
@@ -149,6 +150,7 @@
     min-width: 8rem;
     box-shadow: 0.4rem 0.8rem 0 rgba(0, 0, 0, 0.2);
     z-index: 1;
+    color: black;
 }
 
 .DropdownContent a {
@@ -188,6 +190,8 @@
     margin: 15% auto;
     border: .1rem solid #888;
     width: 25rem;
+    color: black;
+    text-shadow: .05rem .05rem rgba(0, 0, 0, 1);
 }
 
 .DeleteModalContent p {

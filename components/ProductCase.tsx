@@ -18,7 +18,7 @@ export default function ProductCase(props: any) {
             price = price.replaceAll('.', '')
             price = price.replace(',', '.')
             price = price.replace('R$ ', '')
-        }   
+        }
         if (parseFloat(price) !== NaN) price = parseFloat(price)
         else price = 0
     } else { price = 0 }
@@ -34,7 +34,7 @@ export default function ProductCase(props: any) {
     currentPrice = brlMonetary(currentPrice || '0')
 
     var oldPrice = discount > 0 && price ? brlMonetary(price) : ''
-
+    oldPrice =  oldPrice == currentPrice ? '' : oldPrice
     if (props._id) {
         link = `/produto/[id]`
         linkAs = `/produto/${props._id}`
