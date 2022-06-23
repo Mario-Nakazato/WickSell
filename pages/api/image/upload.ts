@@ -1,6 +1,11 @@
 import upload from "../middleware/upload";
+import { getSession } from 'next-auth/react'
 
 const uploadFiles = async (req: any, res: any) => {
+    const session = await getSession({ req })
+    if (!session) {
+        return res.status(400).json({ txt: "Acesso negado." })
+    }
     try {
         await upload(req, res);
         if (req.files.length <= 0) {
