@@ -67,11 +67,3 @@
 .ProductBuyButton:hover {
     background-color: #1A3A5B;
 }
-
-.ProductRollCase {
-    max-width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    margin-top: 2rem;
-}

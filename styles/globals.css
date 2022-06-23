@@ -30,7 +30,6 @@ footer {
 	padding-left: 15rem;
 	padding-right: 15rem;
 	background-color: #23486e;
-	margin-top: 5rem;
 }
 
 footer img {
@@ -52,4 +51,6 @@ footer p:nth-child(2) {
 
 .Container {
 	min-height: calc(100vh - 25rem);
+	padding-top: 2rem;
+	padding-bottom: 5rem;
 }

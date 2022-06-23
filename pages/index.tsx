@@ -1,41 +1,26 @@
 import type { GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import EmailVerifyMessage from '../components/EmailVerifyMessage'
-import ProductRollCase from '../components/ProductRollCase'
 import InfinityLoading from '../components/InfinityLoading'
 import styles from '../styles/Home.module.css'
 import { server } from '../config'
 import { useSession } from 'next-auth/react'
+import ProductCase from '../components/ProductCase'
 
 
 export default function Home({ data }: { data: any }) {
 	const { data: session, status } = useSession()
 	const { query } = useRouter()
-	var produtos: JSX.Element[] = []
 
-	var amount = 4;
-	if (data) {
-		for (let i = 0; i < data.length; i++) {
-			if (i % 4 == 0 || i == 0) {
-				if (data.length - i < 4 && amount == 4) {
-					amount = data.length - i
-				}
-				produtos.push(<ProductRollCase key={i} props={data} init={i} amount={amount}></ProductRollCase >)
-			}
-		}
-	}
-	if (status == "loading") {
-		return (
-			<>
-				<InfinityLoading active={true} />
-			</>
-		)
-	}
+	if (status == "loading") return <InfinityLoading active={true} />
+	
 	else if (session && status == "authenticated") {
 		return (
 			<>
 				<div className={styles.Body}>
-					{produtos}
+					<div className={styles.ProductsContainer}>
+						{data?.map((product: any, i: number) => { return <ProductCase key={i} props={data[i]}></ProductCase> })}
+					</div>
 				</div>
 			</>
 		)
@@ -46,7 +31,9 @@ export default function Home({ data }: { data: any }) {
 		const response = (
 			<>
 				<div className={styles.Body}>
-					{produtos}
+					<div className={styles.ProductsContainer}>
+						{data?.map((product: any, i: number) => { return <ProductCase key={i} props={data[i]}></ProductCase> })}
+					</div>
 				</div>
 			</>
 		)

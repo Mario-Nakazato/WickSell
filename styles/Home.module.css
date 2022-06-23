@@ -2,3 +2,12 @@
 	margin-left: 10rem;
 	margin-right: 10rem;
 }
+
+.ProductsContainer {
+	display: flex;
+	margin: auto;
+	width: calc(6rem + 4*15rem);
+	gap: 2rem;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+}
