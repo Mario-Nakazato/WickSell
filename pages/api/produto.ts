@@ -13,18 +13,15 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
         try {
             produto.set(_id, name, description, price, null, discount, amount, _idPerfil)
         } catch (e) {
-            res.status(400).json({ txt: "_id invalido." })
-            return
+            return res.status(400).json({ txt: "_id invalido." })
         }
         const documentoProduto = await produto.findAll()
-        res.status(200).json(documentoProduto)
-        return
+        return res.status(200).json(documentoProduto)
     }
 
     const session = await getSession({ req })
     if (!session /*&& req.rawHeaders.filter((value) => { return value == "insomnia/2022.4.2" })[0] !== "insomnia/2022.4.2"*/) {
-        res.status(400).json({ txt: "Acesso negado." })
-        return
+        return res.status(400).json({ txt: "Acesso negado." })
     }
 
     const perfil = new Perfil()
@@ -34,16 +31,14 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
     if (req.method == "POST") {
 
         if (!documentoPerfil) {
-            res.status(400).json({ txt: "Perfil não existe." })
-            return
+            return res.status(400).json({ txt: "Perfil não existe." })
         }
 
         const { name, description, price, discount, imageFilesName, amount } = req.body
         try {
             produto.set(null, name, description, price, imageFilesName, discount, amount, documentoPerfil._id.toString())
         } catch (e) {
-            res.status(400).json({ txt: "_id invalido." })
-            return
+            return res.status(400).json({ txt: "_id invalido." })
         }
         const insertedProduto = await produto.insertOne()
 
@@ -52,8 +47,7 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
 
         /*//Apenas para debugar insomnia
         if (req.rawHeaders.filter((value) => { return value == "insomnia/2022.4.2" })[0] === "insomnia/2022.4.2") {
-            res.status(200).json({ txt: "Produto criado. Insomnia" })
-            return
+            return res.status(200).json({ txt: "Produto criado. Insomnia" })
         }*/
 
         const redirectUrl = '/produto/' + insertedProduto.insertedId
@@ -63,21 +57,18 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
 
         const { _id, name, description, price, image, discount, amount, _idPerfil } = req.body
         if (!_id) {
-            res.status(400).json({ txt: "_id não encontrado no body." })
-            return
+            return res.status(400).json({ txt: "_id não encontrado no body." })
         }
 
         perfil.setEstoque(documentoPerfil?.estoque)
         if (perfil.getProdutoEstoque(_id) == -1) {
-            res.status(400).json({ txt: "Produto não pertence ao perfil." })
-            return
+            return res.status(400).json({ txt: "Produto não pertence ao perfil." })
         }
 
         produto.set(_id, null, null, null, null, null, null, null)
         const documentoProduto = await produto.findOne()
         if (!documentoProduto) {
-            res.status(400).json({ txt: "Produto não existe." })
-            return
+            return res.status(400).json({ txt: "Produto não existe." })
         }
         produto.set(_id, name, description, price, image, discount, amount, _idPerfil)
         await produto.replaceOne()
@@ -87,21 +78,18 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
 
         const { _id, name, description, price, image, discount, amount, _idPerfil } = req.body
         if (!_id) {
-            res.status(400).json({ txt: "_id não encontrado no body." })
-            return
+            return res.status(400).json({ txt: "_id não encontrado no body." })
         }
 
         perfil.setEstoque(documentoPerfil?.estoque)
         if (perfil.getProdutoEstoque(_id) == -1) {
-            res.status(400).json({ txt: "Produto não pertence ao perfil." })
-            return
+            return res.status(400).json({ txt: "Produto não pertence ao perfil." })
         }
 
         produto.set(_id, null, null, null, null, null, null, null)
         const documentoProduto = await produto.findOne()
         if (!documentoProduto) {
-            res.status(400).json({ txt: "Produto não existe." })
-            return
+            return res.status(400).json({ txt: "Produto não existe." })
         }
         produto.set(_id, name, description, price, image, discount, amount, _idPerfil)
         await produto.updateOne()
@@ -111,25 +99,22 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
 
         const { _id } = req.query
         if (!_id) {
-            res.status(400).json({ txt: "_id não existe." })
-            return
+            return res.status(400).json({ txt: "_id não existe." })
         }
         try {
             produto.set(_id, null, null, null, null, null, null, null)
         } catch (e) {
-            res.status(400).json({ txt: "_id invalido." })
-            return
+            return res.status(400).json({ txt: "_id invalido." })
+            
         }
         const documentoProduto = await produto.findOne()
         if (!documentoProduto) {
-            res.status(400).json({ txt: "Produto não existe." })
-            return
+            return res.status(400).json({ txt: "Produto não existe." })
         }
 
         perfil.setEstoque(documentoPerfil?.estoque)
         if (perfil.getProdutoEstoque(_id) == -1) {
-            res.status(400).json({ txt: "Produto não pertence ao perfil." })
-            return
+            return res.status(400).json({ txt: "Produto não pertence ao perfil." })
         }
 
         await produto.deleteOne()
