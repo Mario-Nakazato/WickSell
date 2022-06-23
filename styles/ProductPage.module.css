@@ -31,9 +31,11 @@
     width: 100%;
     margin-top: 2rem;
     margin-bottom: 2rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
     justify-content: space-between;
-    padding-left: 15rem;
-    padding-right: 15rem;
+    align-content: center;
+    align-items: center;
 }
 
 .ImageContainer {
@@ -97,7 +99,8 @@
 .Description {
     width: 100%;
     max-width: 100%;
-    text-shadow: .1rem .1rem rgba(0, 0, 0, 0.2);
+    text-align: justify;
+    text-shadow: 0.05rem 0.05rem rgb(0 0 0 / 20%);
 
 }
 
@@ -150,7 +153,7 @@
     position: absolute;
     background-color: #f9f9f9;
     min-width: 8rem;
-    box-shadow: 0.4rem 0.8rem 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 0.5rem 0 rgb(0 0 0 / 50%);
     z-index: 1;
     color: black;
 }
