@@ -12,8 +12,8 @@ export default class Perfil {
     private birthDate!: string
     private cpf!: string
     private phone!: string
-    private carrinho: any[] = []
-    private estoque: any[] = []
+    private carrinho!: any[]
+    private estoque!: any[]
 
     set(name: any, birthDate: any, cpf: any, phone: any) {
         this.name = String(name)
@@ -32,6 +32,7 @@ export default class Perfil {
     }
 
     async findOne() {
+        this.email == undefined ? this.email = "" : this.email
         return await bdwicksell.findOne(colecao, { email: this.email })
     }
 
@@ -45,5 +46,26 @@ export default class Perfil {
 
     async deleteOne() {
         await bdwicksell.deleteOne(colecao, { email: this.email })
+    }
+
+    setEstoque(estoque: any[]) {
+        this.estoque = estoque
+    }
+
+    getProdutoEstoque(_idProduto: string | string[]): number {
+        this.estoque == undefined ? this.estoque = [] : this.estoque
+        return this.estoque.indexOf(_idProduto)
+    }
+
+    async inserirProdutoEstoque(_idProduto: string | string[]) {
+        this.estoque == undefined ? this.estoque = [] : this.estoque
+        this.estoque.push(_idProduto)
+        await this.updateOne()
+    }
+
+    async excluirProdutoEstoque(_idProduto: string | string[]) {
+        this.estoque == undefined ? this.estoque = [] : this.estoque
+        this.estoque.splice(this.estoque.indexOf(_idProduto), 1)
+        await this.updateOne()
     }
 }

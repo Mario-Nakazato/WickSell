@@ -7,13 +7,15 @@ const colecao = process.env.MONGODB_COLLECTION_PRODUTO!
 export default class Produto {
 
     private _id!: ObjectId
-    private name!: string | {};
-    private description!: string | {};
-    private price!: number;
-    private image!: string[];
-    private discount!: number;
+    private name!: string | {}
+    private description!: string | {}
+    private price!: number
+    private image!: string[]
+    private discount!: number
+    private amount!: number
+    private _idPerfil!: string
 
-    set(_id: any, name: any, description: any, price: any, image: any, discount: any) {
+    set(_id: any, name: any, description: any, price: any, image: any, discount: any, amount: any, _idPerfil: any) {
         if (_id != undefined) {
             this._id = new ObjectId(_id)
         }
@@ -31,6 +33,12 @@ export default class Produto {
         }
         if (discount != undefined) {
             this.discount = Number(discount)
+        }
+        if (amount != undefined) {
+            this.amount = Number(amount)
+        }
+        if (_idPerfil != undefined) {
+            this._idPerfil = String(_idPerfil)
         }
     }
 

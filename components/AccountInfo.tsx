@@ -20,9 +20,7 @@ const AccountInfo: NextComponentType = () => {
                         <a className={styles.LoginBtn} onClick={() => signOut()}>Sair</a>
                     </div>
                     <div style={{ position: "fixed", bottom: 0, right: 15 + 'px' }}>
-
-                        Conectado como {session?.user?.email}
-
+                        {/*Conectado como {session?.user?.email}*/}
                     </div>
                 </div>
             </>
