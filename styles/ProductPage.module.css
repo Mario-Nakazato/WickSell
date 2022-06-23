@@ -19,19 +19,19 @@
     flex-direction: row;
     width: 100%;
     justify-content: space-between;
-    padding-left: 15vw;
-    padding-right: 15vw;
+    padding-left: 15rem;
+    padding-right: 15rem;
 }
 
 .UpperContainer {
     display: flex;
     flex-direction: row;
     width: 100%;
-    margin-top: 2vw;
-    margin-bottom: 2vw;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
     justify-content: space-between;
-    padding-left: 15vw;
-    padding-right: 15vw;
+    padding-left: 15rem;
+    padding-right: 15rem;
 }
 
 .ImageContainer {
@@ -39,8 +39,8 @@
 }
 
 .Image {
-    width: 30vw;
-    height: 30vw;
+    width: 30rem;
+    height: 30rem;
 }
 
 .InfoContainer {
@@ -49,51 +49,51 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-left: 10vw;
+    padding-left: 10rem;
     padding-bottom: 0;
     padding-top: 0;
 }
 
 .Name {
-    font-size: 2vw;
+    font-size: 2rem;
     margin-bottom: 0;
-    text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+    text-shadow: .1rem .1rem rgba(0, 0, 0, 0.5);
 
 }
 
 .CurrencyContainer {
-    width: 40vw;
-    text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+    width: 40rem;
+    text-shadow: .1rem .1rem rgba(0, 0, 0, 0.5);
 
 }
 
 .Promotion {
-    font-size: 1.5vw;
+    font-size: 1.5rem;
     margin: 0px;
     text-decoration-line: line-through;
-    text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+    text-shadow: .1rem .1rem rgba(0, 0, 0, 0.5);
 
 }
 
 .Price {
-    font-size: 3.5vw;
+    font-size: 3.5rem;
     margin: 0px;
-    text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+    text-shadow: .1rem .1rem rgba(0, 0, 0, 0.5);
 
 }
 
 .DescriptionContainer {
     width: 100%;
-    padding-left: 15vw;
-    padding-right: 15vw;
-    margin-bottom: 10vw;
-    text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+    padding-left: 15rem;
+    padding-right: 15rem;
+    margin-bottom: 10rem;
+    text-shadow: .1rem .1rem rgba(0, 0, 0, 0.5);
 }
 
 .Description {
     width: 100%;
     max-width: 100%;
-    text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+    text-shadow: .1rem .1rem rgba(0, 0, 0, 0.5);
 
 }
 
@@ -102,17 +102,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 15vw;
-    height: 5vw;
-    font-size: 1.7vw;
+    width: 15rem;
+    height: 5rem;
+    font-size: 1.7rem;
     align-self: center;
-    border-radius: 5px;
+    border-radius: 0.25rem;
     border-style: none;
-    margin-top: 5vw;
-    margin-bottom: 1vw;
-    margin-right: 10vw;
+    margin-top: 5rem;
+    margin-bottom: 1rem;
+    margin-right: 10rem;
     font-weight: 600;
-    text-shadow: 1px 1px rgba(0, 0, 0, 0.1);
+    text-shadow: .1rem .1rem rgba(0, 0, 0, 0.1);
 
 }
 
@@ -133,8 +133,8 @@
 }
 
 .DropButton img {
-    width: 1.5vw;
-    height: 1.5vw;
+    width: 1.5rem;
+    height: 1.5rem;
 }
 
 .Dropdown {
@@ -146,15 +146,15 @@
     display: none;
     position: absolute;
     background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    min-width: 8rem;
+    box-shadow: 0.4rem 0.8rem 0 rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
 
 .DropdownContent a {
     cursor: pointer;
     color: black;
-    padding: 12px 16px;
+    padding: 0.6rem 0.8rem;
     text-decoration: none;
     display: block;
 }
@@ -186,22 +186,22 @@
 .DeleteModalContent {
     background-color: #fefefe;
     margin: 15% auto;
-    border: 1px solid #888;
-    width: 25vw;
+    border: .1rem solid #888;
+    width: 25rem;
 }
 
 .DeleteModalContent p {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2vw;
+    font-size: 2rem;
 }
 
 .DeleteModalContent a {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.5vw;
+    font-size: 1.5rem;
     width: 100%;
     height: 100%;
     cursor: pointer;
@@ -212,17 +212,17 @@
     align-items: center;
     flex-direction: row;
     width: 100%;
-    height: 3vw;
+    height: 3rem;
 
 }
 
 .Close {
     color: #aaa;
     float: right;
-    font-size: 2.5vw;
+    font-size: 2.5rem;
     font-weight: bold;
     cursor: pointer;
-    margin-right: 01vw;
+    margin-right: 01rem;
 }
 
 .Confirmar {

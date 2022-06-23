@@ -1,8 +1,4 @@
-import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { useState } from 'react'
-import DefaultHead from '../../components/DefaultHead'
-import Header from '../../components/Header'
 import InfinityLoading from '../../components/InfinityLoading'
 import ProductCase from '../../components/ProductCase'
 import styles from '../../styles/Produto.module.css'
@@ -21,8 +17,6 @@ export default function Create() {
 
     return (
         <>
-            <DefaultHead />
-            <Header />
             <InfinityLoading active={status} />
             <div className={styles.Container}>
                 <div style={{ textAlign: 'center' }}>
@@ -118,6 +112,7 @@ export default function Create() {
                                     })
                             } catch (err) {
                                 console.log(err);
+                                setStatus(false)
                             }
                         }} className={styles.SubmitButton}>Salvar</button>
                     </form>

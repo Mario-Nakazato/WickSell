@@ -3,7 +3,7 @@
     justify-content: center;
     width: 100%;
     height: 100%;
-    margin-top: 1vw;
+    margin-top: 1rem;
 }
 
 .Form {
@@ -14,13 +14,13 @@
     justify-content: center;
     align-items: center;
     align-content: center;
-    max-width: 25vw;
+    max-width: 25rem;
     background-color: rgb(165, 165, 165);
-    border-radius: 25px;
+    border-radius: 0.25rem;
 }
 
 .ProfileImg {
-    border-radius: 50px
+    border-radius: 50%
 }
 
 .Label {
@@ -33,17 +33,38 @@
     align-items: baseline;
     max-width: 100%;
     max-height: 100%;
-    padding-left: 1vw;
-    padding-right: 1vw;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.InputBox input {
+    animation-duration: 1.8s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background: rgb(105, 105, 105);
+    background: linear-gradient(to right, rgb(105, 105, 105) 0%, rgb(157, 157, 157) 50%, rgb(105, 105, 105) 100%);
+    background-size: 1000px;
+}
+
+@keyframes placeHolderShimmer {
+    0% {
+        background-position: 0 0
+    }
+
+    100% {
+        background-position: 1000px 0
+    }
 }
 
 .Input {
-    width: 30vw;
-    height: 2.5vw;
+    width: 30rem;
+    height: 2.5rem;
     align-self: center;
-    border-radius: 5px;
+    border-radius: 0.25rem;
     border-style: none;
-    font-size: 1.3vw;
+    font-size: 1.3rem;
     max-width: 100%;
     max-height: 100%;
 }
@@ -53,14 +74,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 5vw;
-    height: 3vw;
-    font-size: 1.1vw;
+    width: 5rem;
+    height: 3rem;
+    font-size: 1.1rem;
     align-self: center;
-    border-radius: 5px;
+    border-radius: 0.25rem;
     border-style: none;
-    margin-top: 1vw;
-    margin-bottom: 1vw;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
     font-weight: 545;
 }
 

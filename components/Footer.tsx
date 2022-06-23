@@ -1,7 +1,9 @@
 export default function Footer() {
     return (<>
         <footer>
-            <div>content</div>
+            <img src='/wick-sell.png' alt='WickSell'></img>
+            <p>WickSell © 2022</p>
+            <p>"[...] A produção é a fonte da demanda." ~Say's law</p>
         </footer>
     </>)
 }

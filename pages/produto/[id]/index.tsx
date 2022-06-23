@@ -2,8 +2,6 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import DefaultHead from '../../../components/DefaultHead'
-import Header from '../../../components/Header'
 import InfinityLoading from '../../../components/InfinityLoading'
 import { server } from '../../../config'
 import styles from '../../../styles/ProductPage.module.css'
@@ -67,8 +65,6 @@ export default function Produto({ data }: { data: any }) {
         )
         if (status === 'authenticated') {
             return <>
-                <DefaultHead />
-                <Header />
                 <InfinityLoading active={isLoading} />
                 <section className={styles.Section}>
                     <div className={styles.UpperContainer}>
@@ -104,8 +100,6 @@ export default function Produto({ data }: { data: any }) {
             </>
         } else {
             return <>
-                <DefaultHead />
-                <Header />
                 <InfinityLoading active={isLoading} />
                 <section className={styles.Section}>
                     <div className={styles.Container}>

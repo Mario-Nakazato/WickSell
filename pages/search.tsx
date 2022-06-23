@@ -1,9 +1,6 @@
 import { useRouter } from 'next/router'
-import DefaultHead from '../components/DefaultHead'
-import Header from '../components/Header'
 import InfinityLoading from '../components/InfinityLoading'
 import styles from '../styles/SearchPage.module.css'
-import { server } from '../config'
 import useSWR from 'swr'
 import ProductCase from '../components/ProductCase'
 import { useState } from 'react'
@@ -24,10 +21,8 @@ export default function Home() {
     const queryPrice = price !== '' && price ? `price=${price}` : undefined
     const querySearch: string = [queryName!, queryDescription!, queryDiscount!, queryPrice!].filter((item) => item).join('&')
     const { data, error } = useSWR(`/api/produto?${querySearch}`, fetcher)
-
+console.log(error)
     return (<>
-        <DefaultHead></DefaultHead>
-        <Header></Header>
         <InfinityLoading active={!data ? true : false} />
         <div className={styles.Container}>
             <form className={styles.SearchContainer}>

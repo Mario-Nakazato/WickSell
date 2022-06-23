@@ -1,33 +1,34 @@
 .ProductCase {
-    width: 15vw;
+    width: 15rem;
+    height: 100%;
     text-align: center;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 0.25rem;
     background-color: white;
-    box-shadow: 0 4px 10px 1px rgb(0, 0, 0);
+    box-shadow: 0 0.2rem 0.5rem .1rem rgb(0, 0, 0);
 }
 
 .ProductCase:hover {
-    transform: translateY(-3px);
+    transform: translateY(-0.3rem);
     transition-duration: .5s;
 }
 
 .ProductImage {
-    width: 12vw;
-    height: 12vw;
-    min-height: 12vw;
-    min-width: 12vw;
-    margin-top: 1.5vw;
+    width: 12rem;
+    height: 12rem;
+    min-height: 12rem;
+    min-width: 12rem;
+    margin-top: 1.5rem;
 }
 
 .ProductName {
-    font-size: 1.2vw;
-    line-height: 1.3vw;
+    font-size: 1.2rem;
+    line-height: 1.3rem;
     font-weight: 600;
-    margin-top: 0.5vw;
-    padding-left: 0.5vw;
-    padding-right: 0.5vw;
-    min-height: 2.6vw;
+    margin-top: 0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    min-height: 2.6rem;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -37,30 +38,30 @@
 }
 
 .ProductPromotion {
-    font-size: 1vw;
-    margin-top: 1vw;
-    padding-left: 1vw;
+    font-size: 1rem;
+    margin-top: 1rem;
+    padding-left: 1rem;
     text-align: left;
-    min-height: 1.4vw;
+    min-height: 1.4rem;
     text-decoration-line: line-through;
 }
 
 .ProductPrice {
-    min-height: 2.125vw;
-    font-size: 1.5vw;
-    line-height: 2.125vw;
+    min-height: 2.125rem;
+    font-size: 1.5rem;
+    line-height: 2.125rem;
     font-weight: 700;
 }
 
 .ProductBuyButton {
-    margin-top: 0.4vw;
+    margin-top: 0.4rem;
     background-color: #23486E;
     color: white;
-    font-size: 1.4vw;
-    line-height: 3vw;
+    font-size: 1.4rem;
+    line-height: 3rem;
     font-weight: 700;
-    height: 3.1vw;
-    border-radius: 0px 0px 5px 5px;
+    height: 3.1rem;
+    border-radius: 0 0 0.25rem 0.25rem;
 }
 
 .ProductBuyButton:hover {
@@ -72,5 +73,5 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    margin-top: 2vw;
+    margin-top: 2rem;
 }

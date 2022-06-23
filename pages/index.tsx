@@ -1,7 +1,5 @@
-import type { GetStaticPaths, GetStaticProps, NextPage } from 'next'
+import type { GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
-import DefaultHead from '../components/DefaultHead'
-import Header from '../components/Header'
 import EmailVerifyMessage from '../components/EmailVerifyMessage'
 import ProductRollCase from '../components/ProductRollCase'
 import InfinityLoading from '../components/InfinityLoading'
@@ -29,8 +27,6 @@ export default function Home({ data }: { data: any }) {
 	if (status == "loading") {
 		return (
 			<>
-				<DefaultHead />
-				<Header />
 				<InfinityLoading active={true} />
 			</>
 		)
@@ -38,8 +34,6 @@ export default function Home({ data }: { data: any }) {
 	else if (session && status == "authenticated") {
 		return (
 			<>
-				<DefaultHead></DefaultHead>
-				<Header></Header>
 				<div className={styles.Body}>
 					{produtos}
 				</div>
@@ -51,8 +45,6 @@ export default function Home({ data }: { data: any }) {
 		</>)
 		const response = (
 			<>
-				<DefaultHead></DefaultHead>
-				<Header></Header>
 				<div className={styles.Body}>
 					{produtos}
 				</div>

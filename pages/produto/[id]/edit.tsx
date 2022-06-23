@@ -2,8 +2,6 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import useSWR from 'swr'
-import DefaultHead from '../../../components/DefaultHead'
-import Header from '../../../components/Header'
 import InfinityLoading from '../../../components/InfinityLoading'
 import styles from '../../../styles/Produto.module.css'
 import { percentage, currency } from '../../../utils/valuesUtils'
@@ -36,15 +34,11 @@ export default function Produto() {
     )
     if (error) {
         return (<>
-            <DefaultHead />
-            <Header />
             {error.message}
         </>)
     }
     else if (!data) {
         return (<>
-            <DefaultHead />
-            <Header />
             <InfinityLoading active={true} />
         </>)
     }
@@ -62,10 +56,7 @@ export default function Produto() {
         }
         if (status === 'authenticated') {
             return <>
-                <DefaultHead />
-                <Header />
                 <InfinityLoading active={isLoading} />
-
                 <div className={styles.Container}>
                     <div style={{ textAlign: 'center' }}>
                         <form className={styles.Form}>
