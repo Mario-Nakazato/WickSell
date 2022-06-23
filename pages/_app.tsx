@@ -9,10 +9,10 @@ import Header from '../components/Header'
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 	return (
 		<SessionProvider session={session}>
-			<DefaultHead/>
-			<Header/>
+			<DefaultHead />
+			<Header />
 			<Component {...pageProps} />
-			<Footer/>
+			<Footer />
 		</SessionProvider>
 	)
 }

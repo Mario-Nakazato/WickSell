@@ -13,7 +13,7 @@ const Home: NextPage = () => {
 	const [birthDate, setBirthDate] = useState("")
 	const [cpf, setCPF] = useState("")
 	const [phone, setPhone] = useState("")
-	if (false) {data && !data.name && session && status == "authenticated"
+	if (data && !data.name && session && status == "authenticated") {
 		return (
 			<>
 				<div className={styles.Container}>
@@ -49,7 +49,7 @@ const Home: NextPage = () => {
 				</div>
 			</>
 		)
-	} else if (true) {//!data || status == "loading"
+	} else if (!data || status == "loading") {
 		return (
 			<>
 				<div className={styles.Container}>

@@ -3,7 +3,7 @@ export default function Footer() {
         <footer>
             <img src='/wick-sell.png' alt='WickSell'></img>
             <p>WickSell © 2022</p>
-            <p>"[...] A produção é a fonte da demanda." ~Say's law</p>
+            <p>&quot;[...] A produção é a fonte da demanda.&quot; ~Say&apos;s law</p>
         </footer>
     </>)
 }
