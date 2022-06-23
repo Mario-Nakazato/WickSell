@@ -7,16 +7,14 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 	const session = await getSession({ req })
 
 	if (!session /*&& req.rawHeaders.filter((value) => { return value == "insomnia/2022.4.2" })[0] !== "insomnia/2022.4.2"*/) {
-		res.status(400).json({ txt: "Acesso negado." })
-		return
+		return res.status(400).json({ txt: "Acesso negado." })
 	}
 
 	const perfil = new Perfil()
 	const email = await perfil.setEmail(session?.user?.email!)
 
 	if (email == undefined) {
-		res.status(400).json({ txt: "Email não existe." })
-		return
+		return res.status(400).json({ txt: "Email não existe." })
 	}
 
 	const documentoPerfil = await perfil.findOne()
@@ -24,20 +22,17 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 	if (req.method == "GET") {
 
 		if (!documentoPerfil) {
-			res.status(200).json({ email: email })
-			return
+			return res.status(200).json({ email: email })
 		}
 		res.status(200).json(documentoPerfil)
 
 	} else if (req.method == "POST") {
 
 		if (documentoPerfil) {
-			res.status(400).json({ txt: "Perfil já existe." })
-			return
+			return res.status(400).json({ txt: "Perfil já existe." })
 		}
 		if (req.body.email != email) {
-			res.status(400).json({ txt: "Email da sessão não é igual ao body." })
-			return
+			return res.status(400).json({ txt: "Email da sessão não é igual ao body." })
 		}
 		const { name, birthDate, cpf, phone } = req.body
 		perfil.set(name, birthDate, cpf, phone)
@@ -47,12 +42,10 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 	} else if (req.method == "PUT") {
 
 		if (!documentoPerfil) {
-			res.status(400).json({ txt: "Perfil não existe." })
-			return
+			return res.status(400).json({ txt: "Perfil não existe." })
 		}
 		if (req.body.email != email) {
-			res.status(400).json({ txt: "Email da sessão não é igual ao body." })
-			return
+			return res.status(400).json({ txt: "Email da sessão não é igual ao body." })
 		}
 		const { name, birthDate, cpf, phone } = req.body
 		perfil.set(name, birthDate, cpf, phone)
@@ -62,12 +55,10 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 	} else if (req.method == "PATCH") {
 
 		if (!documentoPerfil) {
-			res.status(400).json({ txt: "Perfil não existe." })
-			return
+			return res.status(400).json({ txt: "Perfil não existe." })
 		}
 		if (req.body.email != email) {
-			res.status(400).json({ txt: "Email da sessão não é igual ao body." })
-			return
+			return res.status(400).json({ txt: "Email da sessão não é igual ao body." })
 		}
 		const { name, birthDate, cpf, phone } = req.body
 		perfil.set(name, birthDate, cpf, phone)
@@ -77,8 +68,7 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 	} else if (req.method == "DELETE") {
 
 		if (!documentoPerfil) {
-			res.status(400).json({ txt: "Perfil não existe." })
-			return
+			return res.status(400).json({ txt: "Perfil não existe." })
 		}
 		await perfil.deleteOne()
 		res.status(200).json({ txt: "Perfil excluído." })
