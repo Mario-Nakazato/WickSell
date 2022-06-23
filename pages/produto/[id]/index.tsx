@@ -2,8 +2,6 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import DefaultHead from '../../../components/DefaultHead'
-import Header from '../../../components/Header'
 import InfinityLoading from '../../../components/InfinityLoading'
 import { server } from '../../../config'
 import styles from '../../../styles/ProductPage.module.css'
@@ -17,20 +15,17 @@ export default function Produto({ data }: { data: any }) {
     if (data) {
         var currentPrice = data.discount > 0 ? (data.price - (data.price * data.discount) / 100).toFixed(2) : data.price
         var oldPrice = data.discount > 0 ? data.price : undefined
-
         const control = (
             <>
                 <div className={styles.Controls}>
                     <div className={styles.Dropdown}>
                         <button className={styles.DropButton} onClick={() => {
                             const dropdown = document.getElementById('dropdown')
-                                dropdown!.addEventListener('focusout', (e) => {
-                                    console.log('out')
-                                    dropdown!.style.display = 'none';
-
-                                });
-                                dropdown!.style.display = 'block';
-                                dropdown!.focus()
+                            dropdown!.addEventListener('focusout', (e) => {
+                                dropdown!.style.display = 'none';
+                            });
+                            dropdown!.style.display = 'block';
+                            dropdown!.focus()
                         }}>
                             <img src='/gear.png' alt='Opções'></img>
                         </button>
@@ -67,8 +62,6 @@ export default function Produto({ data }: { data: any }) {
         )
         if (status === 'authenticated') {
             return <>
-                <DefaultHead />
-                <Header />
                 <InfinityLoading active={isLoading} />
                 <section className={styles.Section}>
                     <div className={styles.UpperContainer}>
@@ -86,8 +79,10 @@ export default function Produto({ data }: { data: any }) {
 
                         <div className={styles.InfoContainer}>
                             <div className={styles.CurrencyContainer} >
-                                <h3 className={styles.Promotion}>{brlMonetary(oldPrice)}</h3>
-                                <h4 className={styles.Price}>{brlMonetary(currentPrice || '0')}</h4>
+                                <div>
+                                    <h3 className={styles.Promotion}>{brlMonetary(oldPrice == currentPrice ? '' : oldPrice)}</h3>
+                                    <h4 className={styles.Price}>{brlMonetary(currentPrice || '0')}</h4>
+                                </div>
                             </div>
                             <button className={styles.Buy}>Adicionar ao Carrinho</button>
                         </div>
@@ -104,8 +99,6 @@ export default function Produto({ data }: { data: any }) {
             </>
         } else {
             return <>
-                <DefaultHead />
-                <Header />
                 <InfinityLoading active={isLoading} />
                 <section className={styles.Section}>
                     <div className={styles.Container}>
@@ -117,8 +110,12 @@ export default function Produto({ data }: { data: any }) {
                         </div>
 
                         <div className={styles.InfoContainer}>
-                            <h3 className={styles.Promotion}>{brlMonetary(oldPrice)}</h3>
-                            <h4 className={styles.Price}>{brlMonetary(currentPrice || '0')}</h4>
+                            <div className={styles.CurrencyContainer} >
+                                <div>
+                                    <h3 className={styles.Promotion}>{brlMonetary(oldPrice == currentPrice ? '' : oldPrice)}</h3>
+                                    <h4 className={styles.Price}>{brlMonetary(currentPrice || '0')}</h4>
+                                </div>
+                            </div>
                             <button className={styles.Buy}>Adicionar ao Carrinho</button>
                         </div>
                     </div>
@@ -160,7 +157,6 @@ const deleteProduto = async (produto: any) => {
                 if (res.status !== 200) {
                     console.log(data.message)
                 }
-                console.log(data)
             } catch (err) {
                 console.log(err)
             }

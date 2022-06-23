@@ -1,8 +1,4 @@
-import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { useState } from 'react'
-import DefaultHead from '../../components/DefaultHead'
-import Header from '../../components/Header'
 import InfinityLoading from '../../components/InfinityLoading'
 import ProductCase from '../../components/ProductCase'
 import styles from '../../styles/Produto.module.css'
@@ -15,31 +11,30 @@ export default function Create() {
     const [description, setDescription] = useState("")
     const [price, setPrice] = useState("")
     const [discount, setDiscount] = useState("")
+    const [amount, setAmount] = useState(0)
     const [imageInput, setImageInput] = useState("")
     const [imageFiles, setImageFiles] = useState<FileList>()
     const [image, setImage] = useState("")
 
     return (
         <>
-            <DefaultHead />
-            <Header />
             <InfinityLoading active={status} />
             <div className={styles.Container}>
                 <div style={{ textAlign: 'center' }}>
                     <form className={styles.Form}>
                         <div className={styles.InputBox}>
                             <label className={styles.Label}>Nome do Produto</label>
-                            <input type="text" name='name' placeholder={"Nome do Produto"} className={styles.Input} value={name} onChange={e => setName(e.target.value)} ></input>
+                            <input type="text" name='ProductName' placeholder={"Nome do Produto"} className={styles.Input} value={name} onChange={e => setName(e.target.value)} ></input>
                         </div>
                         <div className={styles.InputBox}>
                             <label className={styles.Label}>Descrição</label>
-                            <textarea name='description' placeholder={"Descrição"} rows={5} className={styles.InputDescription} value={description} onChange={e => setDescription(e.target.value)} ></textarea>
+                            <textarea name='ProductDescription' placeholder={"Descrição"} rows={5} className={styles.InputDescription} value={description} onChange={e => setDescription(e.target.value)} ></textarea>
                         </div>
                         <div className={styles.InputBox}>
                             <label className={styles.Label}>Preço</label>
                             <div className={styles.InputMonetary}>
                                 <label className={styles.LabelCifra}>R$</label>
-                                <input type="text" min='0' step='0.01' name='price' placeholder={"0,00"} className={styles.Input} value={price} onChange={e => {
+                                <input type="text" min='0' step='0.01' name='ProductPrice' placeholder={"0,00"} className={styles.Input} value={price} onChange={e => {
                                     const temp = e.target.value.replace(/\D/g, '')
                                     console.log(temp)
                                     if (temp.length <= 12)
@@ -47,20 +42,26 @@ export default function Create() {
                                 }} ></input>
                             </div>
                         </div>
-                        <div className={styles.InputBox}>
-                            <label className={styles.Label}>Promoção</label>
-                            <input type="text" min='0' max='100' step='0.01' name='promotion' placeholder={"0,00%"} className={styles.Input} value={discount} onChange={e => {
-                                if (e.target.value.length < discount.length && e.target.value[e.target.value.length - 1] !== '%') {
-                                    if (e.target.value.length === 0) {
-                                        setDiscount(percentage(e))
+                        <div className={styles.QtdContainer}>
+                            <div className={styles.InputBox}>
+                                <label className={styles.Label}>Promoção</label>
+                                <input type="text" min='0' max='100' step='0.01' name='ProductDiscount' placeholder={"0,00%"} className={styles.Input} value={discount} onChange={e => {
+                                    if (e.target.value.length < discount.length && e.target.value[e.target.value.length - 1] !== '%') {
+                                        if (e.target.value.length === 0) {
+                                            setDiscount(percentage(e))
+                                        } else {
+                                            const value = e.target.value.substring(0, e.target.value.length - 1)
+                                            setDiscount(percentage(value) + '%')
+                                        }
                                     } else {
-                                        const value = e.target.value.substring(0, e.target.value.length - 1)
-                                        setDiscount(percentage(value) + '%')
+                                        setDiscount(percentage(e) + '%')
                                     }
-                                } else {
-                                    setDiscount(percentage(e) + '%')
-                                }
-                            }} ></input>
+                                }} ></input>
+                            </div>
+                            <div className={styles.InputBox}>
+                                <label className={styles.Label}>Quantidade</label>
+                                <input type="number" min='0' step='1' name='ProductAmount' placeholder={"0"} className={styles.Input} value={amount} onChange={e => setAmount(Number(e.target.value))} ></input>
+                            </div>
                         </div>
                         <div className={styles.InputBox}>
                             <label className={styles.Label}>Imagens do Produto</label>
@@ -87,7 +88,7 @@ export default function Create() {
                                         if (res.files) setImage(res.files[0].host + res.files[0].filename)
                                         var numberPrice = price.replaceAll('.', '').replace(',', '.').replace('R$ ', '')
                                         var numberDiscount = discount.replace(',', '.').replace('%', '')
-                                        const data: any = { name, description, price: numberPrice, discount: numberDiscount }
+                                        const data: any = { name, description, price: numberPrice, discount: numberDiscount, amount }
                                         const formBody = [];
                                         for (var property in data) {
                                             var encodedKey = encodeURIComponent(property);
@@ -118,6 +119,7 @@ export default function Create() {
                                     })
                             } catch (err) {
                                 console.log(err);
+                                setStatus(false)
                             }
                         }} className={styles.SubmitButton}>Salvar</button>
                     </form>
