@@ -22,7 +22,7 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
     }
 
     const session = await getSession({ req })
-    if (!session && req.rawHeaders.filter((value) => { return value == "insomnia/2022.4.2" })[0] !== "insomnia/2022.4.2") {
+    if (!session /*&& req.rawHeaders.filter((value) => { return value == "insomnia/2022.4.2" })[0] !== "insomnia/2022.4.2"*/) {
         res.status(400).json({ txt: "Acesso negado." })
         return
     }
@@ -50,11 +50,11 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
         perfil.setEstoque(documentoPerfil?.estoque)
         await perfil.inserirProdutoEstoque(insertedProduto.insertedId.toString())
 
-        //Apenas para debugar insomnia
+        /*//Apenas para debugar insomnia
         if (req.rawHeaders.filter((value) => { return value == "insomnia/2022.4.2" })[0] === "insomnia/2022.4.2") {
             res.status(200).json({ txt: "Produto criado. Insomnia" })
             return
-        }
+        }*/
 
         const redirectUrl = '/produto/' + insertedProduto.insertedId
         res.redirect(308, redirectUrl)
