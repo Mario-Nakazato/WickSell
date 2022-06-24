@@ -13,7 +13,7 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
         try {
             produto.set(_id, name, description, price, null, discount, amount, _idPerfil)
         } catch (e) {
-            return res.status(400).json({ txt: "_id invalido." })
+            return res.status(400).redirect("/").json({ txt: "_id invalido." })
         }
         const documentoProduto = await produto.findAll()
         return res.status(200).json(documentoProduto)
