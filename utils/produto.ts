@@ -95,7 +95,6 @@ export default class Produto {
         if (pesquisa.length == 0) {
             this.name = ''
             buscar = {
-                _id: this._id,
                 name: { $regex: this.name, $options: 'i' }
             }
             return pesquisa = await bdwicksell.findAll(colecao, buscar)
