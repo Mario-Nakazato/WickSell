@@ -34,6 +34,7 @@ export default async function NextA(req: NextApiRequest, res: NextApiResponse) {
                     return baseUrl
                 },
                 async session({ session, user, token }) {
+                    session!.user = { ...session!.user, sub: user.email} as any
                     return session
                 },
                 async jwt({ token, user, account, profile, isNewUser }) {
