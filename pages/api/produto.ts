@@ -19,13 +19,13 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
         return res.status(200).json(documentoProduto)
     }
 
-    const session = await getSession({ req })
+    const session: any = await getSession({ req })
     if (!session /*&& req.rawHeaders.filter((value) => { return value == "insomnia/2022.4.2" })[0] !== "insomnia/2022.4.2"*/) {
         return res.status(400).json({ txt: "Acesso negado." })
     }
 
     const perfil = new Perfil()
-    const email = await perfil.setEmail(session?.user?.email!)
+    const email = await perfil.setEmail(session?.user?.sub!)
     const documentoPerfil = await perfil.findOne()
 
     if (req.method == "POST") {

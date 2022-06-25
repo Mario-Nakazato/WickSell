@@ -11,7 +11,7 @@ export default async function apiPerfil(req: NextApiRequest, res: NextApiRespons
 	}
 
 	const perfil = new Perfil()
-	const email = await perfil.setEmail(session!.user!.sub!)
+	const email = await perfil.setEmail(session?.user?.sub!)
 	if (email == undefined) {
 		return res.status(400).json({ txt: "Email não existe." })
 	}
