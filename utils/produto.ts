@@ -65,7 +65,8 @@ export default class Produto {
             buscar = {
                 name: { $regex: this.name, $options: 'i' }
             }
-            pesquisa = await bdwicksell.findAll(colecao, buscar)
+            procura = await bdwicksell.findAll(colecao, buscar)
+            pesquisa = pesquisa.concat(procura)
         }
 
         if (this.description) {
