@@ -13,9 +13,9 @@ export default class Produto {
     private image!: string[]
     private discount!: number
     private amount!: number
-    private _idPerfil!: string
+    private email!: string
 
-    set(_id: any, name: any, description: any, price: any, image: any, discount: any, amount: any, _idPerfil: any) {
+    set(_id: any, name: any, description: any, price: any, image: any, discount: any, amount: any, email: any) {
         if (_id != undefined) {
             this._id = new ObjectId(_id)
         }
@@ -37,8 +37,8 @@ export default class Produto {
         if (amount != undefined) {
             this.amount = Number(amount)
         }
-        if (_idPerfil != undefined) {
-            this._idPerfil = String(_idPerfil)
+        if (email != undefined) {
+            this.email = String(email)
         }
     }
 
@@ -93,9 +93,9 @@ export default class Produto {
             pesquisa = pesquisa.concat(procura)
         }
 
-        if (this._idPerfil) {
+        if (this.email) {
             buscar = {
-                _idPerfil: { $regex: this._idPerfil, $options: 'i' }
+                email: { $regex: this.email, $options: 'i' }
             }
             procura = await bdwicksell.findAll(colecao, buscar)
             pesquisa = pesquisa.concat(procura)

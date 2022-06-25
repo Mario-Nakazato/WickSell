@@ -9,9 +9,9 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
 
     if (req.method == "GET") {
 
-        const { _id, name, description, price, discount, amount, _idPerfil } = req.query
+        const { _id, name, description, price, discount, amount, email } = req.query
         try {
-            produto.set(_id, name, description, price, null, discount, amount, _idPerfil)
+            produto.set(_id, name, description, price, null, discount, amount, email)
         } catch (e) {
             return res.status(400).json({ txt: "_id invalido." })
         }
@@ -36,7 +36,7 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
 
         const { name, description, price, discount, imageFilesName, amount } = req.body
         try {
-            produto.set(null, name, description, price, imageFilesName, discount, amount, documentoPerfil._id.toString())
+            produto.set(null, name, description, price, imageFilesName, discount, amount, email)
         } catch (e) {
             return res.status(400).json({ txt: "_id invalido." })
         }
@@ -52,7 +52,7 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
 
     } else if (req.method == "PUT") {
 
-        const { _id, name, description, price, image, discount, amount, _idPerfil } = req.body
+        const { _id, name, description, price, image, discount, amount } = req.body
         if (!_id) {
             return res.status(400).json({ txt: "_id não encontrado no body." })
         }
@@ -63,17 +63,17 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
             return res.status(400).json({ txt: "Produto não existe." })
         }
 
-        if (documentoProduto._idPerfil !== documentoPerfil?._id.toString()) {
+        if (documentoProduto.email !== email) {
             return res.status(400).json({ txt: "Produto não pertence ao perfil." })
         }
 
-        produto.set(_id, name, description, price, image, discount, amount, _idPerfil)
+        produto.set(_id, name, description, price, image, discount, amount, email)
         await produto.replaceOne()
         res.status(200).json({ txt: "Produto substituído." })
 
     } else if (req.method == "PATCH") {
 
-        const { _id, name, description, price, image, discount, amount, _idPerfil } = req.body
+        const { _id, name, description, price, image, discount, amount } = req.body
         if (!_id) {
             return res.status(400).json({ txt: "_id não encontrado no body." })
         }
@@ -84,11 +84,11 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
             return res.status(400).json({ txt: "Produto não existe." })
         }
 
-        if (documentoProduto._idPerfil !== documentoPerfil?._id.toString()) {
+        if (documentoProduto._idPerfil !== email) {
             return res.status(400).json({ txt: "Produto não pertence ao perfil." })
         }
 
-        produto.set(_id, name, description, price, image, discount, amount, _idPerfil)
+        produto.set(_id, name, description, price, image, discount, amount, null)
         await produto.updateOne()
         res.status(200).json({ txt: "Produto atualizado." })
 
@@ -109,7 +109,7 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
             return res.status(400).json({ txt: "Produto não existe." })
         }
 
-        if (documentoProduto._idPerfil !== documentoPerfil?._id.toString()) {
+        if (documentoProduto._idPerfil !== email) {
             return res.status(400).json({ txt: "Produto não pertence ao perfil." })
         }
 
