@@ -21,8 +21,8 @@ export default async function NextA(req: NextApiRequest, res: NextApiResponse) {
 
             callbacks: {
                 async signIn({ user, account, profile, email, credentials }) {
+                    user = { ...user, sub: profile.email} as any
                     user.email = profile.sub // trocado para o sub<autenticador [google-oauth2, auth0]>
-                    //user = { ...user, sub: profile.sub} as any
                     await auth.signInProfile(profile)
 
                     if (!profile.email_verified) {
