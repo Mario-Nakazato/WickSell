@@ -4,15 +4,14 @@ import Perfil from "../../utils/perfil"
 
 export default async function apiPerfil(req: NextApiRequest, res: NextApiResponse) {
 
-	const session = await getSession({ req })
+	const session: any = await getSession({ req })
 
 	if (!session /*&& req.rawHeaders.filter((value) => { return value == "insomnia/2022.4.2" })[0] !== "insomnia/2022.4.2"*/) {
 		return res.status(400).json({ txt: "Acesso negado." })
 	}
 
 	const perfil = new Perfil()
-	const email = await perfil.setEmail(session?.user?.email!)
-
+	const email = await perfil.setEmail(session!.user!.sub!)
 	if (email == undefined) {
 		return res.status(400).json({ txt: "Email não existe." })
 	}
