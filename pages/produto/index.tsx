@@ -5,7 +5,6 @@ import ProductCase from '../../components/ProductCase'
 import styles from '../../styles/Produto.module.css'
 import { currency, percentage } from '../../utils/valuesUtils'
 
-
 export default function Create() {
     const [statusLoading, setStatusLoading] = useState(false)
     const [name, setName] = useState("")

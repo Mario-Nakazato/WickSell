@@ -54,102 +54,83 @@ export default function Produto() {
             // setImage(data.image[0])
             setDataSet(true)
         }
-        if (status === 'authenticated') {
+        if (status === 'loading') { return <InfinityLoading active={true} /> }
+        else if (status === "unauthenticated") { window.location.href = "/"; return <InfinityLoading active={true} /> }
+        else if (status === 'authenticated') {
             return <>
                 <InfinityLoading active={isLoading} />
-                <div className={styles.Container}>
-                    <div style={{ textAlign: 'center' }}>
-                        <form className={styles.Form}>
-                            <div className={styles.InputBox}>
-                                <label className={styles.Label}>Nome do Produto</label>
-                                <input type="text" name='name' placeholder={"Nome do Produto"} className={styles.Input} value={name} onChange={e => setName(e.target.value)} required></input>
+                <section className={styles.Section}>
+                    <div className={styles.Container}>
+                        <div className={styles.Product}>
+                            <h1 className={styles.Name}>{data.name || 'Nome do Produto'}</h1>
+                            <div className={styles.ImageContainer}>
+                                {/* <img className={styles.Image} src={data.image ? server + '/api/image/files/' + data.image[0] : '/product-placeholder.png'} alt="ProductCase" ></img> */}
                             </div>
-                            <div className={styles.InputBox}>
-                                <label className={styles.Label}>Descrição</label>
-                                <textarea name='description' placeholder={"Descrição"} rows={5} className={styles.InputDescription} value={description} onChange={e => setDescription(e.target.value)} required></textarea>
-                            </div>
-                            <div className={styles.InputBox}>
-                                <label className={styles.Label}>Preço</label>
-                                <div className={styles.InputMonetary}>
-                                    <label className={styles.LabelCifra}>R$</label>
-                                    <input type="text" min='0' step='0.01' name='price' placeholder={"0,00"} className={styles.Input} value={price} onChange={e => setPrice(currency(e))} required></input>
+                        </div>
+
+                        <div className={styles.InfoContainer}>
+                            <div className={styles.CurrencyContainer} >
+                                <div>
+                                    {/* <h3 className={styles.Promotion}>{brlMonetary(oldPrice == currentPrice ? '' : oldPrice)}</h3> */}
+                                    {/* <h4 className={styles.Price}>{brlMonetary(currentPrice || '0')}</h4> */}
                                 </div>
                             </div>
-                            <div className={styles.InputBox}>
-                                <label className={styles.Label}>Promoção</label>
-                                <input type="text" min='0' max='100' step='0.01' name='promotion' placeholder={"0,00%"} className={styles.Input} value={promotion} onChange={e => {
-                                    if (e.target.value.length < promotion.length && e.target.value[e.target.value.length - 1] !== '%') {
-                                        if (e.target.value.length === 0) {
-                                            setPromotion(percentage(e))
-                                        } else {
-                                            const value = e.target.value.substring(0, e.target.value.length - 1)
-                                            setPromotion(percentage(value) + '%')
-                                        }
-                                    } else {
-                                        setPromotion(percentage(e) + '%')
-                                    }
-                                }} required></input>
-                            </div>
-                            <div className={styles.InputBox}>
-                                <label className={styles.Label}>Imagens do Produto</label>
-                                <input type="file" name='image' accept='image/png' className={styles.InputImage} multiple value={imageInput} onChange={e => {
-                                    setImageInput(e.target.value)
-                                    if (e.target.files) {
-                                        setImageFiles(e.target.files)
-                                        setImage(URL.createObjectURL(e.target.files[0]));
-                                    }
-                                }} required></input>
-                            </div>
-                            <button type='button' onClick={async () => {
-                                // try {
-                                //     var formData = new FormData()
-                                //     for (let i = 0; imageFiles && i < imageFiles.length; i++) {
-                                //         formData.append('file', imageFiles[i])
-                                //     }
-                                //     setIsLoading(true)
-                                //     fetch('api/image/upload', {
-                                //         method: "POST",
-                                //         body: formData,
-                                //     }).then(res => res.json())
-                                //         .then(res => {
-                                //             setImage(res.files[0].host + res.files[0].filename)
-                                //             const data: any = { name, description, price, promotion }
-                                //             const formBody = [];
-                                //             for (var property in data) {
-                                //                 var encodedKey = encodeURIComponent(property);
-                                //                 var encodedValue = encodeURIComponent(data[property]);
-                                //                 formBody.push(encodedKey + "=" + encodedValue);
-                                //             }
-                                //             for (let i = 0; res.files && i < res.files.length; i++) {
-                                //                 var encodedKey = encodeURIComponent('imageFilesName');
-                                //                 var encodedValue = encodeURIComponent(res.files[i].filename);
-                                //                 formBody.push(encodedKey + "=" + encodedValue);
-                                //             }
-                                //             const encodedBody = formBody.join("&");
-                                //             console.log(data)
-                                //             fetch('api/produto/', {
-                                //                 method: "POST",
-                                //                 redirect: 'follow',
-                                //                 headers: {
-                                //                     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-                                //                 },
-                                //                 body: encodedBody,
-                                //             }).then(res => {
-                                //                 if (res.url) window.location.href = res.url
-                                //             }).catch(error => {
-                                //                 console.log(error)
-                                //             });
-                                //         }).catch(error => {
-                                //             console.log(error)
-                                //         }).finally(() => setIsLoading(false));
-                                // } catch (err) {
-                                //     console.log(err);
-                                // }
-                            }} className={styles.SubmitButton}>Salvar</button>
-                        </form>
-                        <br></br>
+                            <button className={styles.Buy}>Adicionar ao Carrinho</button>
+                        </div>
                     </div>
-                </div >
+
+                    <div className={styles.DescriptionContainer}>
+                        <h1>Descrição</h1>
+                        <p className={styles.Description}>{data.description || 'Detalhes sobre o produto'}</p>
+                    </div>
+                </section>
+                <button type='button' onClick={async () => {
+                    // try {
+                    //     var formData = new FormData()
+                    //     for (let i = 0; imageFiles && i < imageFiles.length; i++) {
+                    //         formData.append('file', imageFiles[i])
+                    //     }
+                    //     setIsLoading(true)
+                    //     fetch('api/image/upload', {
+                    //         method: "POST",
+                    //         body: formData,
+                    //     }).then(res => res.json())
+                    //         .then(res => {
+                    //             setImage(res.files[0].host + res.files[0].filename)
+                    //             const data: any = { name, description, price, promotion }
+                    //             const formBody = [];
+                    //             for (var property in data) {
+                    //                 var encodedKey = encodeURIComponent(property);
+                    //                 var encodedValue = encodeURIComponent(data[property]);
+                    //                 formBody.push(encodedKey + "=" + encodedValue);
+                    //             }
+                    //             for (let i = 0; res.files && i < res.files.length; i++) {
+                    //                 var encodedKey = encodeURIComponent('imageFilesName');
+                    //                 var encodedValue = encodeURIComponent(res.files[i].filename);
+                    //                 formBody.push(encodedKey + "=" + encodedValue);
+                    //             }
+                    //             const encodedBody = formBody.join("&");
+                    //             console.log(data)
+                    //             fetch('api/produto/', {
+                    //                 method: "POST",
+                    //                 redirect: 'follow',
+                    //                 headers: {
+                    //                     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                    //                 },
+                    //                 body: encodedBody,
+                    //             }).then(res => {
+                    //                 if (res.url) window.location.href = res.url
+                    //             }).catch(error => {
+                    //                 console.log(error)
+                    //             });
+                    //         }).catch(error => {
+                    //             console.log(error)
+                    //         }).finally(() => setIsLoading(false));
+                    // } catch (err) {
+                    //     console.log(err);
+                    // }
+                }} className={styles.SubmitButton}>Salvar</button>
+
             </>
         }
     }
