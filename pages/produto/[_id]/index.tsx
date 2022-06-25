@@ -2,18 +2,15 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import useSWR from 'swr'
 import InfinityLoading from '../../../components/InfinityLoading'
 import { server } from '../../../config'
 import styles from '../../../styles/ProductPage.module.css'
 import { brlMonetary } from '../../../utils/valuesUtils'
 
 export default function Produto({ data }: { data: any }) {
-    // const perfilData = useSWR(() => `/api/perfil/`, fetcherN)
     const { data: session, status } = useSession()
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
-    console.log(data, session)
     if (data) {
         var currentPrice = data.discount > 0 ? (data.price - (data.price * data.discount) / 100).toFixed(2) : data.price
         var oldPrice = data.discount > 0 ? data.price : undefined

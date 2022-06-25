@@ -15,7 +15,6 @@ const Home: NextPage = () => {
 	const [phone, setPhone] = useState("")
 	const [loaded, setLoaded] = useState(false)
 
-	console.log(data, session, status)
 	if (data && session && status == "authenticated") {
 		if (!loaded) {
 			setName(data.name ? data.name : "")

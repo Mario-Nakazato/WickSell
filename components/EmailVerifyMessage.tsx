@@ -2,6 +2,7 @@ import { NextComponentType } from "next";
 import { signIn } from "next-auth/react"
 import Link from "next/link";
 import styles from '../styles/EmailVerifyMessage.module.css'
+
 const EmailVerifyMessage: NextComponentType = () => {
     return (<>
         <div className={styles.Container}>

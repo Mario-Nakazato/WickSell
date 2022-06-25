@@ -38,16 +38,13 @@ export default function Produto() {
     const router = useRouter()
     const { query } = router
     const { data, error } = useSWR(() => query._id && `/api/produto/?_id=${query._id}`, fetcher)
-    const perfilFetch = useSWR(() => `/api/perfil/`, fetcherN)
-    const perfilData = perfilFetch.data
-    const perfilError = perfilFetch.error
-    console.log(session)
-    if (!data || !perfilData) {
+    console.log(data, session)
+    if (!data) {
         return (<>
             <InfinityLoading active={true} />
         </>)
     }
-    else if (data && perfilData) {
+    else if (data) {
         if (!dataSet) {
             const empty = 0
             setName(data.name ? data.name : 'Nome do Produto')
@@ -61,7 +58,7 @@ export default function Produto() {
         if (status === 'loading') { return <InfinityLoading active={true} /> }
         else if (status === "unauthenticated") { window.location.href = "/"; return <InfinityLoading active={true} /> }
         else if (status === 'authenticated') {
-            if (perfilData._id !== data._idPerfil) {
+            if (session.email !== data.email) {
                 window.location.href = "/"; return <InfinityLoading active={true} />
             }
             return <>
@@ -71,14 +68,11 @@ export default function Produto() {
                         <input className={styles.Name} value={name} onChange={e => setName(e.target.value)}></input>
                     </div>
                     <div className={styles.Container}>
-
-
                         <div className={styles.Product}>
                             <div className={styles.ImageContainer}>
                                 <img className={styles.Image} src={image} alt="ProductCase" ></img>
                             </div>
                         </div>
-
                         <div className={styles.InfoContainer}>
                             <div className={styles.CurrencyContainer} >
                                 <div>
@@ -125,14 +119,14 @@ export default function Produto() {
                             }
                             setIsLoading(true)
                             fetch('api/image/upload', {
-                                method: "POST",
+                                method: "PATCH",
                                 body: formData,
                             }).then(res => res.json())
                                 .then(res => {
                                     if (res.files) setImage(res.files[0].host + res.files[0].filename)
                                     var numberPrice = price.replaceAll('.', '').replace(',', '.').replace('R$ ', '')
                                     var numberDiscount = discount.replace(',', '.').replace('%', '')
-                                    const data: any = { name, description, price: numberPrice, discount: numberDiscount,  }
+                                    const data: any = { name, description, price: numberPrice, discount: numberDiscount, }
                                     const formBody = [];
                                     for (var property in data) {
                                         var encodedKey = encodeURIComponent(property);
@@ -146,7 +140,7 @@ export default function Produto() {
                                     }
                                     const encodedBody = formBody.join("&");
                                     fetch('api/produto/', {
-                                        method: "POST",
+                                        method: "PATCH",
                                         redirect: 'follow',
                                         headers: {
                                             'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'

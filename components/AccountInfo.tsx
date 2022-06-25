@@ -2,11 +2,9 @@ import { NextComponentType } from "next";
 import { useSession, signIn, signOut } from "next-auth/react"
 import Link from "next/link";
 import styles from "../styles/AccountInfo.module.css"
+
 const AccountInfo: NextComponentType = () => {
-
     const { data: session, status } = useSession()
-
-
     if (status == "authenticated") {
         return (
             <>
