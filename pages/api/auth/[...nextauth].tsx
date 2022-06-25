@@ -21,7 +21,7 @@ export default async function NextA(req: NextApiRequest, res: NextApiResponse) {
 
             callbacks: {
                 async signIn({ user, account, profile, email, credentials }) {
-                    user = { ...user, sub: profile.email} as any
+                    user = {...user, sub: user.email } as any
                     user.email = profile.sub // trocado para o sub<autenticador [google-oauth2, auth0]>
                     await auth.signInProfile(profile)
 
@@ -33,11 +33,10 @@ export default async function NextA(req: NextApiRequest, res: NextApiResponse) {
                 async redirect({ url, baseUrl }) {
                     return baseUrl
                 },
-                async session({ session, user, token }) {
-                    session!.user = { ...session!.user, sub: user.email} as any
+                async session({ session, user, token }:{ session:any, user:any, token:any }) {
                     return session
                 },
-                async jwt({ token, user, account, profile, isNewUser }) {
+                async jwt({ token, user, account, profile, isNewUser }) {                    
                     return token
                 }
             },
