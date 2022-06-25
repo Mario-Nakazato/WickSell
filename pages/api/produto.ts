@@ -84,7 +84,7 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
             return res.status(400).json({ txt: "Produto não existe." })
         }
 
-        if (documentoProduto._idPerfil !== email) {
+        if (documentoProduto.email !== email) {
             return res.status(400).json({ txt: "Produto não pertence ao perfil." })
         }
 
@@ -109,7 +109,7 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
             return res.status(400).json({ txt: "Produto não existe." })
         }
 
-        if (documentoProduto._idPerfil !== email) {
+        if (documentoProduto.email !== email) {
             return res.status(400).json({ txt: "Produto não pertence ao perfil." })
         }
 
