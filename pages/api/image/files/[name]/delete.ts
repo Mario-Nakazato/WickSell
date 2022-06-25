@@ -8,8 +8,8 @@ const url = process.env.MONGODB_URL!
 const database = process.env.MONGODB_DATABASE!
 const imgBucket = process.env.MONGODB_COLLECTION_IMG_BUCKET!
 
-const perfil = new Perfil()
 const mongoClient = new MongoClient(url);
+const perfil = new Perfil()
 
 export default async function Delete(request: NextApiRequest, response: NextApiResponse) {
     const { name } = request.query;
@@ -44,7 +44,6 @@ export default async function Delete(request: NextApiRequest, response: NextApiR
                 }
             })
         })
-
     } catch (error: any) {
         return response.status(500).send({
             message: error.message,

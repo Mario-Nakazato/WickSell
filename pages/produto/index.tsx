@@ -5,7 +5,6 @@ import ProductCase from '../../components/ProductCase'
 import styles from '../../styles/Produto.module.css'
 import { currency, percentage } from '../../utils/valuesUtils'
 
-
 export default function Create() {
     const [statusLoading, setStatusLoading] = useState(false)
     const [name, setName] = useState("")
@@ -40,7 +39,6 @@ export default function Create() {
                                     <label className={styles.LabelCifra}>R$</label>
                                     <input type="text" min='0' step='0.01' name='ProductPrice' placeholder={"0,00"} className={styles.Input} value={price} onChange={e => {
                                         const temp = e.target.value.replace(/\D/g, '')
-                                        console.log(temp)
                                         if (temp.length <= 12)
                                             setPrice(currency(e))
                                     }} ></input>

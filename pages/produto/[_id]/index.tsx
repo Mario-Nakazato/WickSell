@@ -13,6 +13,7 @@ export default function Produto({ data }: { data: any }) {
     const router = useRouter()
 
     if (data) {
+        console.log(data)
         var currentPrice = data.discount > 0 ? (data.price - (data.price * data.discount) / 100).toFixed(2) : data.price
         var oldPrice = data.discount > 0 ? data.price : undefined
         const control = (
@@ -98,34 +99,41 @@ export default function Produto({ data }: { data: any }) {
                 </section>
             </>
         } else {
-            return <>
-                <InfinityLoading active={isLoading} />
-                <section className={styles.Section}>
-                    <div className={styles.Container}>
-                        <div className={styles.Product}>
-                            <h1 className={styles.Name}>{data.name || 'Nome do Produto'}</h1>
-                            <div className={styles.ImageContainer}>
-                                <img className={styles.Image} src={data.image ? server + '/api/image/files/' + data.image[0] : '/product-placeholder.png'} alt="ProductCase" ></img>
-                            </div>
-                        </div>
+            return<>
+            <InfinityLoading active={isLoading} />
+            <section className={styles.Section}>
+                <div className={styles.UpperContainer}>
+                    <h1 className={styles.Name}>{data.name || 'Nome do Produto'}</h1>
+                </div>
+                <div className={styles.Container}>
 
-                        <div className={styles.InfoContainer}>
-                            <div className={styles.CurrencyContainer} >
-                                <div>
-                                    <h3 className={styles.Promotion}>{brlMonetary(oldPrice == currentPrice ? '' : oldPrice)}</h3>
-                                    <h4 className={styles.Price}>{brlMonetary(currentPrice || '0')}</h4>
-                                </div>
-                            </div>
-                            <button className={styles.Buy}>Adicionar ao Carrinho</button>
+
+                    <div className={styles.Product}>
+                        <div className={styles.ImageContainer}>
+                            <img className={styles.Image} src={data.image ? server + '/api/image/files/' + data.image[0] : '/product-placeholder.png'} alt="ProductCase" ></img>
                         </div>
                     </div>
 
-                    <div className={styles.DescriptionContainer}>
-                        <h1>Descrição</h1>
-                        <p className={styles.Description}>{data.description || 'Detalhes sobre o produto'}</p>
+                    <div className={styles.InfoContainer}>
+                        <div className={styles.CurrencyContainer} >
+                            <div>
+                                <h3 className={styles.Promotion}>{brlMonetary(oldPrice == currentPrice ? '' : oldPrice)}</h3>
+                                <h4 className={styles.Price}>{brlMonetary(currentPrice || '0')}</h4>
+                            </div>
+                        </div>
+                        <button className={styles.Buy}>Adicionar ao Carrinho</button>
                     </div>
-                </section>
-            </>
+
+
+                </div>
+                <br></br>
+                <div className={styles.DescriptionContainer}>
+                    <h1>Descrição</h1>
+                    <hr></hr>
+                    <p className={styles.Description}>{data.description || 'Detalhes sobre o produto'}</p>
+                </div>
+            </section>
+        </>
         }
     }
 }
@@ -138,8 +146,8 @@ export const getStaticPaths: GetStaticPaths = () => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-    const { id } = context.params!
-    const data = await fetch(`${server}/api/produto/?_id=${id}`).then((res) => res.json())
+    const { _id } = context.params!
+    const data = await fetch(`${server}/api/produto/?_id=${_id}`).then((res) => res.json())
     return {
         props: {
             data: data[0],
