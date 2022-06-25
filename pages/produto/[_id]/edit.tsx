@@ -38,7 +38,6 @@ export default function Produto() {
     const router = useRouter()
     const { query } = router
     const { data, error } = useSWR(() => query._id && `/api/produto/?_id=${query._id}`, fetcher)
-    console.log(data, session)
     if (!data) {
         return (<>
             <InfinityLoading active={true} />
@@ -55,10 +54,10 @@ export default function Produto() {
             setDataSet(true)
         }
 
-        if (status === 'loading') { return <InfinityLoading active={true} /> }
-        else if (status === "unauthenticated") { window.location.href = "/"; return <InfinityLoading active={true} /> }
+        if (status === 'loading') { window.location.href = "/"; return <InfinityLoading active={true} /> }
+        else if (status === "unauthenticated") { return <InfinityLoading active={true} /> }
         else if (status === 'authenticated') {
-            if (session.email !== data.email) {
+            if (session.user!.email !== data.email) {
                 window.location.href = "/"; return <InfinityLoading active={true} />
             }
             return <>
