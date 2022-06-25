@@ -50,7 +50,12 @@ footer p:nth-child(2) {
 }
 
 .Container {
-	min-height: calc(100vh - 25rem);
+	min-height: calc(100vh - 20rem);
 	padding-top: 2rem;
 	padding-bottom: 5rem;
+}
+
+#rcc-confirm-button:hover {
+	background: #142c45 !important;
+	color: white !important;
 }
