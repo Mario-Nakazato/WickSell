@@ -14,10 +14,18 @@ export default class Perfil {
     private phone!: string
 
     set(name: any, birthDate: any, cpf: any, phone: any) {
-        this.name = String(name)
-        this.birthDate = String(birthDate)
-        this.cpf = String(cpf)
-        this.phone = String(phone)
+        if (name != undefined) {
+            this.name = String(name)
+        }
+        if (birthDate != undefined) {
+            this.birthDate = String(birthDate)
+        }
+        if (cpf != undefined) {
+            this.cpf = String(cpf)
+        }
+        if (phone != undefined) {
+            this.phone = String(phone)
+        }
     }
 
     async setEmail(sub: string) {
