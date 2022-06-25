@@ -25,7 +25,7 @@ console.log(error)
     return (<>
         <InfinityLoading active={!data ? true : false} />
         <div className={styles.Container}>
-            <form className={styles.SearchContainer}>
+            <div className={styles.SearchContainer}>
                 <div>
                     <input type="text" className={styles.InputSearch} placeholder="Buscar" value={search} onChange={e => setSearch(e.target.value)} />
                     <button type="button" onClick={() => {
@@ -45,7 +45,7 @@ console.log(error)
                     <label>Max: {brlMonetary(maxValue == 0 ? '0' : maxValue)}</label>
                     <input type="range" min="0" max="100" onChange={e => setMaxValue(Math.round(Math.exp((Math.log(1000) / 100) * Number(e.target.value))) * Number(e.target.value))} />
                 </div>
-            </form>
+            </div>
             <div className={styles.ProductsContainer}>
                 {data?.map((product: any, i: number) => { return <ProductCase key={i} props={data[i]}></ProductCase> })}
             </div>
