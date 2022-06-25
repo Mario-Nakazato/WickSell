@@ -41,7 +41,7 @@ export default function Produto() {
     const perfilFetch = useSWR(() => `/api/perfil/`, fetcherN)
     const perfilData = perfilFetch.data
     const perfilError = perfilFetch.error
-
+    console.log(session)
     if (!data || !perfilData) {
         return (<>
             <InfinityLoading active={true} />
@@ -110,8 +110,6 @@ export default function Produto() {
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                     <br></br>
                     <div className={styles.DescriptionContainer}>
@@ -119,7 +117,55 @@ export default function Produto() {
                         <hr></hr>
                         <textarea className={styles.Description} value={description} onChange={e => { setDescription(e.target.value) }}></textarea>
                     </div>
-                    <button className={styles.Save}>Salvar</button>
+                    <button className={styles.Save} onClick={async () => {
+                        try {
+                            var formData = new FormData()
+                            for (let i = 0; imageFiles && i < imageFiles.length; i++) {
+                                formData.append('file', imageFiles[i])
+                            }
+                            setIsLoading(true)
+                            fetch('api/image/upload', {
+                                method: "POST",
+                                body: formData,
+                            }).then(res => res.json())
+                                .then(res => {
+                                    if (res.files) setImage(res.files[0].host + res.files[0].filename)
+                                    var numberPrice = price.replaceAll('.', '').replace(',', '.').replace('R$ ', '')
+                                    var numberDiscount = discount.replace(',', '.').replace('%', '')
+                                    const data: any = { name, description, price: numberPrice, discount: numberDiscount,  }
+                                    const formBody = [];
+                                    for (var property in data) {
+                                        var encodedKey = encodeURIComponent(property);
+                                        var encodedValue = encodeURIComponent(data[property]);
+                                        formBody.push(encodedKey + "=" + encodedValue);
+                                    }
+                                    for (let i = 0; res.files && i < res.files.length; i++) {
+                                        var encodedKey = encodeURIComponent('imageFilesName');
+                                        var encodedValue = encodeURIComponent(res.files[i].filename);
+                                        formBody.push(encodedKey + "=" + encodedValue);
+                                    }
+                                    const encodedBody = formBody.join("&");
+                                    fetch('api/produto/', {
+                                        method: "POST",
+                                        redirect: 'follow',
+                                        headers: {
+                                            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                                        },
+                                        body: encodedBody,
+                                    }).then(res => {
+                                        if (res.url) window.location.href = res.url
+                                    }).catch(error => {
+                                        console.log(error)
+                                    });
+                                }).catch(error => {
+                                    console.log(error)
+                                    setIsLoading(false)
+                                })
+                        } catch (err) {
+                            console.log(err);
+                            setIsLoading(false)
+                        }
+                    }}>Salvar</button>
 
                 </section>
             </>
