@@ -92,6 +92,14 @@ export default class Produto {
             pesquisa = pesquisa.concat(procura)
         }
 
+        if (this._idPerfil) {
+            buscar = {
+                _idPerfil: { $regex: this._idPerfil, $options: 'i' }
+            }
+            procura = await bdwicksell.findAll(colecao, buscar)
+            pesquisa = pesquisa.concat(procura)
+        }
+
         if (pesquisa.length == 0) {
             this.name = ''
             buscar = {
