@@ -16,6 +16,14 @@ const fetcher = async (url: string) => await fetch(url).then(async (res) => {
     return data
 }).catch((err) => { console.log(err) })
 
+const fetcherN = async (url: string) => await fetch(url).then(async (res) => {
+    const data = await res.json()
+    if (res.status !== 200) {
+        console.log(data.message)
+    }
+    return data
+}).catch((err) => { console.log(err) })
+
 export default function Produto() {
     const [dataSet, setDataSet] = useState(false)
     const [name, setName] = useState("")
@@ -30,80 +38,91 @@ export default function Produto() {
     const router = useRouter()
     const { query } = router
     const { data, error } = useSWR(() => query._id && `/api/produto/?_id=${query._id}`, fetcher)
-    if (!data) {
+    const perfilFetch = useSWR(() => `/api/perfil/`, fetcherN)
+    const perfilData = perfilFetch.data
+    const perfilError = perfilFetch.error
+
+    if (!data || !perfilData) {
         return (<>
             <InfinityLoading active={true} />
         </>)
     }
-    else if (data) {
+    else if (data && perfilData) {
         if (!dataSet) {
+            const empty = 0
             setName(data.name ? data.name : 'Nome do Produto')
             setDescription(data.description ? data.description : 'Descrição do Produto')
-            setPrice(data.price ? data.price : '')
-            setDiscount(data.discount ? data.discount : '')
+            setPrice(data.price ? data.price : 'R$ ' + currency(empty.toFixed(2)))
+            setDiscount(data.discount ? data.discount : percentage(empty.toFixed(2)) + '%')
             setImage(data.image ? server + '/api/image/files/' + data.image[0] : '/product-placeholder.png')
             setDataSet(true)
-            //{brlMonetary(oldPrice == currentPrice ? '' : oldPrice)}
-            // {brlMonetary(currentPrice || '0')}
-            //{data.description || 'Detalhes sobre o produto'}
         }
-        var currentPrice = data.discount > 0 ? (data.price - (data.price * data.discount) / 100).toFixed(2) : data.price
-        var oldPrice = data.discount > 0 ? data.price : undefined
 
-
-        // if (status === 'loading') { return <InfinityLoading active={true} /> }
-        // else if (status === "unauthenticated") { window.location.href = "/"; return <InfinityLoading active={true} /> }
-        // else if (status === 'authenticated') {
-        return <>
-            <InfinityLoading active={isLoading} />
-            <section className={styles.Section}>
-                <div className={styles.UpperContainer}>
-                    <input className={styles.Name} value={name} onChange={e => setName(e.target.value)}></input>
-                </div>
-                <div className={styles.Container}>
-
-
-                    <div className={styles.Product}>
-                        <div className={styles.ImageContainer}>
-                            <img className={styles.Image} src={image} alt="ProductCase" ></img>
-                        </div>
+        if (status === 'loading') { return <InfinityLoading active={true} /> }
+        else if (status === "unauthenticated") { window.location.href = "/"; return <InfinityLoading active={true} /> }
+        else if (status === 'authenticated') {
+            if (perfilData._id !== data._idPerfil) {
+                window.location.href = "/"; return <InfinityLoading active={true} />
+            }
+            return <>
+                <InfinityLoading active={isLoading} />
+                <section className={styles.Section}>
+                    <div className={styles.UpperContainer}>
+                        <input className={styles.Name} value={name} onChange={e => setName(e.target.value)}></input>
                     </div>
+                    <div className={styles.Container}>
 
-                    <div className={styles.InfoContainer}>
-                        <div className={styles.CurrencyContainer} >
-                            <div>
-                                <input className={styles.Promotion} value={discount} onChange={e => {
-                                    if (e.target.value.length < discount.length && e.target.value[e.target.value.length - 1] !== '%') {
-                                        if (e.target.value.length === 0) {
-                                            setDiscount(percentage(e))
-                                        } else {
-                                            const value = e.target.value.substring(0, e.target.value.length - 1)
-                                            setDiscount(percentage(value) + '%')
-                                        }
-                                    } else {
-                                        setDiscount(percentage(e) + '%')
-                                    }
-                                }}></input>
-                                <input className={styles.Price} value={price} onChange={e => {
-                                    const temp = e.target.value.replace(/\D/g, '')
-                                    if (temp.length <= 12)
-                                        setPrice(currency(e))
-                                }}></input>
+
+                        <div className={styles.Product}>
+                            <div className={styles.ImageContainer}>
+                                <img className={styles.Image} src={image} alt="ProductCase" ></img>
                             </div>
                         </div>
-                        <button className={styles.Buy}>Salvar</button>
+
+                        <div className={styles.InfoContainer}>
+                            <div className={styles.CurrencyContainer} >
+                                <div>
+                                    <input className={styles.Promotion} value={discount} onChange={e => {
+                                        var temp = e.target.value
+                                        if (temp.includes('0,00%')) {
+                                            temp = temp.replace('0,00%', '')
+                                        }
+                                        if (e.target.value.length < discount.length && e.target.value[e.target.value.length - 1] !== '%') {
+                                            if (e.target.value.length === 0) {
+                                                setDiscount(percentage(temp))
+                                            } else {
+                                                const value = temp.substring(0, temp.length - 1)
+                                                setDiscount(percentage(value) + '%')
+                                            }
+                                        } else {
+                                            setDiscount(percentage(temp) + '%')
+                                        }
+                                    }}></input>
+                                    <input className={styles.Price} value={price} onChange={e => {
+                                        var temp = e.target.value
+                                        if (temp.includes('R$ 0,00')) {
+                                            temp = temp.replace('R$ 0,00', '')
+                                        }
+                                        temp = temp.replace(/\D/g, '')
+                                        if (temp.length <= 12)
+                                            setPrice('R$ ' + currency(temp))
+                                    }}></input>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
+                    <br></br>
+                    <div className={styles.DescriptionContainer}>
+                        <h1>Descrição</h1>
+                        <hr></hr>
+                        <textarea className={styles.Description} value={description} onChange={e => { setDescription(e.target.value) }}></textarea>
+                    </div>
+                    <button className={styles.Save}>Salvar</button>
 
-
-                </div>
-                <br></br>
-                <div className={styles.DescriptionContainer}>
-                    <h1>Descrição</h1>
-                    <hr></hr>
-                    <textarea className={styles.Description} value={description} onChange={e => { setDescription(e.target.value) }}></textarea>
-                </div>
-            </section>
-        </>
+                </section>
+            </>
+        }
     }
 }
-// }

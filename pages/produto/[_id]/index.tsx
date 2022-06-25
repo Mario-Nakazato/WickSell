@@ -2,18 +2,26 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import useSWR from 'swr'
 import InfinityLoading from '../../../components/InfinityLoading'
 import { server } from '../../../config'
 import styles from '../../../styles/ProductPage.module.css'
 import { brlMonetary } from '../../../utils/valuesUtils'
 
+const fetcherN = async (url: string) => await fetch(url).then(async (res) => {
+    const data = await res.json()
+    if (res.status !== 200) {
+        console.log(data.message)
+    }
+    return data
+}).catch((err) => { console.log(err) })
+
 export default function Produto({ data }: { data: any }) {
+    const perfilData = useSWR(() => `/api/perfil/`, fetcherN)
     const { data: session, status } = useSession()
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
-
     if (data) {
-        console.log(data)
         var currentPrice = data.discount > 0 ? (data.price - (data.price * data.discount) / 100).toFixed(2) : data.price
         var oldPrice = data.discount > 0 ? data.price : undefined
         const control = (
@@ -61,7 +69,7 @@ export default function Produto({ data }: { data: any }) {
                 </div>
             </>
         )
-        if (status === 'authenticated') {
+        if (status === 'authenticated' && perfilData.data?._id === data._idPerfil) {
             return <>
                 <InfinityLoading active={isLoading} />
                 <section className={styles.Section}>
@@ -99,41 +107,41 @@ export default function Produto({ data }: { data: any }) {
                 </section>
             </>
         } else {
-            return<>
-            <InfinityLoading active={isLoading} />
-            <section className={styles.Section}>
-                <div className={styles.UpperContainer}>
-                    <h1 className={styles.Name}>{data.name || 'Nome do Produto'}</h1>
-                </div>
-                <div className={styles.Container}>
-
-
-                    <div className={styles.Product}>
-                        <div className={styles.ImageContainer}>
-                            <img className={styles.Image} src={data.image ? server + '/api/image/files/' + data.image[0] : '/product-placeholder.png'} alt="ProductCase" ></img>
-                        </div>
+            return <>
+                <InfinityLoading active={isLoading} />
+                <section className={styles.Section}>
+                    <div className={styles.UpperContainer}>
+                        <h1 className={styles.Name}>{data.name || 'Nome do Produto'}</h1>
                     </div>
+                    <div className={styles.Container}>
 
-                    <div className={styles.InfoContainer}>
-                        <div className={styles.CurrencyContainer} >
-                            <div>
-                                <h3 className={styles.Promotion}>{brlMonetary(oldPrice == currentPrice ? '' : oldPrice)}</h3>
-                                <h4 className={styles.Price}>{brlMonetary(currentPrice || '0')}</h4>
+
+                        <div className={styles.Product}>
+                            <div className={styles.ImageContainer}>
+                                <img className={styles.Image} src={data.image ? server + '/api/image/files/' + data.image[0] : '/product-placeholder.png'} alt="ProductCase" ></img>
                             </div>
                         </div>
-                        <button className={styles.Buy}>Adicionar ao Carrinho</button>
+
+                        <div className={styles.InfoContainer}>
+                            <div className={styles.CurrencyContainer} >
+                                <div>
+                                    <h3 className={styles.Promotion}>{brlMonetary(oldPrice == currentPrice ? '' : oldPrice)}</h3>
+                                    <h4 className={styles.Price}>{brlMonetary(currentPrice || '0')}</h4>
+                                </div>
+                            </div>
+                            <button className={styles.Buy}>Adicionar ao Carrinho</button>
+                        </div>
+
+
                     </div>
-
-
-                </div>
-                <br></br>
-                <div className={styles.DescriptionContainer}>
-                    <h1>Descrição</h1>
-                    <hr></hr>
-                    <p className={styles.Description}>{data.description || 'Detalhes sobre o produto'}</p>
-                </div>
-            </section>
-        </>
+                    <br></br>
+                    <div className={styles.DescriptionContainer}>
+                        <h1>Descrição</h1>
+                        <hr></hr>
+                        <p className={styles.Description}>{data.description || 'Detalhes sobre o produto'}</p>
+                    </div>
+                </section>
+            </>
         }
     }
 }
