@@ -100,9 +100,9 @@ export default class Produto {
             procura = await bdwicksell.findAll(colecao, buscar)
             pesquisa = pesquisa.concat(procura)
         }
-        
-        if(!this._id && !this.name && !this.description &&
-            !this.price && !this.discount && !this.email){
+
+        if (!this._id && !this.name && !this.description &&
+            !this.price && !this.discount && !this.email) {
             this.name = ''
             buscar = {
                 name: { $regex: this.name, $options: 'i' }
@@ -136,4 +136,11 @@ export default class Produto {
     async deleteOne() {
         await bdwicksell.deleteOne(colecao, this)
     }
+}
+export async function getAllByIds(ids: any[]) {
+    const objIds = ids.map(id => {
+        console.log(id)
+        return new ObjectId(id)
+    })
+    return await bdwicksell.findAll(colecao, { _id: { $in: objIds } })
 }
