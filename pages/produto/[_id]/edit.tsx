@@ -16,14 +16,6 @@ const fetcher = async (url: string) => await fetch(url).then(async (res) => {
     return data
 }).catch((err) => { console.log(err) })
 
-const fetcherN = async (url: string) => await fetch(url).then(async (res) => {
-    const data = await res.json()
-    if (res.status !== 200) {
-        console.log(data.message)
-    }
-    return data
-}).catch((err) => { console.log(err) })
-
 export default function Produto() {
     const [dataSet, setDataSet] = useState(false)
     const [name, setName] = useState("")

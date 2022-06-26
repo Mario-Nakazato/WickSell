@@ -10,7 +10,7 @@ const AccountInfo: NextComponentType = () => {
             <>
                 <div className={styles.AccountInfo}>
                     <div className={styles.Cart}>
-                        <Link href='/carrinho'><a><img src='https://cdn-icons.flaticon.com/png/128/4357/premium/4357449.png?token=exp=1656221877~hmac=0dcc943b763876d1f509a837a8f3243c'></img></a></Link>
+                        <Link href='/carrinho'><a><img src='/cart-icon.png'></img></a></Link>
                     </div>
                     <div>
                         <img className={styles.ProfileImg} alt="Profile" src={session?.user?.image!}></img>
@@ -30,7 +30,7 @@ const AccountInfo: NextComponentType = () => {
         return (
             <div className={styles.AccountInfo}>
                 <div className={styles.Cart}>
-                    <Link href='/carrinho'><a><img src='https://cdn-icons.flaticon.com/png/128/4357/premium/4357449.png?token=exp=1656221877~hmac=0dcc943b763876d1f509a837a8f3243c'></img></a></Link>
+                    <Link href='/carrinho'><a><img src='/cart-icon.png'></img></a></Link>
                 </div>
                 <div>
                     <img className={styles.ProfileImg} alt="Profile" src="/profile-placeholder.png" onClick={() => signIn("auth0")}></img>

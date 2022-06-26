@@ -4,7 +4,7 @@
     display: flex;
     width: 19rem;
     justify-content: flex-end;
-    color:white;
+    color: white;
     font-size: 1.4rem;
 }
 
@@ -18,7 +18,7 @@
     cursor: pointer;
 }
 
-.LoginBtn:hover{
+.LoginBtn:hover {
     text-decoration: underline;
 }
 
@@ -27,7 +27,7 @@
     cursor: pointer;
 }
 
-.RegisterBtn:hover{
+.RegisterBtn:hover {
     text-decoration: underline;
 }
 
@@ -39,11 +39,30 @@
 }
 
 .ProfileImg {
-    max-width: 4rem;
+    max-width: 3.5rem;
     border-radius: 50%
 }
 
-.Cart{
+.Cart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     align-self: center;
     cursor: pointer;
+    margin-right: 2rem;
+}
+
+.Cart a {
+    display: flex;
+}
+
+.Cart img {
+    width: 2.5rem;
+    background-color: #1a3a5b;
+    padding: 0.3rem;
+    border-radius: 5px;
+}
+
+.Cart:hover img {
+    background-color: #142c45;
 }
