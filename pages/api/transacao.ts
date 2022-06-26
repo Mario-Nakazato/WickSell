@@ -38,14 +38,15 @@ export default async function apiTransacao(req: NextApiRequest, res: NextApiResp
     } else if (req.method == "POST") {
 
         if (req.rawHeaders.filter((value) => { return value == "insomnia/2022.4.2" })[0] === "insomnia/2022.4.2") {
-            documentoPerfil = { _id: req.body.comprador }
+            documentoPerfil = { email: req.body.comprador }
         } else if (!documentoPerfil) {
             return res.status(400).json({ txt: "Perfil não existe." })
         }
 
         const { carrinho, estado } = req.body
         try {
-            transacao.set(null, documentoPerfil?._id.toString(), carrinho, estado)
+            transacao.set(null, documentoPerfil?.email, carrinho, estado)
+            transacao.calcularTotal()
         } catch (e) {
             return res.status(400).json({ txt: "_id invalido." })
         }
