@@ -177,22 +177,28 @@ export default function Produto() {
                                 var encodedValue = encodeURIComponent(dataBody[property]);
                                 formBody.push(encodedKey + "=" + encodedValue);
                             }
-                            for (let i = 0; responseImage && responseImage.files && i < responseImage.files.length; i++) {
-                                var encodedKey = encodeURIComponent('imageFilesName');
-                                var encodedValue = encodeURIComponent(responseImage.files[i].filename);
-                                formBody.push(encodedKey + "=" + encodedValue);
+                            if (imageFiles) {
+                                console.log('if imageFiles')
+                                for (let i = 0; responseImage && responseImage.files && i < responseImage.files.length; i++) {
+                                    var encodedKey = encodeURIComponent('imageFilesName');
+                                    var encodedValue = encodeURIComponent(responseImage.files[i].filename);
+                                    formBody.push(encodedKey + "=" + encodedValue);
+                                }
+                            } else {
+                                console.log('else imageFiles')
+
                             }
                             console.log(formBody)
                             const encodedBody = formBody.join("&");
                             fetch('../../api/produto/', {
-                                method: "PATCH",
+                                method: "PUT",
                                 redirect: 'follow',
                                 headers: {
                                     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
                                 },
                                 body: encodedBody,
                             }).then(() => {
-                                window.location.href = window.location.href.replace('/edit', '')
+                                // window.location.href = window.location.href.replace('/edit', '')
                             }).catch(error => {
                                 console.log(error)
                             });
