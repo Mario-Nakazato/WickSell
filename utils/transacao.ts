@@ -62,7 +62,9 @@ export default class Transacao {
             }
             procura = await bdwicksell.findAll(colecao, buscar)
             pesquisa = pesquisa.concat(procura)
-        } else {
+        }
+        
+        if(!this._id && !this.comprador && !this.estado){
             this._id = undefined
             buscar = {
                 _id: this._id,
