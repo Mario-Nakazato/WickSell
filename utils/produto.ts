@@ -137,10 +137,10 @@ export default class Produto {
         await bdwicksell.deleteOne(colecao, this)
     }
 }
-export async function getAllByIds(ids: any[]) {
+/*export async function getAllByIds(ids: any[]) {
     const objIds = ids.map(id => {
         console.log(id)
         return new ObjectId(id)
     })
     return await bdwicksell.findAll(colecao, { _id: { $in: objIds } })
-}
+}*/

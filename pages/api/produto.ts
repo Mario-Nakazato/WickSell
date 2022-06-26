@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/react'
 import Produto from "../../utils/produto"
 import Perfil from '../../utils/perfil'
+//import { getAllByIds } from "../../utils/produto"
 
 export default async function apiProduto(req: NextApiRequest, res: NextApiResponse) {
 
@@ -9,7 +10,13 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
 
     if (req.method == "GET") {
 
-        const { _id, name, description, price, discount, amount, email } = req.query
+        const { _id, name, description, price, discount, amount, email/*, _ids*/ } = req.query
+
+        /*if (_ids !== undefined) {
+            const documentoProduto = await getAllByIds(_ids)
+            return res.status(200).json(documentoProduto)
+        }*/
+
         try {
             produto.set(_id, name, description, price, null, discount, amount, email)
         } catch (e) {
