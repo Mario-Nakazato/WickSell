@@ -85,24 +85,21 @@ export default function Produto({ data }: { data: any }) {
                                     <h4 className={styles.Price}>{brlMonetary(currentPrice || '0')}</h4>
                                 </div>
                             </div>
-                            <button className={styles.Buy} onClick={() => {
-                                const getCookie = cookies.get('Cart')
-                                console.log(getCookie)
-                                let isInserted = false
-                                getCookie?.forEach((element: any, index: number) => {
-                                    if (data._id === element._id) {
-                                        getCookie[index] = { _id: element._id, quantity: element.quantity + 1 }
-                                        isInserted = true
-                                    }
-                                })
-                                if (!isInserted && getCookie) {
-                                    getCookie.push({ _id: data._id, quantity: 1 })
+                            <button className={styles.Buy} onClick={async () => {
+                                const transacao = await fetch(`/api/transacao?comprador=${session?.user?.email}`).then(res => res.json())
+                                console.log(transacao)
+                                if (transacao && transacao.length > 0) {
+
+                                } else if (transacao && transacao.length === 0) {
+                                    const dataBody: any = { carrinho: { produto: { ...data }, quantidade: 1 } }
+                                    console.log(await fetch(`/api/transacao`, {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify(dataBody)
+                                    }).then(res => res.json()))
                                 }
-                                if (!isInserted && !getCookie) {
-                                    cookies.set('Cart', [{ _id: data._id, quantity: 1 }], { path: '/' })
-                                }
-                                if (getCookie) cookies.set('Cart', getCookie, { path: '/' })
-                                router.push('/carrinho')
                             }}>Adicionar ao Carrinho</button>
                         </div>
 

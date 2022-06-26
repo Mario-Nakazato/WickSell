@@ -2,6 +2,7 @@ import styles from '../styles/Carrinho.module.css'
 import Cookies from 'universal-cookie';
 import { useState, useEffect } from 'react';
 import useSWR from 'swr';
+import { useSession } from 'next-auth/react';
 const cookies = new Cookies();
 
 const fetcher = async (url: string) => await fetch(url).then(async (res) => {
@@ -15,17 +16,15 @@ const fetcher = async (url: string) => await fetch(url).then(async (res) => {
 
 export default function Cart() {
     const [carrinho, setCarrinho] = useState([]);
+    const { data: session, status } = useSession()
     useEffect(() => setCarrinho(cookies.get('Cart')), [])
-    const { data, error } = useSWR(() => `/api/produto/?_id=62b8a1aa761d06ee7cde4606`, fetcher)
-
+    const { data, error } = useSWR(() => session?.user?.email && `/api/trasacao/?email=${session?.user?.email}`, fetcher)
+    console.log(data)
     return <>
         <div className={styles.Container}>
             <h1>Carrinho</h1>
-            {carrinho?.map((item, index) => cartViewer({ ...data }, index))}
+            {carrinho ? carrinho?.map((item, index) => cartViewer({ ...data }, index)) : <h1>Você não possui nenhum item no carrinho</h1>}
         </div>
-        <button onClick={() => cookies.set('Cart', carrinho)}>Set Cookie</button>
-        <button onClick={() => cookies.remove('Cart')}>Remove Cookie</button>
-        <button onClick={() => { setCarrinho(cookies.get('Cart')); console.log(cookies.get('Cart')) }}>Get Cookie</button>
     </>
 }
 function cartViewer({ name, description, price, quantity, image }: { name: any, description: any, price: any, quantity: any, image: any }, index: number) {
@@ -46,8 +45,9 @@ function cartViewer({ name, description, price, quantity, image }: { name: any, 
                     <button className={styles.Trash}>&times;</button>
                 </div>
                 <h4>{price}</h4>
-                <h3>{price * quantity|| price*5}</h3>
+                <h3>{price * quantity || price * 5}</h3>
             </div>
         </div>
+        <br></br>
     </>
 }
