@@ -30,6 +30,7 @@ export default function Produto() {
     const [description, setDescription] = useState("")
     const [price, setPrice] = useState("")
     const [discount, setDiscount] = useState("")
+    const [amount, setAmount] = useState(0)
     const [imageInput, setImageInput] = useState("")
     const [imageFiles, setImageFiles] = useState<FileList>()
     const [image, setImage] = useState("")
@@ -48,8 +49,9 @@ export default function Produto() {
             const empty = 0
             setName(data.name ? data.name : 'Nome do Produto')
             setDescription(data.description ? data.description : 'Descrição do Produto')
-            setPrice(data.price ? data.price : 'R$ ' + currency(empty.toFixed(2)))
-            setDiscount(data.discount ? data.discount : percentage(empty.toFixed(2)) + '%')
+            setPrice(data.price ? 'R$ ' + currency(data.price.toFixed(2)) : 'R$ ' + currency(empty.toFixed(2)))
+            setDiscount(data.discount ? percentage(data.discount.toString()) + '%' : percentage(empty.toFixed(2)) + '%')
+            setAmount(data.amount)
             setImage(data.image ? server + '/api/image/files/' + data.image[0] : '/product-placeholder.png')
             setDataSet(true)
         }
@@ -71,35 +73,55 @@ export default function Produto() {
                             <div className={styles.ImageContainer}>
                                 <img className={styles.Image} src={image} alt="ProductCase" ></img>
                             </div>
+                            <br></br>
+                            <input type="file" name='image' accept='image/png, image/jpeg, image/jpg' value={imageInput} onChange={e => {
+                                setImageInput(e.target.value)
+                                if (e.target.files) {
+                                    setImageFiles(e.target.files)
+                                    setImage(URL.createObjectURL(e.target.files[0]));
+                                }
+                            }} ></input>
                         </div>
                         <div className={styles.InfoContainer}>
                             <div className={styles.CurrencyContainer} >
-                                <div>
-                                    <input className={styles.Promotion} value={discount} onChange={e => {
-                                        var temp = e.target.value
-                                        if (temp.includes('0,00%')) {
-                                            temp = temp.replace('0,00%', '')
-                                        }
-                                        if (e.target.value.length < discount.length && e.target.value[e.target.value.length - 1] !== '%') {
-                                            if (e.target.value.length === 0) {
-                                                setDiscount(percentage(temp))
-                                            } else {
-                                                const value = temp.substring(0, temp.length - 1)
-                                                setDiscount(percentage(value) + '%')
+                                <div className={styles.DivSection}>
+                                    <div className={styles.DivContainer}>
+                                        <div className={styles.Div}>
+                                            <label className={styles.Label}>Desconto</label>
+                                            <input className={styles.Promotion} value={discount} onChange={e => {
+                                                var temp = e.target.value
+                                                if (temp.includes('0,00%')) {
+                                                    temp = temp.replace('0,00%', '')
+                                                }
+                                                if (e.target.value.length < discount.length && e.target.value[e.target.value.length - 1] !== '%') {
+                                                    if (e.target.value.length === 0) {
+                                                        setDiscount(percentage(temp))
+                                                    } else {
+                                                        const value = temp.substring(0, temp.length - 1)
+                                                        setDiscount(percentage(value) + '%')
+                                                    }
+                                                } else {
+                                                    setDiscount(percentage(temp) + '%')
+                                                }
+                                            }}></input>
+                                        </div>
+                                        <div className={styles.Div}>
+                                            <label className={styles.Label}>Quantidade</label>
+                                            <input type='number' step={1} className={styles.Promotion} value={amount} onChange={e => { setAmount(Number(e.target.value)) }}></input>
+                                        </div>
+                                    </div>
+                                    <div className={styles.Div}>
+                                        <label className={styles.Label}>Preço</label>
+                                        <input className={styles.Price} value={price} onChange={e => {
+                                            var temp = e.target.value
+                                            if (temp.includes('R$ 0,00')) {
+                                                temp = temp.replace('R$ 0,00', '')
                                             }
-                                        } else {
-                                            setDiscount(percentage(temp) + '%')
-                                        }
-                                    }}></input>
-                                    <input className={styles.Price} value={price} onChange={e => {
-                                        var temp = e.target.value
-                                        if (temp.includes('R$ 0,00')) {
-                                            temp = temp.replace('R$ 0,00', '')
-                                        }
-                                        temp = temp.replace(/\D/g, '')
-                                        if (temp.length <= 12)
-                                            setPrice('R$ ' + currency(temp))
-                                    }}></input>
+                                            temp = temp.replace(/\D/g, '')
+                                            if (temp.length <= 12)
+                                                setPrice('R$ ' + currency(temp))
+                                        }}></input>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -112,48 +134,68 @@ export default function Produto() {
                     </div>
                     <button className={styles.Save} onClick={async () => {
                         try {
-                            var formData = new FormData()
-                            for (let i = 0; imageFiles && i < imageFiles.length; i++) {
-                                formData.append('file', imageFiles[i])
-                            }
                             setIsLoading(true)
-                            fetch('api/image/upload', {
+                            const imageHandler = async () => {
+                                try {
+                                    if (data.image && data.image?.length > 0) {
+                                        data.image.forEach(async (element: any) => {
+                                            try {
+                                                const res = await fetch(`../../api/image/files/${element}/delete`)
+                                                const data = await res.json()
+                                                if (res.status !== 200) {
+                                                    console.log(data.message)
+                                                }
+                                            } catch (err) {
+                                                console.log(err)
+                                            }
+                                        });
+                                    }
+                                } catch (err) {
+                                    console.log(err)
+                                }
+                                if (imageFiles) {
+                                    var formData = new FormData()
+                                    for (let i = 0; imageFiles && i < imageFiles.length; i++) {
+                                        formData.append('file', imageFiles[i])
+                                    }
+                                    return Promise.resolve(await fetch('../../api/image/upload', {
+                                        method: "POST",
+                                        body: formData,
+                                    }).then(res => res.json()))
+                                }
+                            }
+                            const responseImage = await imageHandler()
+                            console.log(responseImage)
+                            if (responseImage && responseImage.files) setImage(responseImage.files[0].host + responseImage.files[0].filename)
+                            var numberPrice = price.replaceAll('.', '').replace(',', '.').replace('R$ ', '')
+                            var numberDiscount = discount.replace(',', '.').replace('%', '')
+                            const dataBody: any = { _id: data._id, name, description, price: numberPrice, discount: numberDiscount, amount }
+                            console.log(dataBody)
+                            const formBody = [];
+                            for (var property in dataBody) {
+                                var encodedKey = encodeURIComponent(property);
+                                var encodedValue = encodeURIComponent(dataBody[property]);
+                                formBody.push(encodedKey + "=" + encodedValue);
+                            }
+                            for (let i = 0; responseImage && responseImage.files && i < responseImage.files.length; i++) {
+                                var encodedKey = encodeURIComponent('imageFilesName');
+                                var encodedValue = encodeURIComponent(responseImage.files[i].filename);
+                                formBody.push(encodedKey + "=" + encodedValue);
+                            }
+                            console.log(formBody)
+                            const encodedBody = formBody.join("&");
+                            fetch('../../api/produto/', {
                                 method: "PATCH",
-                                body: formData,
-                            }).then(res => res.json())
-                                .then(res => {
-                                    if (res.files) setImage(res.files[0].host + res.files[0].filename)
-                                    var numberPrice = price.replaceAll('.', '').replace(',', '.').replace('R$ ', '')
-                                    var numberDiscount = discount.replace(',', '.').replace('%', '')
-                                    const data: any = { name, description, price: numberPrice, discount: numberDiscount, }
-                                    const formBody = [];
-                                    for (var property in data) {
-                                        var encodedKey = encodeURIComponent(property);
-                                        var encodedValue = encodeURIComponent(data[property]);
-                                        formBody.push(encodedKey + "=" + encodedValue);
-                                    }
-                                    for (let i = 0; res.files && i < res.files.length; i++) {
-                                        var encodedKey = encodeURIComponent('imageFilesName');
-                                        var encodedValue = encodeURIComponent(res.files[i].filename);
-                                        formBody.push(encodedKey + "=" + encodedValue);
-                                    }
-                                    const encodedBody = formBody.join("&");
-                                    fetch('api/produto/', {
-                                        method: "PATCH",
-                                        redirect: 'follow',
-                                        headers: {
-                                            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-                                        },
-                                        body: encodedBody,
-                                    }).then(res => {
-                                        if (res.url) window.location.href = res.url
-                                    }).catch(error => {
-                                        console.log(error)
-                                    });
-                                }).catch(error => {
-                                    console.log(error)
-                                    setIsLoading(false)
-                                })
+                                redirect: 'follow',
+                                headers: {
+                                    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                                },
+                                body: encodedBody,
+                            }).then(() => {
+                                window.location.href = window.location.href.replace('/edit', '')
+                            }).catch(error => {
+                                console.log(error)
+                            });
                         } catch (err) {
                             console.log(err);
                             setIsLoading(false)

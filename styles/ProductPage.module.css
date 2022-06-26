@@ -79,10 +79,6 @@
     text-decoration-line: none;
 }
 
-.Container input {
-    max-width: 35rem;
-}
-
 .UpperContainer input {
     width: 100%;
 }
@@ -284,4 +280,35 @@
 
 .Cancelar:hover {
     background-color: green;
+}
+
+.DivSection {
+    width: 100%;
+    padding: 0 7rem 0 2rem;
+}
+
+.Div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.Div label {
+    font-size: 1.4rem;
+    width: 50%;
+}
+
+.DivContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.DivContainer .Div {
+    margin: 0;
+    max-width: 20%;
+}
+
+.DivContainer .Div:nth-child(2) {
+    max-width: 20rem;
 }

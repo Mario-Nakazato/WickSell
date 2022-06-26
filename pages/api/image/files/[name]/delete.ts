@@ -13,10 +13,8 @@ const perfil = new Perfil()
 
 export default async function Delete(request: NextApiRequest, response: NextApiResponse) {
     const { name } = request.query;
-    const session = await getSession({ req: request });
+    const session: any = await getSession({ req: request });
     if (!session) return response.status(400).json({ txt: "Acesso negado." })
-    await perfil.setEmail(session?.user?.email!)
-    const documentoPerfil = await perfil.findOne()
 
     try {
         await mongoClient.connect();
@@ -32,7 +30,7 @@ export default async function Delete(request: NextApiRequest, response: NextApiR
                 if (files.length === 0) {
                     return response.status(404).send({ message: "Cannot find the Image!" });
                 }
-                if (documentoPerfil!._id == files[0].aliases?._idPerfil || !files[0].aliases) {
+                if (session!.user!.email == files[0].aliases!.email || !files[0].aliases) {
                     bucket.delete(files[0]._id, (err: any) => {
                         if (err) {
                             return response.status(500).send({ message: "Cannot delete the Image!" });
