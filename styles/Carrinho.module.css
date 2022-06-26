@@ -1,7 +1,7 @@
 .Container {
     display: block;
-    margin-left: 5rem;
-    margin-right: 5rem;
+    margin-left: 10rem;
+    margin-right: 10rem;
     gap: 2rem;
 }
 
@@ -10,26 +10,90 @@
     border-radius: 1rem;
     box-shadow: 0 0 15px 0px black;
     display: flex;
-    width: 75rem;
-    height: 15rem;
-    padding: 1rem 2rem 1rem 2rem;
+    height: 14rem;
+    padding: 0.5rem 1rem .5rem 1rem;
 }
 
 .CartViewerContainer img {
+    border-radius: 1rem;
     width: auto;
     height: 100%;
 }
 
 .InfoContainer {
-    background-color: red;
-    padding-left: 3rem;
+    padding: 0 1.5rem 0 1.5rem;
     width: 100%;
     height: 100%;
+}
+
+.InfoContainer h1,
+.InfoContainer p {
+    margin: 0;
+    padding: 0;
+    display: -webkit-box;
     overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.InfoContainer p {
+    text-align: justify;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+}
+
+.QuantityContainers {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
 }
 
 .QuantityControl {
-    background-color: greenyellow;
+    background-color: rgba(0, 0, 0, 0.05);
     display: flex;
+    width: 10rem;
     justify-content: space-between;
+    border-radius: 50px;
+}
+
+.QuantityControl h1 {
+    margin: 0;
+    font-size: x-large;
+    text-align: center;
+    overflow: hidden;
+    width: 100%;
+}
+
+.Minus,
+.Plus {
+    width: 3rem;
+    background-color: rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+.Minus:hover,
+.Plus:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.Minus {
+    border-radius: 50px 0 0 50px;
+
+}
+
+.Plus {
+    border-radius: 0 50px 50px 0;
+
+}
+
+.Trash {
+    background-color: red;
+    border: none;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
 }
