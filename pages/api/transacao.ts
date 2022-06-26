@@ -63,7 +63,7 @@ export default async function apiTransacao(req: NextApiRequest, res: NextApiResp
         transacao.set(_id, null, null, null)
         const documentoTransacao = await transacao.findOne()
         if (!documentoTransacao) {
-            return res.status(400).json({ txt: "Produto não existe." })
+            return res.status(400).json({ txt: "Transação não existe." })
         }
 
         if (req.rawHeaders.filter((value) => { return value == "insomnia/2022.4.2" })[0] === "insomnia/2022.4.2") {
@@ -88,7 +88,7 @@ export default async function apiTransacao(req: NextApiRequest, res: NextApiResp
         transacao.set(_id, null, null, null)
         const documentoTransacao = await transacao.findOne()
         if (!documentoTransacao) {
-            return res.status(400).json({ txt: "Produto não existe." })
+            return res.status(400).json({ txt: "Transação não existe." })
         }
 
         if (req.rawHeaders.filter((value) => { return value == "insomnia/2022.4.2" })[0] === "insomnia/2022.4.2") {
