@@ -67,7 +67,7 @@ export default function Create() {
                             </div>
                             <div className={styles.InputBox}>
                                 <label className={styles.Label}>Imagens do Produto</label>
-                                <input type="file" name='image' accept='image/png, image/jpeg, image/jpg' className={styles.InputImage} multiple value={imageInput} onChange={e => {
+                                <input type="file" name='image' accept='image/png, image/jpeg, image/jpg' className={styles.InputImage} value={imageInput} onChange={e => {
                                     setImageInput(e.target.value)
                                     if (e.target.files) {
                                         setImageFiles(e.target.files)

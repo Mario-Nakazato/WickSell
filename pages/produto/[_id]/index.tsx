@@ -156,17 +156,19 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 const deleteProduto = async (produto: any) => {
     try {
-        produto.image.forEach(async (element: any) => {
-            try {
-                const res = await fetch(`/api/image/files/${element}/delete`)
-                const data = await res.json()
-                if (res.status !== 200) {
-                    console.log(data.message)
+        if (produto.image && produto.image?.length > 0) {
+            produto.image.forEach(async (element: any) => {
+                try {
+                    const res = await fetch(`/api/image/files/${element}/delete`)
+                    const data = await res.json()
+                    if (res.status !== 200) {
+                        console.log(data.message)
+                    }
+                } catch (err) {
+                    console.log(err)
                 }
-            } catch (err) {
-                console.log(err)
-            }
-        });
+            });
+        }
     } catch (err) {
         console.log(err)
     }

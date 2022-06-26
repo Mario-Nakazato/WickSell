@@ -52,7 +52,7 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
 
     } else if (req.method == "PUT") {
 
-        const { _id, name, description, price, image, discount, amount } = req.body
+        const { _id, name, description, price, imageFilesName, discount, amount } = req.body
         if (!_id) {
             return res.status(400).json({ txt: "_id não encontrado no body." })
         }
@@ -67,13 +67,13 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
             return res.status(400).json({ txt: "Produto não pertence ao perfil." })
         }
 
-        produto.set(_id, name, description, price, image, discount, amount, email)
+        produto.set(_id, name, description, price, imageFilesName, discount, amount, email)
         await produto.replaceOne()
         res.status(200).json({ txt: "Produto substituído." })
 
     } else if (req.method == "PATCH") {
 
-        const { _id, name, description, price, image, discount, amount } = req.body
+        const { _id, name, description, price, imageFilesName, discount, amount } = req.body
         if (!_id) {
             return res.status(400).json({ txt: "_id não encontrado no body." })
         }
@@ -88,7 +88,7 @@ export default async function apiProduto(req: NextApiRequest, res: NextApiRespon
             return res.status(400).json({ txt: "Produto não pertence ao perfil." })
         }
 
-        produto.set(_id, name, description, price, image, discount, amount, null)
+        produto.set(_id, name, description, price, imageFilesName, discount, amount, null)
         await produto.updateOne()
         res.status(200).json({ txt: "Produto atualizado." })
 

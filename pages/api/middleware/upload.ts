@@ -13,10 +13,8 @@ var storage = new GridFsStorage({
     url: url + '/' + database,
     options: { useNewUrlParser: true, useUnifiedTopology: true },
     file: async (req: any, file: any) => {
-        const session = await getSession({ req })
+        const session: any = await getSession({ req })
         if (!session) return
-        await perfil.setEmail(session?.user?.email!)
-        const documentoPerfil = await perfil.findOne()
         const match = ["image/png", "image/jpeg"];
         const currentName = file.originalname.split(' ').join('_')
         if (match.indexOf(file.mimetype) === -1) {
@@ -26,7 +24,7 @@ var storage = new GridFsStorage({
         return {
             bucketName: imgBucket,
             filename: `${Date.now()}-${currentName}`,
-            aliases: { _idPerfil: documentoPerfil?._id.toString() },
+            aliases: { email: session.user.email },
         };
     }
 });

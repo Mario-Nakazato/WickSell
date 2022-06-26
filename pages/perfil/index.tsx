@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { useSession } from 'next-auth/react'
-import styles from '../styles/Perfil.module.css'
+import styles from '../../styles/Perfil.module.css'
 import useSWR from 'swr'
 import { useState } from 'react'
 
@@ -67,6 +67,7 @@ const Home: NextPage = () => {
 					<div className={styles.InputBox}>
 						<label>Telefone | Celular</label>
 						<input type="text" name='phone' placeholder={"+55 (11) 91234-5678"} value={phone} onChange={e => {
+							console.log(e.target.value.length)
 							if (e.target.value.length < 20) {
 								var temp = e.target.value
 								temp = temp.replace(/\D/g, '')
@@ -86,10 +87,9 @@ const Home: NextPage = () => {
 						}} className={styles.Input}></input>
 					</div>
 					<button type="button" className={styles.SubmitButton} onClick={async () => {
-						if (cpf.length != 14 && (phone.length != 0 || phone.length < 18)) {
-
-							return
-						}
+						if (cpf.length != 14) { alert("CPF inválido"); return }
+						if (phone.length != 0 && phone.length < 18) { alert("Telefone inválido"); return }
+						if (name.length == 0) { alert("Nome inválido"); return }
 						const dataBody: any = { email: data.email, name, birthDate, cpf, phone }
 						const formBody = []
 						for (var property in dataBody) {
