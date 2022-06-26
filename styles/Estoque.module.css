@@ -1,0 +1,26 @@
+.Container {
+    display: flex;
+    margin-left: 5rem;
+    margin-right: 5rem;
+    gap: 2rem;
+}
+
+.NoProducts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 2rem;
+    width: 100%;
+    justify-content: center;
+    font-weight: bolder;
+}
+
+.ProductsContainer {
+    display: flex;
+    margin: auto;
+    width: calc(6rem + 4*15rem);
+    grid-gap: 2rem;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}

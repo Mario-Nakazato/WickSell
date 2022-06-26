@@ -6,6 +6,8 @@ import InfinityLoading from '../../../components/InfinityLoading'
 import { server } from '../../../config'
 import styles from '../../../styles/ProductPage.module.css'
 import { brlMonetary } from '../../../utils/valuesUtils'
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 
 export default function Produto({ data }: { data: any }) {
     const { data: session, status } = useSession()
@@ -83,7 +85,19 @@ export default function Produto({ data }: { data: any }) {
                                     <h4 className={styles.Price}>{brlMonetary(currentPrice || '0')}</h4>
                                 </div>
                             </div>
-                            <button className={styles.Buy}>Adicionar ao Carrinho</button>
+                            <button className={styles.Buy} onClick={() => {
+                                const getCookie = cookies.get('Cart')
+                                let isInserted = false
+                                getCookie?.forEach((element: any, index: number) => {
+                                    if (data._id === element._id) {
+                                        getCookie[index] = { _id: element._id, quantity: element.quantity + 1 }
+                                        isInserted = true
+                                    }
+                                })
+                                if (!isInserted) getCookie.push({ _id: data._id, quantity: 1 })
+                                cookies.set('Cart', getCookie, { path: '/' })
+                                router.push('/carrinho')
+                            }}>Adicionar ao Carrinho</button>
                         </div>
 
 
@@ -119,7 +133,19 @@ export default function Produto({ data }: { data: any }) {
                                     <h4 className={styles.Price}>{brlMonetary(currentPrice || '0')}</h4>
                                 </div>
                             </div>
-                            <button className={styles.Buy}>Adicionar ao Carrinho</button>
+                            <button className={styles.Buy} onClick={() => {
+                                const getCookie = cookies.get('Cart')
+                                let isInserted = false
+                                getCookie?.forEach((element: any, index: number) => {
+                                    if (data._id === element._id) {
+                                        getCookie[index] = { _id: element._id, quantity: element.quantity + 1 }
+                                        isInserted = true
+                                    }
+                                })
+                                if (!isInserted) getCookie.push({ _id: data._id, quantity: 1 })
+                                cookies.set('Cart', getCookie, { path: '/' })
+                                router.push('/carrinho')
+                            }}>Adicionar ao Carrinho</button>
                         </div>
 
 

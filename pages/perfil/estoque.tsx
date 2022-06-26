@@ -12,13 +12,17 @@ const fetcher = (url: any) => fetch(url).then((res) => res.json())
 export default function Home() {
     const { data: session, status } = useSession()
     const { data } = useSWR(session?.user?.email && `/api/produto?email=${session?.user?.email}`, fetcher)
-
     return (<>
         <InfinityLoading active={!data || status === 'loading' ? true : false} />
         <div className={styles.Container}>
-            <div className={styles.ProductsContainer}>
-                {data?.map((product: any, i: number) => { return <ProductCase key={i} props={data[i]}></ProductCase> })}
-            </div>
+            {data?.length > 0 ?
+                <div className={styles.ProductsContainer}>{
+                    data?.map((product: any, i: number) => {
+                        return <ProductCase key={i} props={data[i]}></ProductCase>
+                    })}
+                </div>
+                :
+                <div className={styles.NoProducts}>Nenhum produto cadastrado</div>}
         </div>
     </>)
 }

@@ -9,6 +9,9 @@ const AccountInfo: NextComponentType = () => {
         return (
             <>
                 <div className={styles.AccountInfo}>
+                    <div className={styles.Cart}>
+                        <Link href='/carrinho'><a><img src='https://cdn-icons.flaticon.com/png/128/4357/premium/4357449.png?token=exp=1656221877~hmac=0dcc943b763876d1f509a837a8f3243c'></img></a></Link>
+                    </div>
                     <div>
                         <img className={styles.ProfileImg} alt="Profile" src={session?.user?.image!}></img>
                     </div>
@@ -18,7 +21,7 @@ const AccountInfo: NextComponentType = () => {
                         <a className={styles.LoginBtn} onClick={() => signOut()}>Sair</a>
                     </div>
                     <div style={{ position: "fixed", bottom: 0, right: 15 + 'px' }}>
-                        {/*Conectado como {session?.user?.email}*/}
+                        {/* Conectado como {session?.user?.email} */}
                     </div>
                 </div>
             </>
@@ -26,6 +29,9 @@ const AccountInfo: NextComponentType = () => {
     } else if (status == "unauthenticated" || "loading") {
         return (
             <div className={styles.AccountInfo}>
+                <div className={styles.Cart}>
+                    <Link href='/carrinho'><a><img src='https://cdn-icons.flaticon.com/png/128/4357/premium/4357449.png?token=exp=1656221877~hmac=0dcc943b763876d1f509a837a8f3243c'></img></a></Link>
+                </div>
                 <div>
                     <img className={styles.ProfileImg} alt="Profile" src="/profile-placeholder.png" onClick={() => signIn("auth0")}></img>
                 </div>

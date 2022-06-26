@@ -42,3 +42,8 @@
     max-width: 4rem;
     border-radius: 50%
 }
+
+.Cart{
+    align-self: center;
+    cursor: pointer;
+}
