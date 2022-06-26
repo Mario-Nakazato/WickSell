@@ -5,7 +5,7 @@ import Perfil from '../../utils/perfil'
 
 export default async function apiTransacao(req: NextApiRequest, res: NextApiResponse) {
 
-    const session: any = await getSession({ req })
+    const session : any = await getSession({ req })
 
     if (!session && req.rawHeaders.filter((value) => { return value == "insomnia/2022.4.2" })[0] !== "insomnia/2022.4.2") {
         return res.status(400).json({ txt: "Acesso negado." })
@@ -46,7 +46,6 @@ export default async function apiTransacao(req: NextApiRequest, res: NextApiResp
         const { carrinho, estado } = req.body
         try {
             transacao.set(null, documentoPerfil?._id.toString(), carrinho, estado)
-            transacao.calcularTotal()
         } catch (e) {
             return res.status(400).json({ txt: "_id invalido." })
         }
@@ -76,7 +75,6 @@ export default async function apiTransacao(req: NextApiRequest, res: NextApiResp
         }
 
         transacao.set(_id, comprador, carrinho, estado)
-        transacao.calcularTotal()
         await transacao.replaceOne()
         return res.status(200).json({ txt: "Transação substituído." })
 
@@ -102,7 +100,6 @@ export default async function apiTransacao(req: NextApiRequest, res: NextApiResp
         }
 
         transacao.set(_id, comprador, carrinho, estado)
-        transacao.calcularTotal()
         await transacao.updateOne()
         return res.status(200).json({ txt: "Transação atualizado." })
 
@@ -126,7 +123,7 @@ export default async function apiTransacao(req: NextApiRequest, res: NextApiResp
         if (req.rawHeaders.filter((value) => { return value == "insomnia/2022.4.2" })[0] === "insomnia/2022.4.2") {
             documentoPerfil = { _id: documentoTransacao.comprador }
         }
-
+        
         if (documentoTransacao.comprador !== documentoPerfil?._id.toString()) {
             return res.status(400).json({ txt: "Transação não pertence ao perfil." })
         }
