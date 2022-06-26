@@ -87,6 +87,7 @@ export default function Produto({ data }: { data: any }) {
                             </div>
                             <button className={styles.Buy} onClick={() => {
                                 const getCookie = cookies.get('Cart')
+                                console.log(getCookie)
                                 let isInserted = false
                                 getCookie?.forEach((element: any, index: number) => {
                                     if (data._id === element._id) {
@@ -94,8 +95,13 @@ export default function Produto({ data }: { data: any }) {
                                         isInserted = true
                                     }
                                 })
-                                if (!isInserted) getCookie.push({ _id: data._id, quantity: 1 })
-                                cookies.set('Cart', getCookie, { path: '/' })
+                                if (!isInserted && getCookie) {
+                                    getCookie.push({ _id: data._id, quantity: 1 })
+                                }
+                                if (!isInserted && !getCookie) {
+                                    cookies.set('Cart', [{ _id: data._id, quantity: 1 }], { path: '/' })
+                                }
+                                if (getCookie) cookies.set('Cart', getCookie, { path: '/' })
                                 router.push('/carrinho')
                             }}>Adicionar ao Carrinho</button>
                         </div>
@@ -135,6 +141,7 @@ export default function Produto({ data }: { data: any }) {
                             </div>
                             <button className={styles.Buy} onClick={() => {
                                 const getCookie = cookies.get('Cart')
+                                console.log(getCookie)
                                 let isInserted = false
                                 getCookie?.forEach((element: any, index: number) => {
                                     if (data._id === element._id) {
@@ -142,8 +149,13 @@ export default function Produto({ data }: { data: any }) {
                                         isInserted = true
                                     }
                                 })
-                                if (!isInserted) getCookie.push({ _id: data._id, quantity: 1 })
-                                cookies.set('Cart', getCookie, { path: '/' })
+                                if (!isInserted && getCookie) {
+                                    getCookie.push({ _id: data._id, quantity: 1 })
+                                }
+                                if (!isInserted && !getCookie) {
+                                    cookies.set('Cart', [{ _id: data._id, quantity: 1 }], { path: '/' })
+                                }
+                                if (getCookie) cookies.set('Cart', getCookie, { path: '/' })
                                 router.push('/carrinho')
                             }}>Adicionar ao Carrinho</button>
                         </div>
