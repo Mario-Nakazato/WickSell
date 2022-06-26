@@ -198,7 +198,7 @@ export default function Produto() {
                                 },
                                 body: encodedBody,
                             }).then(() => {
-                                // window.location.href = window.location.href.replace('/edit', '')
+                                window.location.href = window.location.href.replace('/edit', '')
                             }).catch(error => {
                                 console.log(error)
                             });
