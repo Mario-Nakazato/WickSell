@@ -93,10 +93,10 @@ export default async function apiTransacao(req: NextApiRequest, res: NextApiResp
         }
 
         if (req.rawHeaders.filter((value) => { return value == "insomnia/2022.4.2" })[0] === "insomnia/2022.4.2") {
-            documentoPerfil = { _id: documentoTransacao.comprador }
+            documentoPerfil = { email: req.body.comprador }
         }
 
-        if (documentoTransacao.comprador !== documentoPerfil?._id.toString()) {
+        if (documentoTransacao.comprador !== documentoPerfil?.email.toString()) {
             return res.status(400).json({ txt: "Transação não pertence ao perfil." })
         }
 
