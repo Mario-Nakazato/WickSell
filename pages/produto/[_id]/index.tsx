@@ -86,24 +86,13 @@ export default function Produto({ data }: { data: any }) {
                                 </div>
                             </div>
                             <button className={styles.Buy} onClick={async () => {
-                                const transacao = await fetch(`/api/transacao?comprador=${session?.user?.email}`).then(res => res.json())
-                                console.log(transacao)
-                                if (transacao && transacao.length > 0) {
-
-                                } else if (transacao && transacao.length === 0) {
-                                    const dataBody: any = { carrinho: { produto: { ...data }, quantidade: 1 } }
-                                    console.log(await fetch(`/api/transacao`, {
-                                        method: 'POST',
-                                        headers: {
-                                            'Content-Type': 'application/json'
-                                        },
-                                        body: JSON.stringify(dataBody)
-                                    }).then(res => res.json()))
+                                if (data && session) {
+                                    setIsLoading(true);
+                                    await buyButtonHandler(data, session, router)
+                                    setIsLoading(false);
                                 }
                             }}>Adicionar ao Carrinho</button>
                         </div>
-
-
                     </div>
                     <br></br>
                     <div className={styles.DescriptionContainer}>
@@ -136,28 +125,14 @@ export default function Produto({ data }: { data: any }) {
                                     <h4 className={styles.Price}>{brlMonetary(currentPrice || '0')}</h4>
                                 </div>
                             </div>
-                            <button className={styles.Buy} onClick={() => {
-                                const getCookie = cookies.get('Cart')
-                                console.log(getCookie)
-                                let isInserted = false
-                                getCookie?.forEach((element: any, index: number) => {
-                                    if (data._id === element._id) {
-                                        getCookie[index] = { _id: element._id, quantity: element.quantity + 1 }
-                                        isInserted = true
-                                    }
-                                })
-                                if (!isInserted && getCookie) {
-                                    getCookie.push({ _id: data._id, quantity: 1 })
+                            <button className={styles.Buy} onClick={async () => {
+                                setIsLoading(true);
+                                if (data && session) {
+                                    await buyButtonHandler(data, session, router)
                                 }
-                                if (!isInserted && !getCookie) {
-                                    cookies.set('Cart', [{ _id: data._id, quantity: 1 }], { path: '/' })
-                                }
-                                if (getCookie) cookies.set('Cart', getCookie, { path: '/' })
-                                router.push('/carrinho')
+                                setIsLoading(false);
                             }}>Adicionar ao Carrinho</button>
                         </div>
-
-
                     </div>
                     <br></br>
                     <div className={styles.DescriptionContainer}>
@@ -218,5 +193,40 @@ const deleteProduto = async (produto: any) => {
         return data
     } catch (err) {
         console.log(err)
+    }
+}
+
+async function buyButtonHandler(data: any, session: any, router: any) {
+    const transaction = await fetch(`/api/transacao?comprador=${session?.user?.email}`).then(res => res.json())
+    if (transaction && transaction.length > 0) {
+        var stocked = false
+        transaction[0].carrinho.forEach((item: any) => {
+            if (item.produto._id === data._id) {
+                item.quantidade += 1
+                stocked = true
+            }
+        })
+        var dataBody: any
+        if (stocked) {
+            dataBody = { _id: transaction[0]._id, carrinho: transaction[0].carrinho }
+        } else {
+            dataBody = { _id: transaction[0]._id, carrinho: [...transaction[0].carrinho, { produto: { ...data }, quantidade: 1 }] }
+        }
+        await fetch(`/api/transacao`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dataBody)
+        }).then(res => { if (res.status !== 200) alert('Falha ao adicionar ao carrinho'); else router.push('/carrinho') })
+    } else if (transaction && transaction.length === 0) {
+        const dataBody = { carrinho: [{ produto: { ...data }, quantidade: 1 }] }
+        await fetch(`/api/transacao`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dataBody)
+        }).then(res => { if (res.status !== 200) alert('Falha ao adicionar ao carrinho'); else router.push('/carrinho') })
     }
 }
