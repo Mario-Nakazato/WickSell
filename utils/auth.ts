@@ -8,8 +8,8 @@ export default class Auth {
     private profile: (Profile & Record<string, unknown>) | null | undefined
 
     async signInProfile(profile: Profile & Record<string, unknown>) {
-        const docprofile = await this.findOne(profile)
-        if (profile.sub === docprofile?.sub) {
+        const documentoProfile = await this.findOne(profile)
+        if (profile.sub === documentoProfile?.sub) {
             await this.replaceOne(profile)
         } else {
             await this.insertOne(profile)
