@@ -54,6 +54,15 @@ export default class Produto {
 
         var buscar, pesquisa: any[] = [], procura: any[] = []
 
+        if (!this._id && !this.name && !this.description &&
+            !this.price && !this.discount && !this.email) {
+            this.name = ''
+            buscar = {
+                name: { $regex: this.name, $options: 'i' }
+            }
+            return pesquisa = await bdwicksell.findAll(colecao, buscar)
+        }
+
         if (this._id) {
             buscar = {
                 _id: this._id
@@ -99,15 +108,6 @@ export default class Produto {
             }
             procura = await bdwicksell.findAll(colecao, buscar)
             pesquisa = pesquisa.concat(procura)
-        }
-
-        if (!this._id && !this.name && !this.description &&
-            !this.price && !this.discount && !this.email) {
-            this.name = ''
-            buscar = {
-                name: { $regex: this.name, $options: 'i' }
-            }
-            return pesquisa = await bdwicksell.findAll(colecao, buscar)
         }
 
         pesquisa = pesquisa.filter(
