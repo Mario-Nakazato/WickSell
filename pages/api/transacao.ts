@@ -76,6 +76,7 @@ export default async function apiTransacao(req: NextApiRequest, res: NextApiResp
         }
 
         transacao.set(_id, comprador, carrinho, estado)
+        transacao.calcularTotal()
         await transacao.replaceOne()
         return res.status(200).json({ txt: "Transação substituído." })
 
@@ -101,6 +102,7 @@ export default async function apiTransacao(req: NextApiRequest, res: NextApiResp
         }
 
         transacao.set(_id, comprador, carrinho, estado)
+        transacao.calcularTotal()
         await transacao.updateOne()
         return res.status(200).json({ txt: "Transação atualizado." })
 
