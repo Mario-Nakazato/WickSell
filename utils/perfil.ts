@@ -29,8 +29,8 @@ export default class Perfil {
     }
 
     async setEmail(sub: string) {
-        const docprofile = await auth.setProfile(sub)
-        return this.email = docprofile?.email
+        const documentoProfile = await auth.setProfile(sub)
+        return this.email = documentoProfile?.email
     }
 
     async insertOne() {
