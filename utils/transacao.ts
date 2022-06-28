@@ -48,6 +48,14 @@ export default class Transacao {
 
         var buscar, pesquisa: any[] = [], procura: any[] = []
 
+        if (!this._id && !this.comprador && !this.estado) {
+            this._id = undefined
+            buscar = {
+                _id: this._id,
+            }
+            return pesquisa = await bdwicksell.findAll(colecao, buscar)
+        }
+
         if (this._id) {
             buscar = {
                 _id: this._id
@@ -69,14 +77,6 @@ export default class Transacao {
             }
             procura = await bdwicksell.findAll(colecao, buscar)
             pesquisa = pesquisa.concat(procura)
-        }
-
-        if (!this._id && !this.comprador && !this.estado) {
-            this._id = undefined
-            buscar = {
-                _id: this._id,
-            }
-            return pesquisa = await bdwicksell.findAll(colecao, buscar)
         }
 
         pesquisa = pesquisa.filter(
