@@ -97,3 +97,6 @@
     width: 2rem;
     height: 2rem;
 }
+.Controls{
+    min-width: 13rem;
+}
