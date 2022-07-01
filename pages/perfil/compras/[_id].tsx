@@ -1,5 +1,5 @@
 import { useSession } from 'next-auth/react'
-import Router from 'next/router'
+import Router, { useRouter } from 'next/router'
 import { useState } from 'react'
 import useSWR from 'swr'
 import CartViewHistory from '../../../components/CartViewHistory'
@@ -7,9 +7,11 @@ import InfinityLoading from '../../../components/InfinityLoading'
 import styles from '../../../styles/Compra.module.css'
 
 export default function Compra() {
+    const router = useRouter()
+    const { _id } = router.query
     const [carrinho, setCarrinho] = useState([]);
     const { data: session, status } = useSession()
-    const { data, error } = useSWR(() => session?.user?.email && `/api/transacao/?comprador=${session?.user?.email}`, fetcher)
+    const { data, error } = useSWR(() => session?.user?.email && `/api/transacao/?_id=${_id}}`, fetcher)
     if (status === 'authenticated' && session?.user?.email && data) {
         if (data && data.carrinho.length > 0 && carrinho.length === 0) setCarrinho(data.carrinho)
         console.log(data?.carrinho, carrinho)

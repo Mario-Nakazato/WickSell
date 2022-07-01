@@ -9,11 +9,9 @@ import CartViewHistory from '../../../components/CartViewHistory'
 export default function Compras() {
     const [carrinho, setCarrinho] = useState([]);
     const { data: session, status } = useSession()
-    const { data, error } = useSWR(() => session?.user?.email && `/api/transacao/?comprador=${session?.user?.email}&estado=Carrinho&execetoEstado=true`, fetcher)
-    if (status === 'authenticated' && session?.user?.email && data) {
-        if (data && data.carrinho.length > 0 && carrinho.length === 0) setCarrinho(data.carrinho)
-        console.log(data?.carrinho, carrinho)
-    }
+    const { data, error } = useSWR(() => session?.user?.email && `/api/transacao/?comprador=${session?.user?.email}&estado=Carrinho&excetoEstado=true`, fetcher)
+
+    // console.log('data',data)
     if (status === 'loading' || !data) return <InfinityLoading active={true} />
     if (status === 'unauthenticated') Router.push('/')
     return (
@@ -21,14 +19,11 @@ export default function Compras() {
             <div>
                 <h1>Histórico de Compras</h1>
                 <div className={styles.InnerContainer}>
-                    <div className={styles.ItensContainer}>
-                        {carrinho.length > 0 ? carrinho?.map((item, index) =>
+                    <div className={styles.Container}>
+                        {data.length > 0 ? data?.map((item: any, index: number) =>
                             <CartViewHistory props={item} key={index}></CartViewHistory>)
                             : <></>
                         }
-                    </div>
-                    <div className={styles.ResumeContainer}>
-                        <h1>Total: R$ {data?.total}</h1>
                     </div>
                 </div>
             </div>
@@ -37,10 +32,10 @@ export default function Compras() {
 }
 
 const fetcher = async (url: string) => await fetch(url).then(async (res) => {
-    const dataTemp = await res.json()
-    const data = dataTemp[0]
+
     if (res.status !== 200) {
-        console.log(data.message)
+        console.log(res.status)
     }
+    const data = await res.json()
     return data
 }).catch((err) => { console.log(err) })
