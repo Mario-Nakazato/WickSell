@@ -11,7 +11,7 @@ export default function CartViewer({ props }: { props: any }, index: number) {
             <div key={index} >
                 <div className={styles.CartViewerContainer} >
                     {props.carrinho.map((item: any, index: number) => (
-                        <img alt='Product Image' src={item.produto.image?.[0] ? `/api/image/files/${item.produto.image?.[0]}` : '/product-placeholder.png'}></img>
+                        <img key={index} alt='Product Image' src={item.produto.image?.[0] ? `/api/image/files/${item.produto.image?.[0]}` : '/product-placeholder.png'}></img>
                     ))}
                     <div className={styles.InfoContainer}>
                         <h1>{props.carrinho[0].produto.name}</h1>
