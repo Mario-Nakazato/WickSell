@@ -46,54 +46,75 @@ export default class Transacao {
 
     async findAll() {
 
-        var buscar, pesquisa: any[] = [], procura: any[] = []
+        // var buscar, pesquisa: any[] = [], procura: any[] = []
 
-        if (!this._id && !this.comprador && !this.estado) {
-            this._id = undefined
-            buscar = {
-                _id: this._id,
-            }
-            return pesquisa = await bdwicksell.findAll(colecao, buscar)
+        // if (!this._id && !this.comprador && !this.estado) {
+        //     // this._id = undefined
+        //     // buscar = {
+        //     //     _id: this._id,
+        //     // }
+        //     return pesquisa = await bdwicksell.findAll(colecao)
+        // }
+
+        // if (this._id) {
+        //     buscar = {
+        //         _id: this._id
+        //     }
+        //     pesquisa = await bdwicksell.findAll(colecao, buscar)
+        // }
+
+        // if (this.comprador) {
+        //     buscar = {
+        //         comprador: { $regex: this.comprador, $options: 'i' }
+        //     }
+        //     procura = await bdwicksell.findAll(colecao, buscar)
+        //     pesquisa = pesquisa.concat(procura)
+        // }
+
+        // if (this.estado) {
+        //     buscar = {
+        //         estado: { $regex: this.estado, $options: 'i' }
+        //     }
+        //     procura = await bdwicksell.findAll(colecao, buscar)
+        //     pesquisa = pesquisa.concat(procura)
+        // }
+
+        // pesquisa = pesquisa.filter(
+        //     function (e, i) {
+        //         var j
+        //         for (j = 0; j < pesquisa.length; j++) {
+        //             if (pesquisa[j]._id.toString() == e._id.toString()) {
+        //                 break
+        //             }
+        //         }
+        //         return j === i
+        //     }
+        // )
+
+        // return pesquisa
+        const _id = this._id ? this._id : undefined
+        const comprador = this.comprador ? { $regex: this.comprador, $options: 'i' } : undefined
+        const estado = this.estado ? { $regex: this.estado, $options: 'i' } : undefined
+        const search = {
+            _id,
+            comprador,
+            estado
         }
-
-        if (this._id) {
-            buscar = {
-                _id: this._id
-            }
-            pesquisa = await bdwicksell.findAll(colecao, buscar)
-        }
-
-        if (this.comprador) {
-            buscar = {
-                comprador: { $regex: this.comprador, $options: 'i' }
-            }
-            procura = await bdwicksell.findAll(colecao, buscar)
-            pesquisa = pesquisa.concat(procura)
-        }
-
-        if (this.estado) {
-            buscar = {
-                estado: { $regex: this.estado, $options: 'i' }
-            }
-            procura = await bdwicksell.findAll(colecao, buscar)
-            pesquisa = pesquisa.concat(procura)
-        }
-
-        pesquisa = pesquisa.filter(
-            function (e, i) {
-                var j
-                for (j = 0; j < pesquisa.length; j++) {
-                    if (pesquisa[j]._id.toString() == e._id.toString()) {
-                        break
-                    }
-                }
-                return j === i
-            }
-        )
-
-        return pesquisa
+        const response = await bdwicksell.findAll(colecao, search)
+        return response
     }
-
+    async findAllExcetoEstado() {
+        const _id = this._id ? this._id : undefined
+        const comprador = this.comprador ? { $regex: this.comprador, $options: 'i' } : undefined
+        const estado = this.estado ? { $not: { $regex: this.estado, $options: 'i' } } : undefined
+        const search = {
+            _id,
+            comprador,
+            estado
+        }
+        const response = await bdwicksell.findAll(colecao, search)
+        return response
+    }
     async updateOne() {
         await bdwicksell.updateOne(colecao, { _id: this._id }, { $set: this })
     }

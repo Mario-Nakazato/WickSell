@@ -5,7 +5,7 @@ import Perfil from '../../utils/perfil'
 
 export default async function apiTransacao(req: NextApiRequest, res: NextApiResponse) {
 
-    const session : any = await getSession({ req })
+    const session: any = await getSession({ req })
 
     if (!session && req.rawHeaders.filter((value) => { return value == "insomnia/2022.4.2" })[0] !== "insomnia/2022.4.2") {
         return res.status(400).json({ txt: "Acesso negado." })
@@ -25,14 +25,13 @@ export default async function apiTransacao(req: NextApiRequest, res: NextApiResp
 
     if (req.method == "GET") {
 
-        const { _id, comprador, estado } = req.query
+        const { _id, comprador, estado, excetoEstado } = req.query
         try {
             transacao.set(_id, comprador, null, estado)
         } catch (e) {
             return res.status(400).json({ txt: "_id invalido." })
         }
-
-        const documentoTransacao = await transacao.findAll()
+        const documentoTransacao = excetoEstado && excetoEstado === 'true' ? await transacao.findAllExcetoEstado() : await transacao.findAll()
         return res.status(200).json(documentoTransacao)
 
     } else if (req.method == "POST") {
@@ -126,7 +125,7 @@ export default async function apiTransacao(req: NextApiRequest, res: NextApiResp
         if (req.rawHeaders.filter((value) => { return value == "insomnia/2022.4.2" })[0] === "insomnia/2022.4.2") {
             documentoPerfil = { _id: documentoTransacao.comprador }
         }
-        
+
         if (documentoTransacao.comprador !== documentoPerfil?._id.toString()) {
             return res.status(400).json({ txt: "Transação não pertence ao perfil." })
         }
