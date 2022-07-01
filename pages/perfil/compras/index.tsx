@@ -17,7 +17,7 @@ export default function Compras() {
     return (
         <>
             <div>
-                <h1>Histórico de Compras</h1>
+                <h1 style={{ marginLeft: '10rem' }}>Histórico de Compras</h1>
                 <div className={styles.InnerContainer}>
                     <div className={styles.Container}>
                         {data.length > 0 ? data?.map((item: any, index: number) =>
