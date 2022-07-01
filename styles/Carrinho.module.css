@@ -7,7 +7,6 @@
 
 .CartViewerContainer {
     background-color: rgb(255, 255, 255);
-    border-radius: 1rem;
     box-shadow: 0 0 15px 0px black;
     display: flex;
     height: 14rem;
@@ -15,7 +14,6 @@
 }
 
 .CartViewerContainer img {
-    border-radius: 1rem;
     width: auto;
     height: 100%;
 }
@@ -97,6 +95,70 @@
     width: 2rem;
     height: 2rem;
 }
-.Controls{
+
+.Controls {
     min-width: 13rem;
+}
+
+
+.Disabled {
+    animation-duration: 1.8s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background: rgb(105, 105, 105);
+    background: linear-gradient(to right, rgb(105, 105, 105) 0%, rgb(157, 157, 157) 50%, rgb(105, 105, 105) 100%);
+    background-size: 1000px;
+}
+
+@keyframes placeHolderShimmer {
+    0% {
+        background-position: 0 0
+    }
+
+    100% {
+        background-position: 1000px 0
+    }
+}
+
+.Monetary h1,
+.Monetary h4,
+.Monetary h5 {
+    margin: 0;
+    padding: 0;
+}
+
+.Monetary h5 {
+    text-decoration: line-through;
+}
+
+.Monetary h3 {
+    margin: 0;
+    margin-top: 1rem;
+    padding: 0;
+}
+
+.Result {
+    background-color: white;
+    box-shadow: 0 0 15px 0px black;
+    display: flex;
+    height: 5rem;
+    justify-content: space-between;
+}
+
+.Result button {
+    border: none;
+    width: 15rem;
+    height: 5rem;
+    font-size: x-large;
+    font-weight: bolder;
+}
+
+.Result button:hover {
+    background-color: rgb(199, 199, 199);
+}
+
+.Result h2{
+    padding-left: 4rem;
 }
