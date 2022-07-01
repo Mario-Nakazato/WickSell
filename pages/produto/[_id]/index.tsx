@@ -197,7 +197,7 @@ const deleteProduto = async (produto: any) => {
 }
 
 async function buyButtonHandler(data: any, session: any, router: any) {
-    const transaction = await fetch(`/api/transacao?comprador=${session?.user?.email}`).then(res => res.json())
+    const transaction = await fetch(`/api/transacao?comprador=${session?.user?.email}&estado=Carrinho`).then(res => res.json())
     if (transaction && transaction.length > 0) {
         var stocked = false
         transaction[0].carrinho.forEach((item: any) => {
@@ -208,9 +208,9 @@ async function buyButtonHandler(data: any, session: any, router: any) {
         })
         var dataBody: any
         if (stocked) {
-            dataBody = { _id: transaction[0]._id, carrinho: transaction[0].carrinho }
+            dataBody = { _id: transaction[0]._id, carrinho: transaction[0].carrinho, estado: 'Carrinho' }
         } else {
-            dataBody = { _id: transaction[0]._id, carrinho: [...transaction[0].carrinho, { produto: { ...data }, quantidade: 1 }] }
+            dataBody = { _id: transaction[0]._id, carrinho: [...transaction[0].carrinho, { produto: { ...data }, quantidade: 1 }], estado: 'Carrinho' }
         }
         await fetch(`/api/transacao`, {
             method: 'PATCH',
@@ -220,7 +220,7 @@ async function buyButtonHandler(data: any, session: any, router: any) {
             body: JSON.stringify(dataBody)
         }).then(res => { if (res.status !== 200) alert('Falha ao adicionar ao carrinho'); else router.push('/carrinho') })
     } else if (transaction && transaction.length === 0) {
-        const dataBody = { carrinho: [{ produto: { ...data }, quantidade: 1 }] }
+        const dataBody = { carrinho: [{ produto: { ...data }, quantidade: 1 }], estado: 'Carrinho' }
         await fetch(`/api/transacao`, {
             method: 'POST',
             headers: {

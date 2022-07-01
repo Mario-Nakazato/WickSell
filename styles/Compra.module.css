@@ -1,0 +1,22 @@
+.Container{
+    display: block;
+    margin-left: 10rem;
+    margin-right: 10rem;
+}
+
+.InnerContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    gap: 2rem;
+}
+
+.ItensContainer {
+    width: 60%;
+}
+
+.ResumeContainer {
+    width: 40%;
+}

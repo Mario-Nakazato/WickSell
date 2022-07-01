@@ -12,13 +12,14 @@ export default function Cart() {
     const [carrinho, setCarrinho] = useState([]);
     const [total, setTotal] = useState(0);
     const { data: session, status } = useSession()
-    const { data, error } = useSWR(() => session?.user?.email && `/api/transacao/?comprador=${session?.user?.email}`, fetcher)
+    const { data, error } = useSWR(() => session?.user?.email && `/api/transacao/?comprador=${session?.user?.email}&estado=Carrinho`, fetcher)
     if (status === 'authenticated' && session?.user?.email && data) {
         if (data?.carrinho && data.carrinho.length > 0 && carrinho.length === 0) {
             setCarrinho(data.carrinho)
             setTotal(data?.total)
         }
     }
+    console.log(data)
     if (quantity == 0 && carrinho.length > 0 && !quantityIsSet) {
         let tempQuantity = 0;
         carrinho.forEach((item: any) => { tempQuantity += item.quantidade })
@@ -36,7 +37,19 @@ export default function Cart() {
                     <div className={styles.Result}>
                         <h2>Quantidade: {quantity}</h2>
                         <h2>Total: {brlMonetary(total.toFixed(2))}</h2>
-                        <button onClick={async () => { }}>Finalizar a Compra</button>
+                        <button onClick={async () => {
+                            setOnAwait(!onAwait)
+                            const dataBody = { _id: data._id, carrinho: data.carrinho, estado: "Processando" }
+                            await fetch(`/api/transacao`, {
+                                method: 'PATCH',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(dataBody)
+                            }).then(res => { if (res.status !== 200) alert('Falha ao alterar o carrinho'); })
+                            setOnAwait(false)
+                            window.location.reload()
+                        }}>Finalizar a Compra</button>
                     </div>
                 </>
                 : <h1>Você não possui nenhum item no carrinho</h1>
