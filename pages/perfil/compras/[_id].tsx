@@ -2,7 +2,7 @@ import { useSession } from 'next-auth/react'
 import Router from 'next/router'
 import { useState } from 'react'
 import useSWR from 'swr'
-import CartViewer from '../../../components/CartView'
+import CartViewHistory from '../../../components/CartViewHistory'
 import InfinityLoading from '../../../components/InfinityLoading'
 import styles from '../../../styles/Compra.module.css'
 
@@ -22,7 +22,7 @@ export default function Compra() {
             <div className={styles.InnerContainer}>
                 <div className={styles.ItensContainer}>
                     {carrinho.length > 0 ? carrinho?.map((item, index) =>
-                        <CartViewer props={item} transaction={data} session={session} isHistory={true} key={index}></CartViewer>)
+                        <CartViewHistory props={item} key={index}></CartViewHistory>)
                         : <></>
                     }
                 </div>

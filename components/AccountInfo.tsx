@@ -10,7 +10,7 @@ const AccountInfo: NextComponentType = () => {
             <>
                 <div className={styles.AccountInfo}>
                     <div className={styles.Cart}>
-                        <Link href='/carrinho'><a><img src='/cart-icon.png'></img></a></Link>
+                        <Link href='/carrinho'><a><img src='/cart-icon.png' alt='carrinho'></img></a></Link>
                     </div>
                     <div>
                         <img className={styles.ProfileImg} alt="Profile" src={session?.user?.image!}></img>
@@ -30,7 +30,7 @@ const AccountInfo: NextComponentType = () => {
         return (
             <div className={styles.AccountInfo}>
                 <div className={styles.Cart}>
-                    <Link href='/carrinho'><a><img src='/cart-icon.png'></img></a></Link>
+                    <Link href='/carrinho'><a><img src='/cart-icon.png' alt='carrinho'></img></a></Link>
                 </div>
                 <div>
                     <img className={styles.ProfileImg} alt="Profile" src="/profile-placeholder.png" onClick={() => signIn("auth0")}></img>
