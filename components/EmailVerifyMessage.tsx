@@ -4,7 +4,7 @@ import Link from "next/link";
 import styles from '../styles/EmailVerifyMessage.module.css'
 
 const EmailVerifyMessage: NextComponentType = () => {
-    return (<>
+    return (<div className={styles.ScreenBlock}>
         <div className={styles.Container}>
             <label className={styles.Label}>Seu email ainda não foi verificado.</label>
             <label className={styles.Label}>Por favor verifique-o, antes de entrar.</label>
@@ -14,7 +14,7 @@ const EmailVerifyMessage: NextComponentType = () => {
                 <div className={styles.Link} onClick={() => { signIn("auth0") }}>Já verifiquei o email</div>
             </div>
         </div>
-    </>)
+    </div>)
 }
 
 export default EmailVerifyMessage;

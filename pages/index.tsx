@@ -13,7 +13,7 @@ export default function Home({ data }: { data: any }) {
 	const { query } = useRouter()
 
 	if (status == "loading") return <InfinityLoading active={true} />
-	
+
 	else if (session && status == "authenticated") {
 		return (
 			<>
