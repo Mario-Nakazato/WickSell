@@ -127,7 +127,10 @@ export default function Create() {
                         </form>
                         <br></br>
                     </div>
-                    <ProductCase name={name} description={description} price={price} discount={discount} image={image} isPreview={true} />
+                    <div style={{ height: '100%' }}>
+                        <ProductCase name={name} description={description} price={price} discount={discount} image={image} isPreview={true} />
+
+                    </div>
                 </div >
             </>
         )
