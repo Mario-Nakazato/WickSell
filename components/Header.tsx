@@ -23,9 +23,9 @@ export default function Header() {
             <div className={styles.NavBar}>
                 <div className={styles.NavBarTr}>
                     <Link href="/perfil/estoque"><a className={styles.NavBarUl}>Meus Produtos</a></Link>
-                    <Link href="/mario.png/"><a className={styles.NavBarUl}>?</a></Link>
                     <Link href="/produto/"><a className={styles.NavBarUl}>Cadastrar Produto</a></Link>
-                    <Link href="/api/image/files"><a className={styles.NavBarUl}>Imagens</a></Link>
+                    <Link href="/perfil/compras/"><a className={styles.NavBarUl}>Histórico de Compras</a></Link>
+                    <Link href="/search/"><a className={styles.NavBarUl}>Busca avançada</a></Link>
                     <Link href="/sobre"><a className={styles.NavBarUl}>Sobre</a></Link>
                 </div>
             </div>
