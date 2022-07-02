@@ -35,7 +35,7 @@ export default function Compra() {
                 </div>
             </div>
             <div className={styles.Result}>
-                <h1 >Total: R$ {data?.total}</h1>
+                <h1 >Total: R$ {data?.total.toFixed(2)}</h1>
                 <h1>Estado: {data?.estado}</h1>
             </div>
         </div>
